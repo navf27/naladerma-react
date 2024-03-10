@@ -4,6 +4,8 @@ import { SignInProvider } from "./context/SignInContext";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import AdminDashboard from "./pages/AdminDashboard";
+import Home from "./pages/Home";
+import { SignOutProvider } from "./context/SignOutContext";
 
 export default function App() {
   return (
@@ -12,13 +14,21 @@ export default function App() {
         <Route
           path="/"
           element={
+            <SignOutProvider>
+              <Home />
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/sign-up"
+          element={
             <SignUpProvider>
               <SignUp />
             </SignUpProvider>
           }
         />
         <Route
-          path="/login"
+          path="/sign-in"
           element={
             <SignUpProvider>
               <SignInProvider>
@@ -30,10 +40,5 @@ export default function App() {
         <Route path="/adm/dashboard" element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
-    // <>
-    //   <SignUpProvider>
-    //     <SignUp />
-    //   </SignUpProvider>
-    // </>
   );
 }

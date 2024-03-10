@@ -5,9 +5,9 @@ import phoneIcon from "../../assets/telephone.png";
 const PhoneInput = () => {
   const { values, handleChange, errors } = useFormikContext();
   const errClassName =
-    "w-full bg-transparent rounded-md mt-1 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition";
+    "w-full bg-transparent rounded-md mt-1 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition lg:-mt-0";
   const trueClassName =
-    "w-full bg-transparent rounded-md border mt-1 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 ";
+    "w-full bg-transparent rounded-md border mt-1 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 lg:-mt-0";
 
   return (
     <>
@@ -19,7 +19,6 @@ const PhoneInput = () => {
           type="text"
           placeholder="Handphone"
           className={errors.phone ? errClassName : trueClassName}
-          id="phone"
           name="phone"
           onChange={handleChange}
           value={values.phone}
@@ -59,7 +58,10 @@ const PhoneInput = () => {
         ) : null}
       </div>
       {errors.phone ? (
-        <p className="mt-[10px] text-sm text-red absolute"> {errors.phone}</p>
+        <p className="mt-[10px] lg:mt-0 text-sm text-red absolute">
+          {" "}
+          {errors.phone}
+        </p>
       ) : null}
     </>
   );

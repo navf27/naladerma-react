@@ -1,10 +1,12 @@
 import { useState, createContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const SignUpContext = createContext({});
 export const SignUpProvider = ({ children }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onShowPasswordClick = () => {
     setShowPassword(!showPassword);
@@ -13,18 +15,15 @@ export const SignUpProvider = ({ children }) => {
   const onFormikSubmit = async (values, action) => {
     setLoading(true);
     try {
-      // const res = await axios.get("http://localhost:8000/api/testing", {
-      //   Accept: "application/json",
-      // });
-      // console.log(values);
-
       const res = await axios.post(
         "http://localhost:8000/api/register",
         values,
-        { "Content-Type": "application/json", Accept: "application/json" }
+        { headers: { Accept: "application/json" } }
       );
 
       console.log(res.data);
+
+      navigate("/sign-in");
     } catch (err) {
       console.log(err);
     } finally {

@@ -8,9 +8,13 @@ const PasswordInput = () => {
   const { onShowPasswordClick, showPassword } = useContext(SignUpContext);
   const { values, handleChange, errors } = useFormikContext();
   const errClassName =
-    "w-full bg-transparent rounded-md border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition mt-1";
+    "w-full bg-transparent rounded-md border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition mt-1 lg:-mt-1";
   const trueClassName =
-    "w-full bg-transparent rounded-md border border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 mt-1";
+    "w-full bg-transparent rounded-md border border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 mt-1 lg:-mt-5";
+  const errPasswordLogo = "absolute top-1/2 lg:top-5 left-4 -translate-y-1/2";
+  const truePasswordLogo = "absolute top-1/2 lg:top-3 left-4 -translate-y-1/2";
+  const errShowLogo = "absolute top-7 lg:top-5 right-5 -translate-y-1/2";
+  const trueShowLogo = "absolute top-7 lg:top-3 right-5 -translate-y-1/2";
 
   return (
     <>
@@ -27,7 +31,7 @@ const PasswordInput = () => {
           onChange={handleChange}
           value={values.password}
         />
-        <span className="absolute top-1/2 left-4 -translate-y-1/2">
+        <span className={errors.password ? errPasswordLogo : truePasswordLogo}>
           <svg
             width={20}
             height={20}
@@ -51,7 +55,7 @@ const PasswordInput = () => {
             </g>
           </svg>
         </span>
-        <span className="absolute top-7 right-5 -translate-y-1/2">
+        <span className={errors.password ? errShowLogo : trueShowLogo}>
           <button type="button" onClick={onShowPasswordClick}>
             {showPassword ? (
               <FontAwesomeIcon icon={faEyeSlash} />
@@ -62,7 +66,10 @@ const PasswordInput = () => {
         </span>
       </div>
       {errors.password ? (
-        <p className="mt-[10px] text-sm text-red"> {errors.password}</p>
+        <p className="mt-[10px] lg:mt-0 text-sm text-red lg:-mb-5">
+          {" "}
+          {errors.password}
+        </p>
       ) : null}
     </>
   );

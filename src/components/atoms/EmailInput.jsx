@@ -4,9 +4,11 @@ import { useFormikContext } from "../../context/FormikContext";
 const EmailInput = () => {
   const { values, handleChange, errors } = useFormikContext();
   const errClassName =
-    "w-full bg-transparent rounded-md mt-1 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition";
+    "w-full bg-transparent rounded-md mt-1 lg:mt-0 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition lg:-mt-6";
   const trueClassName =
-    "w-full bg-transparent rounded-md border mt-1 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2";
+    "w-full bg-transparent rounded-md border mt-1 lg:mt-0 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 lg:-mt-7";
+  const errEmailLogo = "absolute top-1/2 lg:top-6 left-4 -translate-y-1/2";
+  const trueEmailLogo = "absolute top-1/2 lg:top-3 left-4 -translate-y-1/2";
 
   return (
     <>
@@ -18,12 +20,11 @@ const EmailInput = () => {
           type="email"
           placeholder="email@gmail.com"
           className={errors.email ? errClassName : trueClassName}
-          id="email"
           name="email"
           onChange={handleChange}
           value={values.email}
         />
-        <span className="absolute top-1/2 left-4 -translate-y-1/2">
+        <span className={errors.email ? errEmailLogo : trueEmailLogo}>
           <svg
             width={20}
             height={20}
@@ -43,7 +44,7 @@ const EmailInput = () => {
           </svg>
         </span>
         {errors.email ? (
-          <span className="absolute top-7 right-3 -translate-y-1/2 bg-[#FFFEFB] w-7 pb-1">
+          <span className="absolute top-7 lg:top-6 right-3 -translate-y-1/2 bg-[#FFFEFB] w-7 pb-1">
             <svg
               width={20}
               height={20}
@@ -74,7 +75,9 @@ const EmailInput = () => {
         ) : null}
       </div>
       {errors.email ? (
-        <p className="mt-[10px] text-sm text-red absolute"> {errors.email}</p>
+        <p className="mt-[10px] lg:mt-0 text-sm text-red absolute">
+          {errors.email}
+        </p>
       ) : null}
     </>
   );

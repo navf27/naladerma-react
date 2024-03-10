@@ -72,7 +72,9 @@ const NameInput = () => {
         ) : null}
       </div>
       {errors.name ? (
-        <p className="mt-[10px] text-sm text-red absolute"> {errors.name}</p>
+        <p className="mt-[10px] lg:mt-0 text-sm text-red absolute">
+          {errors.name}
+        </p>
       ) : null}
     </>
   );

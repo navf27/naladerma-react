@@ -3,6 +3,8 @@ import { FormikProvider } from "../context/FormikContext";
 import * as yup from "yup";
 import LogInForm from "../components/molecules/LogInForm";
 import { useSignInContext } from "../context/SignInContext";
+import { Link } from "react-router-dom";
+import LoggedInRoute from "../hoc/LoggedInRoute";
 
 const SignIn = () => {
   const { onFormikSubmit, loading } = useSignInContext();
@@ -53,11 +55,14 @@ const SignIn = () => {
           <LogInForm />
         </FormikProvider>
         <p className="mt-4 text-xs text-slate-500 flex justify-center w-full">
-          Belum memiliki akun?<a className="text-[#FFBB00] ms-1">Daftar</a>
+          Belum memiliki akun?
+          <Link to={"/sign-up"} className="text-[#FFBB00] ms-1">
+            Daftar
+          </Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default LoggedInRoute(SignIn);

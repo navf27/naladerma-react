@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const SignInContext = createContext();
 
@@ -12,15 +13,26 @@ export const SignInProvider = ({ children }) => {
 
   const onFormikSubmit = async (values, action) => {
     setLoading(true);
+
     try {
       const res = await axios.post("http://localhost:8000/api/login", values, {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        headers: { Accept: "application/json" },
       });
 
-      console.log(res.data);
+      Cookies.set("_auth", res.data.data.token, { expires: 1 });
 
-      navigate("/adm/dashboard");
+      const resMe = await axios.get("http://localhost:8000/api/me", {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${res.data.data.token}`,
+        },
+      });
+
+      if (resMe.data.data.role === "admin") {
+        navigate("/adm/dashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       console.log(err);
     } finally {
