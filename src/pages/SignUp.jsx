@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import SignUpForm from "../components/molecules/SignUpForm";
+import SignUpForm from "../components/Molecules/SignUpForm";
 import { FormikProvider } from "../context/FormikContext";
 import { SignUpContext } from "../context/SignUpContext";
 import * as yup from "yup";
@@ -12,7 +12,7 @@ const SignUp = () => {
     <>
       <div className="lg:bg-[#FFD970] lg:w-44 lg:h-screen lg:absolute"></div>
       <div className="flex justify-center items-center h-dvh lg:absolute lg:z-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-screen">
-        <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-5/6 lg:flex lg:p-0 lg:justify-between lg:h-5/6">
+        <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-5/6 lg:flex lg:p-0">
           {loading ? (
             <div className="border border-red-500 fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ">
               <div className="relative inline-flex">
@@ -22,10 +22,10 @@ const SignUp = () => {
               </div>
             </div>
           ) : null}
-          <div className="hidden lg:block lg:h-auto lg:w-96 lg:border lg:border-red-500">
+          <div className="hidden lg:block lg:h-auto lg:w-2/3 lg:border lg:border-red-500">
             <p>INI GAMBAR</p>
           </div>
-          <div className="lg:flex lg:items-center lg:px-12">
+          <div className="lg:flex lg:items-center lg:w-full lg:justify-center lg:px-12 lg:py-11">
             <div>
               <h2 className="text-3xl text-slate-800 font-semibold">
                 Ayo buat akunmu disini!
@@ -60,7 +60,7 @@ const SignUp = () => {
                     .required("Password harus diisi.")
                     .matches(
                       /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
-                      "Password harus terdiri dari huruf dan angka"
+                      "Password harus terdiri dari huruf dan angka."
                     )
                     .max(255)
                     .min(6, "Password harus mengandung minimal 6 karakter"),

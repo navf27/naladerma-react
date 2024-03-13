@@ -1,11 +1,14 @@
 import { SignUpProvider } from "./context/SignUpContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SignInProvider } from "./context/SignInContext";
+import { SignOutProvider } from "./context/SignOutContext";
+import { AdminDashboardProvider } from "./context/AdminDashboardContext";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminDashboardTemplate from "./components/Template/AdminDashboardTemplate";
 import Home from "./pages/Home";
-import { SignOutProvider } from "./context/SignOutContext";
+import NotFoundPage from "./pages/NotFoundPage";
+import AdminDashboard from "./pages/AdminPages/AdminDashboard";
 
 export default function App() {
   return (
@@ -37,7 +40,23 @@ export default function App() {
             </SignUpProvider>
           }
         />
-        <Route path="/adm/dashboard" element={<AdminDashboard />} />
+        <Route
+          path="/adm/dashboard"
+          element={
+            <AdminDashboardProvider>
+              <AdminDashboard />
+            </AdminDashboardProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/users"
+          element={
+            <AdminDashboardProvider>
+              <AdminDashboardTemplate />
+            </AdminDashboardProvider>
+          }
+        />
+        <Route path="/404" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

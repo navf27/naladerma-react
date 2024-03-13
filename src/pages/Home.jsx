@@ -1,5 +1,5 @@
 import React from "react";
-import YellowButton from "../components/atoms/YellowButton";
+import YellowButton from "../components/Atoms/YellowButton";
 import { useSignOutContext } from "../context/SignOutContext";
 import { Link } from "react-router-dom";
 import PrivateRoute from "../hoc/PrivateRoute";

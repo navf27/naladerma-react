@@ -9,6 +9,7 @@ export const useSignInContext = () => useContext(SignInContext);
 
 export const SignInProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
   const navigate = useNavigate();
 
   const onFormikSubmit = async (values, action) => {
@@ -35,6 +36,7 @@ export const SignInProvider = ({ children }) => {
       }
     } catch (err) {
       console.log(err);
+      setUserNotFound(true);
     } finally {
       action.resetForm();
       setLoading(false);
@@ -42,7 +44,7 @@ export const SignInProvider = ({ children }) => {
   };
 
   return (
-    <SignInContext.Provider value={{ onFormikSubmit, loading }}>
+    <SignInContext.Provider value={{ onFormikSubmit, loading, userNotFound }}>
       {children}
     </SignInContext.Provider>
   );

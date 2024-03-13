@@ -9,7 +9,7 @@ const LoggedInRoute = (Component) => {
 
     useEffect(() => {
       if (auth) {
-        navigate("/");
+        return navigate("/");
       }
     }, [auth]);
 

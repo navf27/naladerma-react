@@ -5,13 +5,13 @@ import phoneIcon from "../../assets/telephone.png";
 const PhoneInput = () => {
   const { values, handleChange, errors } = useFormikContext();
   const errClassName =
-    "w-full bg-transparent rounded-md mt-1 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition lg:-mt-0";
+    "w-full bg-transparent rounded-md mt-1 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition lg:mt-0 lg:mb-1";
   const trueClassName =
     "w-full bg-transparent rounded-md border mt-1 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 lg:-mt-0";
 
   return (
     <>
-      <label className="mb-[10px] block text-base font-medium text-dark dark:text-white">
+      <label className="mb-[10px] block text-base font-medium text-dark dark:text-white invisible">
         Phone
       </label>
       <div className="relative">
@@ -27,7 +27,7 @@ const PhoneInput = () => {
           <img src={phoneIcon} alt="" className="w-5" />
         </span>
         {errors.phone ? (
-          <span className="absolute top-1/2 right-3 -translate-y-1/2 bg-[#FFFEFB] w-7">
+          <span className="absolute top-1/2 lg:top-6 right-3 -translate-y-1/2 bg-[#FFFEFB] w-7">
             <svg
               width={20}
               height={20}
@@ -58,8 +58,7 @@ const PhoneInput = () => {
         ) : null}
       </div>
       {errors.phone ? (
-        <p className="mt-[10px] lg:mt-0 text-sm text-red absolute">
-          {" "}
+        <p className="mt-[10px] lg:-mt-1 text-sm text-red absolute">
           {errors.phone}
         </p>
       ) : null}

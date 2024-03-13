@@ -9,7 +9,7 @@ const PrivateRoute = (Component) => {
 
     useEffect(() => {
       if (!auth) {
-        navigate("/sign-in");
+        return navigate("/sign-in");
       }
     }, [auth]);
 

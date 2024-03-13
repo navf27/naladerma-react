@@ -8,17 +8,17 @@ const PasswordInput = () => {
   const { onShowPasswordClick, showPassword } = useContext(SignUpContext);
   const { values, handleChange, errors } = useFormikContext();
   const errClassName =
-    "w-full bg-transparent rounded-md border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition mt-1 lg:-mt-1";
+    "w-full bg-transparent rounded-md border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition mt-1 lg:-mt-2";
   const trueClassName =
-    "w-full bg-transparent rounded-md border border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 mt-1 lg:-mt-5";
-  const errPasswordLogo = "absolute top-1/2 lg:top-5 left-4 -translate-y-1/2";
-  const truePasswordLogo = "absolute top-1/2 lg:top-3 left-4 -translate-y-1/2";
-  const errShowLogo = "absolute top-7 lg:top-5 right-5 -translate-y-1/2";
-  const trueShowLogo = "absolute top-7 lg:top-3 right-5 -translate-y-1/2";
+    "w-full bg-transparent rounded-md border border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 mt-1 lg:-mt-2 lg:mb-0";
+  const errPasswordLogo = "absolute top-1/2 lg:top-4 left-4 -translate-y-1/2";
+  const truePasswordLogo = "absolute top-1/2 lg:top-4 left-4 -translate-y-1/2";
+  const errShowLogo = "absolute top-7 lg:top-4 right-5 -translate-y-1/2";
+  const trueShowLogo = "absolute top-7 lg:top-4 right-5 -translate-y-1/2";
 
   return (
     <>
-      <label className="mb-[10px] block text-base font-medium text-dark dark:text-white">
+      <label className="mb-[10px] block text-base font-medium text-dark dark:text-white invisible">
         Password
       </label>
       <div className="relative">
@@ -67,7 +67,6 @@ const PasswordInput = () => {
       </div>
       {errors.password ? (
         <p className="mt-[10px] lg:mt-0 text-sm text-red lg:-mb-5">
-          {" "}
           {errors.password}
         </p>
       ) : null}

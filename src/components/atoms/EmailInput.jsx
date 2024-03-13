@@ -4,15 +4,15 @@ import { useFormikContext } from "../../context/FormikContext";
 const EmailInput = () => {
   const { values, handleChange, errors } = useFormikContext();
   const errClassName =
-    "w-full bg-transparent rounded-md mt-1 lg:mt-0 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition lg:-mt-6";
+    "w-full bg-transparent rounded-md mt-1 lg:mt-0 border border-red py-[10px] pr-3 pl-12 text-dark-6 outline-none transition lg:-mt-7 lg:mb-1";
   const trueClassName =
-    "w-full bg-transparent rounded-md border mt-1 lg:mt-0 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 lg:-mt-7";
+    "w-full bg-transparent rounded-md border mt-1 lg:mt-0 border-stroke dark:border-dark-3 py-[10px] pr-3 pl-12 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2";
   const errEmailLogo = "absolute top-1/2 lg:top-6 left-4 -translate-y-1/2";
-  const trueEmailLogo = "absolute top-1/2 lg:top-3 left-4 -translate-y-1/2";
+  const trueEmailLogo = "absolute top-1/2 lg:top-6 left-4 -translate-y-1/2";
 
   return (
     <>
-      <label className="mb-[10px] block text-base font-medium text-dark dark:text-white">
+      <label className="mb-[10px] block text-base font-medium text-dark dark:text-white invisible">
         Email
       </label>
       <div className="relative">
@@ -75,7 +75,7 @@ const EmailInput = () => {
         ) : null}
       </div>
       {errors.email ? (
-        <p className="mt-[10px] lg:mt-0 text-sm text-red absolute">
+        <p className="mt-[10px] lg:-mt-1 text-sm text-red absolute">
           {errors.email}
         </p>
       ) : null}
