@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-const LoggedInRoute = (Component) => {
+const AlreadyLoggedInRoute = (Component) => {
   return () => {
     const navigate = useNavigate();
     const auth = Cookies.get("_auth");
@@ -17,4 +17,4 @@ const LoggedInRoute = (Component) => {
   };
 };
 
-export default LoggedInRoute;
+export default AlreadyLoggedInRoute;

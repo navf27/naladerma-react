@@ -9,6 +9,12 @@ import AdminDashboardTemplate from "./components/Template/AdminDashboardTemplate
 import Home from "./pages/Home";
 import NotFoundPage from "./pages/NotFoundPage";
 import AdminDashboard from "./pages/AdminPages/AdminDashboard";
+import AdminCustomers from "./pages/AdminPages/AdminCustomers";
+import AdminUsers from "./pages/AdminPages/AdminUsers";
+import AdminEvents from "./pages/AdminPages/AdminEvents";
+import AdminOrders from "./pages/AdminPages/AdminOrders";
+import AdminTickets from "./pages/AdminPages/AdminTickets";
+import AdminEventsTest from "./pages/AdminPages/AdminEventTest";
 
 export default function App() {
   return (
@@ -43,17 +49,61 @@ export default function App() {
         <Route
           path="/adm/dashboard"
           element={
-            <AdminDashboardProvider>
-              <AdminDashboard />
-            </AdminDashboardProvider>
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminDashboard />
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/events"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminEvents />
+              </AdminDashboardProvider>
+            </SignOutProvider>
           }
         />
         <Route
           path="/adm/dashboard/users"
           element={
-            <AdminDashboardProvider>
-              <AdminDashboardTemplate />
-            </AdminDashboardProvider>
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminUsers />
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/customers"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminCustomers />
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/orders"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminOrders />
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/tickets"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminTickets />
+              </AdminDashboardProvider>
+            </SignOutProvider>
           }
         />
         <Route path="/404" element={<NotFoundPage />} />

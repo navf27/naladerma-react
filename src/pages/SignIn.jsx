@@ -4,7 +4,7 @@ import * as yup from "yup";
 import LogInForm from "../components/Molecules/LogInForm";
 import { useSignInContext } from "../context/SignInContext";
 import { Link } from "react-router-dom";
-import LoggedInRoute from "../hoc/LoggedInRoute";
+import AlreadyLoggedInRoute from "../hoc/AlreadyLoggedInRoute";
 
 const SignIn = () => {
   const { onFormikSubmit, loading } = useSignInContext();
@@ -30,7 +30,7 @@ const SignIn = () => {
             <h2 className="text-3xl text-slate-800 font-semibold">
               Silahkan <br /> masuk!
             </h2>
-            <h5 className="text-xs text-slate-500 mt-2">
+            <h5 className="text-xs text-body-color mt-2">
               Masukkan email dan passwordmu untuk masuk.
             </h5>
             <FormikProvider
@@ -57,7 +57,7 @@ const SignIn = () => {
             >
               <LogInForm />
             </FormikProvider>
-            <p className="mt-4 text-xs text-slate-500 flex justify-center w-full">
+            <p className="mt-4 text-xs text-body-color flex justify-center w-full">
               Belum memiliki akun?
               <Link to={"/sign-up"} className="text-[#FFBB00] ms-1">
                 Daftar disini
@@ -70,4 +70,4 @@ const SignIn = () => {
   );
 };
 
-export default LoggedInRoute(SignIn);
+export default AlreadyLoggedInRoute(SignIn);

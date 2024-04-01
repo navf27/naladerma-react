@@ -8,11 +8,11 @@ const AdminOnlyRoute = (Component) => {
   return () => {
     const navigate = useNavigate();
     const auth = Cookies.get("_auth");
-    const { setAdminLoading } = useAdminDashboardContext();
+    const { setAdminCheckLoading } = useAdminDashboardContext();
 
     const roleCheck = async () => {
       try {
-        setAdminLoading(true);
+        setAdminCheckLoading(true);
         const res = await axios.get("http://localhost:8000/api/me", {
           headers: {
             Accept: "application/json",
@@ -20,10 +20,10 @@ const AdminOnlyRoute = (Component) => {
           },
         });
         if (res.data.data.role !== "admin") {
-          setAdminLoading(false);
+          setAdminCheckLoading(false);
           return navigate("/404");
         } else {
-          setAdminLoading(false);
+          setAdminCheckLoading(false);
           return <Component />;
         }
       } catch (error) {

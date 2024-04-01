@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const WhiteButton = ({ children, activeClass, onClick, logo }) => {
   return (
     <button
-      className={`inline-flex items-center text-body-color relative rounded-md border border-transparent px-4 py-3 text-center text-base font-medium disabled:border-gray-3 disabled:bg-gray-3 disabled:text-dark-5 ${
+      className={`inline-flex items-center text-body-color relative rounded-md px-4 py-3 text-center text-base font-medium disabled:border-gray-3 disabled:bg-gray-3 disabled:text-dark-5 ${
         activeClass && activeClass
       }`}
       onClick={onClick}

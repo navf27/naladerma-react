@@ -8,11 +8,11 @@ const SignOutContext = createContext();
 export const useSignOutContext = () => useContext(SignOutContext);
 
 export const SignOutProvider = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
   const navigate = useNavigate();
 
   const onSignOutClick = async () => {
-    setLoading(true);
+    setLogoutLoading(true);
 
     try {
       const token = Cookies.get("_auth");
@@ -30,12 +30,12 @@ export const SignOutProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLogoutLoading(false);
     }
   };
 
   return (
-    <SignOutContext.Provider value={{ onSignOutClick, loading }}>
+    <SignOutContext.Provider value={{ onSignOutClick, logoutLoading }}>
       {children}
     </SignOutContext.Provider>
   );
