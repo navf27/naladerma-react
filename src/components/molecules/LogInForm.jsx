@@ -1,7 +1,7 @@
 import React from "react";
-import EmailInput from "../Atoms/EmailInput";
-import PasswordInput from "../Atoms/PasswordInput";
-import YellowButton from "../Atoms/YellowButton";
+import EmailInput from "../atoms/EmailInput";
+import PasswordInput from "../atoms/PasswordInput";
+import YellowButton from "../atoms/YellowButton";
 import { useFormikContext } from "../../context/FormikContext";
 import { useSignInContext } from "../../context/SignInContext";
 

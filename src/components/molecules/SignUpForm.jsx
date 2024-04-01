@@ -1,9 +1,9 @@
 import React from "react";
-import NameInput from "../Atoms/NameInput";
-import EmailInput from "../Atoms/EmailInput";
-import PasswordInput from "../Atoms/PasswordInput";
-import PhoneInput from "../Atoms/PhoneInput";
-import YellowButton from "../Atoms/YellowButton";
+import NameInput from "../atoms/NameInput";
+import EmailInput from "../atoms/EmailInput";
+import PasswordInput from "../atoms/PasswordInput";
+import PhoneInput from "../atoms/PhoneInput";
+import YellowButton from "../atoms/YellowButton";
 import { useFormikContext } from "../../context/FormikContext";
 
 const SignUpForm = () => {

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import WhiteButton from "../Atoms/WhiteButton";
+import WhiteButton from "../atoms/WhiteButton";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
 import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSignOutContext } from "../../context/SignOutContext";
-import Dropdown from "../Atoms/AdminPageAtoms/Dropdown";
+import Dropdown from "../atoms/AdminPageAtoms/Dropdown";
 
 const AdminDashboardTemplate = ({ children }) => {
   // const [open, setOpen] = useState(false);

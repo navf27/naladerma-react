@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Table from "../../components/Atoms/AdminPageAtoms/Table";
+import Table from "../../components/atoms/AdminPageAtoms/Table";
 import AdminDashboardTemplate from "../../components/Template/AdminDashboardTemplate";
-import TableSkeleton from "../../components/Atoms/TableSkeleton";
+import TableSkeleton from "../../components/atoms/TableSkeleton";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
 import ReactPaginate from "react-paginate";
 import SearchIcon from "../../assets/search.png";

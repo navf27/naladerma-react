@@ -14,7 +14,6 @@ import AdminUsers from "./pages/AdminPages/AdminUsers";
 import AdminEvents from "./pages/AdminPages/AdminEvents";
 import AdminOrders from "./pages/AdminPages/AdminOrders";
 import AdminTickets from "./pages/AdminPages/AdminTickets";
-import AdminEventsTest from "./pages/AdminPages/AdminEventTest";
 
 export default function App() {
   return (

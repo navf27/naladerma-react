@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import AdminDashboardTemplate from "../../components/Template/AdminDashboardTemplate";
-import Card from "../../components/Atoms/Card";
+import Card from "../../components/atoms/Card";
 import UserIcon from "../../assets/001-user.png";
 import EventIcon from "../../assets/003-calendar-check.png";
 import CustomerIcon from "../../assets/002-group.png";
 import OrderIcon from "../../assets/004-shopping-bag.png";
 import TicketIcon from "../../assets/005-ticket.png";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
-import DashboardCardSkeleton from "../../components/Atoms/AdminPageAtoms/DashboardCardSkeleton";
+import DashboardCardSkeleton from "../../components/atoms/AdminPageAtoms/DashboardCardSkeleton";
 import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
 
 const AdminDashboard = () => {

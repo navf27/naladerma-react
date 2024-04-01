@@ -33,7 +33,7 @@ export const AdminDashboardProvider = ({ children }) => {
     window.scrollTo({ top: 0 });
   };
 
-  // --->>> function for handling initial data
+  // --->>> START OF function for handling initial data
 
   const dashboardIndex = async () => {
     try {
@@ -124,24 +124,39 @@ export const AdminDashboardProvider = ({ children }) => {
 
   const onEventUpdate = async (values, action) => {
     try {
-      // setLoading(true);
-
-      console.log(values);
-      // console.log(eventIdToUpdate);
-
       const isValuesEmpty = checkValuesEmpty(values);
-
-      console.log(isValuesEmpty);
 
       if (isValuesEmpty) {
         setEventDetail(null);
         setEventIdToUpdate(null);
         setEventModalOpened(false);
+      } else {
+        setLoading(true);
+
+        const filteredData = Object.keys(values).reduce((acc, key) => {
+          if (values[key] !== null && values[key] !== "") {
+            if (key === "category_id") {
+              acc[key] = parseInt(values[key], 10);
+            } else {
+              acc[key] = values[key];
+            }
+          }
+          return acc;
+        }, {});
+
+        console.log(filteredData);
+
+        const res = await authInstance().patch(
+          `/adm/event/${eventIdToUpdate}`,
+          filteredData
+        );
+
+        window.location.reload();
+
+        console.log(res.data);
       }
 
-      // setTimeout(() => {
-      //   setLoading(false);
-      // }, 3000);
+      setLoading(false);
     } catch (error) {
     } finally {
       action.resetForm();

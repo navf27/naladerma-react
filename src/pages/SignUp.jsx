@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import SignUpForm from "../components/Molecules/SignUpForm";
+import SignUpForm from "../components/molecules/SignUpForm";
 import { FormikProvider } from "../context/FormikContext";
 import { SignUpContext } from "../context/SignUpContext";
 import * as yup from "yup";
@@ -10,9 +10,9 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="lg:bg-[#FFD970] lg:w-44 lg:h-screen lg:absolute"></div>
+      {/* <div className="lg:bg-[#FFD970] lg:w-44 lg:h-screen lg:absolute"></div> */}
       <div className="flex justify-center items-center h-dvh lg:absolute lg:z-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-screen">
-        <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-5/6 lg:flex lg:p-0">
+        <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-4/5 lg:flex lg:p-0 lg:h-3/4">
           {loading ? (
             <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ">
               <div className="relative inline-flex">

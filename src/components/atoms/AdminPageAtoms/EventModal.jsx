@@ -61,7 +61,6 @@ const EventModal = ({ categories }) => {
                         defaultValue={eventDetail.name}
                         onChange={handleChange}
                         name="name"
-                        // value={values.name}
                       />
                     </div>
                     <div className="w-full mb-4 md:w-1/2 lg:w-1/3">
@@ -133,7 +132,7 @@ const EventModal = ({ categories }) => {
                         Harga
                       </label>
                       <input
-                        type="text"
+                        type="number"
                         placeholder="Harga"
                         className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
                         defaultValue={eventDetail.price}

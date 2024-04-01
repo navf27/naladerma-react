@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import Table from "../../components/Atoms/AdminPageAtoms/Table";
+import Table from "../../components/atoms/AdminPageAtoms/Table";
 import AdminDashboardTemplate from "../../components/Template/AdminDashboardTemplate";
-import TableSkeleton from "../../components/Atoms/TableSkeleton";
+import TableSkeleton from "../../components/atoms/TableSkeleton";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
 import ReactPaginate from "react-paginate";
 import SearchIcon from "../../assets/search.png";
-import EventModal from "../../components/Atoms/AdminPageAtoms/EventModal";
+import EventModal from "../../components/atoms/AdminPageAtoms/EventModal";
 import { FormikProvider } from "../../context/FormikContext";
 
 const AdminEvents = () => {
@@ -99,11 +99,11 @@ const AdminEvents = () => {
         <FormikProvider
           initialValues={{
             name: "",
-            category_id: "",
+            category_id: null,
             description: "",
             status: "",
             location: "",
-            price: "",
+            price: null,
           }}
           onSubmit={onEventUpdate}
         >
