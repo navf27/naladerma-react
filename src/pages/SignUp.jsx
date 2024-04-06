@@ -12,7 +12,7 @@ const SignUp = () => {
     <>
       <div className="lg:bg-[#FFD970] lg:w-44 lg:h-screen lg:absolute rounded-e-xl"></div>
       <div className="flex justify-center items-center h-dvh lg:absolute lg:z-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-screen">
-        <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-4/5 lg:flex lg:p-0 lg:h-[550px]">
+        <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-[1300px] lg:flex lg:p-0 lg:h-[600px]">
           {loading ? (
             <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50 ">
               <div className="relative inline-flex">

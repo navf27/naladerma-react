@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { authInstance } from "../utils/axiosFetcher";
+import { authInstance, axiosPublicInstance } from "../utils/axiosFetcher";
 
 const AdminDashboardContext = createContext();
 
@@ -15,6 +15,7 @@ export const AdminDashboardProvider = ({ children }) => {
   const [categoriesData, setCategoriesData] = useState();
   const [eventDetail, setEventDetail] = useState();
   const [eventIdToUpdate, setEventIdToUpdate] = useState();
+  const [image, setImage] = useState();
 
   const openSidebar = () => {
     setSidebarOpened(!sidebarOpened);
@@ -126,39 +127,84 @@ export const AdminDashboardProvider = ({ children }) => {
     try {
       const isValuesEmpty = checkValuesEmpty(values);
 
-      if (isValuesEmpty) {
+      if (isValuesEmpty && !image) {
         setEventDetail(null);
         setEventIdToUpdate(null);
         setEventModalOpened(false);
+      } else if (image) {
+        setLoading(true);
+        console.log("ada gambarnya");
+
+        const dataImg = new FormData();
+        dataImg.append("file", image);
+        dataImg.append("upload_preset", "naladerma");
+        dataImg.append("cloud_name", "dhprwa6af");
+
+        const resImg = await axiosPublicInstance()
+          .post(
+            "https://api.cloudinary.com/v1_1/dhprwa6af/image/upload",
+            dataImg
+          )
+          .then((res) => res);
+
+        if (isValuesEmpty) {
+          const updateData = {
+            img_link: resImg.data.url,
+          };
+
+          const resUpdt = await authInstance().patch(
+            `/adm/event/${eventIdToUpdate}`,
+            updateData
+          );
+
+          console.log(resUpdt.data);
+        } else {
+          const updateData = { ...values };
+          updateData.img_link = resImg.data.url;
+
+          const resUpdt = await authInstance().patch(
+            `/adm/event/${eventIdToUpdate}`,
+            updateData
+          );
+
+          console.log(resUpdt.data);
+        }
+
+        setLoading(false);
       } else {
         setLoading(true);
 
-        const filteredData = Object.keys(values).reduce((acc, key) => {
-          if (values[key] !== null && values[key] !== "") {
-            if (key === "category_id") {
-              acc[key] = parseInt(values[key], 10);
-            } else {
-              acc[key] = values[key];
-            }
-          }
-          return acc;
-        }, {});
+        // const filteredData = Object.keys(values).reduce((acc, key) => {
+        //   if (values[key] !== null && values[key] !== "") {
+        //     if (key === "category_id") {
+        //       acc[key] = parseInt(values[key], 10);
+        //     } else {
+        //       acc[key] = values[key];
+        //     }
+        //   }
+        //   return acc;
+        // }, {});
 
-        console.log(filteredData);
+        console.log(values);
 
-        const res = await authInstance().patch(
-          `/adm/event/${eventIdToUpdate}`,
-          filteredData
-        );
+        // const res = await authInstance().patch(
+        //   `/adm/event/${eventIdToUpdate}`,
+        //   filteredData
+        // );
 
-        window.location.reload();
+        // window.location.reload();
 
-        console.log(res.data);
+        // console.log(res.data);
       }
 
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+
+      // setLoading(false);
     } catch (error) {
     } finally {
+      setImage(null);
       action.resetForm();
     }
   };
@@ -190,6 +236,8 @@ export const AdminDashboardProvider = ({ children }) => {
         setEventIdToUpdate,
         eventDetail,
         setEventDetail,
+        setImage,
+        image,
       }}
     >
       {children}

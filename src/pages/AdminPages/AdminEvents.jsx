@@ -83,6 +83,7 @@ const AdminEvents = () => {
 
   const TdStyle = {
     NoStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
+    ImgStyle: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 flex justify-center align-center`,
     TdStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
     TdStyle2: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 text-center text-base font-medium`,
     TdButton: `inline-block px-6 py-2.5 border rounded-md border-primary text-primary hover:bg-primary hover:text-white font-medium`,
@@ -99,11 +100,11 @@ const AdminEvents = () => {
         <FormikProvider
           initialValues={{
             name: "",
-            category_id: null,
+            category_id: "",
             description: "",
             status: "",
             location: "",
-            price: null,
+            price: "",
           }}
           onSubmit={onEventUpdate}
         >
@@ -170,8 +171,15 @@ const AdminEvents = () => {
                         <td className={TdStyle.NoStyle}>
                           {pageNumber * itemsPerPage + index + 1}
                         </td>
-                        <td className={TdStyle.TdStyle2}>
-                          <img src="https://placehold.co/300x200" alt="" />
+                        <td className={TdStyle.ImgStyle}>
+                          {item.img_link ? (
+                            <img src={item.img_link} className="w-[130px]" />
+                          ) : (
+                            <img
+                              src="https://placehold.co/300x200?text=Event+Picture"
+                              alt=""
+                            />
+                          )}
                         </td>
                         <td className={TdStyle.TdStyle}>{item.name}</td>
                         <td className={TdStyle.TdStyle2}>

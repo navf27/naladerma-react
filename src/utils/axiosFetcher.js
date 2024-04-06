@@ -14,3 +14,15 @@ export const authInstance = () => {
 
   return instance;
 };
+
+export const axiosPublicInstance = () => {
+  const instance = axios.create({
+    baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return instance;
+};

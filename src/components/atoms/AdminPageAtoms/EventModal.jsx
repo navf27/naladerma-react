@@ -10,8 +10,9 @@ const EventModal = ({ categories }) => {
     setEventIdToUpdate,
     setEventDetail,
     eventDetail,
+    setImage,
   } = useAdminDashboardContext();
-  const { values, handleChange, errors, handleSubmit } = useFormikContext();
+  const { handleChange, handleSubmit } = useFormikContext();
 
   return (
     <>
@@ -146,6 +147,7 @@ const EventModal = ({ categories }) => {
                       </label>
                       <input
                         type="file"
+                        onChange={(e) => setImage(e.target.files[0])}
                         className="w-full cursor-pointer rounded-md border border-stroke text-dark-6 outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-gray-2 file:py-3 file:px-5 file:text-body-color file:hover:bg-[#FFCC00] file:hover:bg-opacity-10 focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2"
                       />
                     </div>
