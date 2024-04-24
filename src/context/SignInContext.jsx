@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { axiosPublicInstance } from "../utils/axiosFetcher";
 
 const SignInContext = createContext();
 
@@ -16,13 +16,13 @@ export const SignInProvider = ({ children }) => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:8000/api/login", values, {
+      const res = await axiosPublicInstance().post("/login", values, {
         headers: { Accept: "application/json" },
       });
 
       Cookies.set("_auth", res.data.data.token, { expires: 1 });
 
-      const resMe = await axios.get("http://localhost:8000/api/me", {
+      const resMe = await axiosPublicInstance().get("/me", {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${res.data.data.token}`,

@@ -91,7 +91,7 @@ const AdminCustomers = () => {
                   type="text"
                   placeholder="Cari disini ..."
                   className={`${
-                    searchOpened ? "opacity-100" : "opacity-0"
+                    searchOpened ? "opacity-100" : "opacity-0 invisible"
                   } w-full bg-white rounded-md drop-shadow-lg dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
                 />
               </div>

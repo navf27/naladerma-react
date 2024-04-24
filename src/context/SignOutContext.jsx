@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { authInstance } from "../utils/axiosFetcher";
 
 const SignOutContext = createContext();
 
@@ -17,7 +17,7 @@ export const SignOutProvider = ({ children }) => {
     try {
       const token = Cookies.get("_auth");
 
-      const res = await axios.get("http://localhost:8000/api/logout", {
+      const res = await authInstance().get("http://localhost:8000/api/logout", {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

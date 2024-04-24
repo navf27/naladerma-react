@@ -7,6 +7,12 @@ import ReactPaginate from "react-paginate";
 import SearchIcon from "../../assets/search.png";
 import EventModal from "../../components/atoms/AdminPageAtoms/EventModal";
 import { FormikProvider } from "../../context/FormikContext";
+import * as yup from "yup";
+import AddEventModal from "../../components/atoms/AdminPageAtoms/AddEventModal";
+import DeleteEventConfirmationModal from "../../components/atoms/AdminPageAtoms/DeleteEventConfirmationModal";
+import { Toaster } from "react-hot-toast";
+import { format, parseISO, parse } from "date-fns";
+import id from "date-fns/locale/id";
 
 const AdminEvents = () => {
   const {
@@ -24,6 +30,13 @@ const AdminEvents = () => {
     setEventIdToUpdate,
     eventDetail,
     setEventDetail,
+    setAddEventModalOpened,
+    eventModalOpened,
+    addEventModalOpened,
+    onEventSubmission,
+    deleteEventConfirmationOpened,
+    setDeleteEventConfirmationOpened,
+    setEventToDelete,
   } = useAdminDashboardContext();
 
   useEffect(() => {
@@ -78,7 +91,10 @@ const AdminEvents = () => {
     "Deskripsi",
     "Status",
     "Lokasi",
+    "Waktu Dimulai (WIB)",
+    "Waktu Berakhir (WIB)",
     "Harga",
+    "Aksi",
   ];
 
   const TdStyle = {
@@ -89,29 +105,81 @@ const AdminEvents = () => {
     TdButton: `inline-block px-6 py-2.5 border rounded-md border-primary text-primary hover:bg-primary hover:text-white font-medium`,
   };
 
-  const button = {
-    onClick: {},
-    text: "Button Text",
+  const formatDateTime = (dateTimeString) => {
+    const dateTime = parseISO(dateTimeString);
+    const formattedDateTime = format(dateTime, "EEEE, dd/MM/yyyy HH:mm", {
+      locale: id,
+    });
+
+    return formattedDateTime;
   };
 
   return (
     <>
+      <Toaster />
       <AdminDashboardTemplate>
-        <FormikProvider
-          initialValues={{
-            name: "",
-            category_id: "",
-            description: "",
-            status: "",
-            location: "",
-            price: "",
-          }}
-          onSubmit={onEventUpdate}
-        >
-          <EventModal categories={categoriesData} />
-        </FormikProvider>
+        {eventModalOpened ? (
+          <>
+            <FormikProvider
+              initialValues={{
+                name: "",
+                category_id: "",
+                description: "",
+                status: "",
+                location: "",
+                price: "",
+              }}
+              onSubmit={onEventUpdate}
+            >
+              <EventModal categories={categoriesData} />
+            </FormikProvider>
+          </>
+        ) : null}
+
+        {addEventModalOpened ? (
+          <>
+            <FormikProvider
+              initialValues={{
+                name: "",
+                category_id: "",
+                description: "",
+                status: "",
+                location: "",
+                price: "",
+                start_time: "",
+                time_ends: "",
+              }}
+              onSubmit={onEventSubmission}
+              // validationSchema={yup.object().shape({
+              //   category_id: yup
+              //     .string()
+              //     .required("Kategori harus diisi.")
+              //     .min(1, "Kategori harus diisi."),
+              //   status: yup
+              //     .string()
+              //     .required("Status harus diisi.")
+              //     .min(1, "Status harus diisi."),
+              //   name: yup.string().required("Nama event harus diisi."),
+              //   description: yup
+              //     .string()
+              //     .required("Deskripsi event harus diisi."),
+              //   location: yup.string().required("Lokasi event harus diisi."),
+              //   price: yup.string().required("Harga event harus diisi."),
+              //   start_time: yup.string().required("Waktu dimulai harus diisi."),
+              //   time_ends: yup.string().required("Waktu berakhir harus diisi."),
+              // })}
+            >
+              <AddEventModal categories={categoriesData} />
+            </FormikProvider>
+          </>
+        ) : null}
+
+        {deleteEventConfirmationOpened ? (
+          <DeleteEventConfirmationModal />
+        ) : null}
+
         <div className="w-screen p-4">
-          <section className="mb-4 flex justify-between relative">
+          <section className="mb-4 flex justify-between items-end relative">
             <div>
               <div className="border-l-[5px] border-[#FFD970] pl-4">
                 <h2 className="mb-2 text-2xl font-semibold text-dark">
@@ -122,8 +190,8 @@ const AdminEvents = () => {
                 </p>
               </div>
             </div>
-            <div className="self-center w-full absolute z-20 flex justify-end items-center gap-4 top-3">
-              <div className="">
+            <div className="flex items-center gap-2 top-1 relative">
+              <div>
                 <input
                   id="searchInput"
                   value={searchTerm}
@@ -131,11 +199,37 @@ const AdminEvents = () => {
                   type="text"
                   placeholder="Cari disini ..."
                   className={`${
-                    searchOpened ? "opacity-100" : "opacity-0"
-                  } -mt-2 w-full bg-white rounded-md drop-shadow-lg dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
+                    searchOpened ? "opacity-100" : "opacity-0 invisible"
+                  } w-56 bg-white absolute top-1 right-14 z-10 rounded-md drop-shadow-lg dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
                 />
               </div>
               <div>
+                <button onClick={() => setAddEventModalOpened(true)}>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-14 h-14 opacity-70"
+                  >
+                    <path
+                      opacity="0.4"
+                      d="M6 12H18"
+                      stroke="#292D32"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                    <path
+                      d="M12 18V6"
+                      stroke="#292D32"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+              <div className="w-9 h-9">
                 <button
                   onClick={() => {
                     setSearchOpened(!searchOpened);
@@ -143,11 +237,7 @@ const AdminEvents = () => {
                   }}
                 >
                   <label htmlFor="searchInput">
-                    <img
-                      src={SearchIcon}
-                      alt=""
-                      className="min-w-9 h-9 opacity-60"
-                    />
+                    <img src={SearchIcon} alt="" className="opacity-60" />
                   </label>
                 </button>
               </div>
@@ -158,39 +248,199 @@ const AdminEvents = () => {
               <Table th={thData}>
                 {Array.isArray(currentPageData)
                   ? currentPageData?.map((item, index) => (
-                      <tr
-                        key={index}
-                        onClick={() => {
-                          setEventDetail(
-                            currentPageData.find((data) => data.id === item.id)
-                          );
-                          setEventIdToUpdate(item.id);
-                          setEventModalOpened(true);
-                        }}
-                      >
+                      <tr key={index}>
                         <td className={TdStyle.NoStyle}>
-                          {pageNumber * itemsPerPage + index + 1}
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {pageNumber * itemsPerPage + index + 1}
+                          </div>
                         </td>
                         <td className={TdStyle.ImgStyle}>
-                          {item.img_link ? (
-                            <img src={item.img_link} className="w-[130px]" />
-                          ) : (
-                            <img
-                              src="https://placehold.co/300x200?text=Event+Picture"
-                              alt=""
-                            />
-                          )}
-                        </td>
-                        <td className={TdStyle.TdStyle}>{item.name}</td>
-                        <td className={TdStyle.TdStyle2}>
-                          {item.category?.name}
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.img_link ? (
+                              <img src={item.img_link} className="w-[130px]" />
+                            ) : (
+                              <img
+                                src="https://placehold.co/300x200?text=Event+Picture"
+                                alt=""
+                              />
+                            )}
+                          </div>
                         </td>
                         <td className={TdStyle.TdStyle}>
-                          {item.description?.substring(0, 50)}...
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.name}
+                          </div>
                         </td>
-                        <td className={TdStyle.TdStyle2}>{item.status}</td>
-                        <td className={TdStyle.TdStyle}>{item.location}</td>
-                        <td className={TdStyle.TdStyle2}>Rp. {item.price}</td>
+                        <td className={TdStyle.TdStyle2}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.category?.name}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.description?.length <= 50
+                              ? item.description
+                              : item.description?.substring(0, 50) + "..."}{" "}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle2}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.status}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.location}
+                          </div>
+                        </td>
+                        {/* waktu dimulai */}
+                        <td className={TdStyle.TdStyle2}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.start_time
+                              ? formatDateTime(item?.start_time)
+                              : null}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {item.start_time
+                              ? formatDateTime(item?.time_ends)
+                              : null}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle2}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            Rp. {item.price}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle}>
+                          <button
+                            onClick={() => {
+                              setDeleteEventConfirmationOpened(true);
+                              setEventToDelete(item);
+                            }}
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              className="h-9 w-9 mx-auto"
+                            >
+                              <path
+                                stroke="#000"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={1.5}
+                                d="m14.625 7-.103-.21A3.148 3.148 0 0 0 11.7 5a3.148 3.148 0 0 0-2.823 1.79L8.775 7h5.85Z"
+                                clipRule="evenodd"
+                              />
+                              <path
+                                fill="#000"
+                                d="M10.612 11.81a.75.75 0 0 0-1.074 1.047l1.074-1.047Zm.551 2.714a.75.75 0 1 0 1.074-1.047l-1.074 1.047Zm-1.625.62a.75.75 0 0 0 1.074 1.047l-1.074-1.047Zm2.699-.62a.75.75 0 1 0-1.074-1.047l1.074 1.047Zm1.625-1.667a.75.75 0 1 0-1.074-1.047l1.074 1.047Zm-2.699.62a.75.75 0 0 0 1.074 1.047l-1.074-1.047Zm1.625 2.714a.75.75 0 1 0 1.074-1.047l-1.074 1.047Zm-.551-2.714a.75.75 0 0 0-1.074 1.047l1.074-1.047Zm4.338-5.727a.75.75 0 0 0 0-1.5v1.5Zm-1.95-1.5a.75.75 0 0 0 0 1.5v-1.5Zm-7.8 0a.75.75 0 0 0 0 1.5v-1.5Zm1.95 1.5a.75.75 0 1 0 0-1.5v1.5ZM7.539 18.268l-.537.523.537-.523ZM6.825 16.5h.75-.75Zm2.713-3.643 1.625 1.667 1.074-1.047-1.625-1.668-1.074 1.048Zm1.074 3.334 1.625-1.667-1.074-1.047-1.625 1.666 1.074 1.048Zm2.176-4.381-1.625 1.666 1.074 1.048 1.625-1.667-1.074-1.047Zm1.074 3.333-1.625-1.667-1.074 1.048 1.625 1.667 1.074-1.047Zm2.713-8.893h-1.95v1.5h1.95v-1.5Zm-9.75 1.5h1.95v-1.5h-1.95v1.5Zm.812 2h8.126v-1.5H7.637v1.5Zm8.126 0c.01 0 .023.004.037.018a.091.091 0 0 1 .025.065h1.5c0-.856-.682-1.583-1.562-1.583v1.5Zm.062.083V16.5h1.5V9.833h-1.5Zm0 6.667c0 .985-.773 1.75-1.688 1.75v1.5c1.779 0 3.188-1.473 3.188-3.25h-1.5Zm-1.688 1.75H9.264v1.5h4.874v-1.5Zm-4.874 0c-.442 0-.869-.18-1.187-.506l-1.074 1.047a3.157 3.157 0 0 0 2.26.96v-1.5Zm-1.187-.506a1.783 1.783 0 0 1-.501-1.244h-1.5c0 .856.331 1.68.927 2.291l1.074-1.047ZM7.575 16.5V9.833h-1.5V16.5h1.5Zm0-6.667c0-.03.01-.05.025-.065.014-.014.026-.018.037-.018v-1.5c-.88 0-1.562.727-1.562 1.583h1.5Z"
+                              />
+                            </svg>
+                          </button>
+                        </td>
                       </tr>
                     ))
                   : null}
@@ -198,7 +448,7 @@ const AdminEvents = () => {
             </>
           ) : (
             <>
-              <TableSkeleton th={thData} button={button} />
+              <TableSkeleton th={thData} />
             </>
           )}
 

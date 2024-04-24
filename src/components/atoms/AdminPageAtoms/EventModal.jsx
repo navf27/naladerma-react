@@ -25,16 +25,12 @@ const EventModal = ({ categories }) => {
           </div>
         </div>
       ) : null}
-      <div
-        className={`${
-          eventModalOpened ? "block" : "hidden"
-        } container absolute z-40 mx-auto`}
-      >
+      <div className={`container absolute z-40 mx-auto`}>
         <div
           className={`fixed left-0 top-0 flex h-dvh min-h-screen w-dvw items-center justify-center bg-black bg-opacity-60 px-4 py-5 pb-20`} //sementara kasih pb-20
         >
           <div
-            onFocus={() => setEventModalOpened(true)}
+            // onFocus={() => setEventModalOpened(false)}
             className="w-full h-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px]"
           >
             <div className="flex flex-col h-full justify-between">
@@ -59,7 +55,7 @@ const EventModal = ({ categories }) => {
                         type="text"
                         placeholder="Nama Event"
                         className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
-                        defaultValue={eventDetail.name}
+                        defaultValue={eventDetail?.name}
                         onChange={handleChange}
                         name="name"
                       />
@@ -92,7 +88,7 @@ const EventModal = ({ categories }) => {
                         rows="5"
                         placeholder="Deskripsi"
                         className="w-full appearance-none bg-transparent rounded-md border border-stroke p-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2"
-                        defaultValue={eventDetail.description}
+                        defaultValue={eventDetail?.description}
                         onChange={handleChange}
                         name="description"
                       />
@@ -123,10 +119,48 @@ const EventModal = ({ categories }) => {
                         type="text"
                         placeholder="Lokasi"
                         className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
-                        defaultValue={eventDetail.location}
+                        defaultValue={eventDetail?.location}
                         onChange={handleChange}
                         name="location"
                       />
+                    </div>
+                    <div className="w-full mb-4 md:w-1/2 lg:w-1/3">
+                      <label className="mb-2 text-left block text-base font-medium text-body-color">
+                        Waktu Mulai
+                      </label>
+                      <div className="flex">
+                        <input
+                          type="datetime-local"
+                          name="start_time"
+                          className="border border-stroke px-2 text-dark-6 rounded-md"
+                          onChange={handleChange}
+                          defaultValue={eventDetail?.start_time}
+                        />
+                      </div>
+                      {/* {errors.location ? (
+                        <p className="mt-1 lg:-mt-1 text-sm text-red text-left">
+                          {errors.start_time}
+                        </p>
+                      ) : null} */}
+                    </div>
+                    <div className="w-full mb-4 md:w-1/2 lg:w-1/3">
+                      <label className="mb-2 text-left block text-base font-medium text-body-color">
+                        Waktu Berakhir
+                      </label>
+                      <div className="flex">
+                        <input
+                          type="datetime-local"
+                          name="time_ends"
+                          className="border border-stroke px-2 text-dark-6 rounded-md"
+                          onChange={handleChange}
+                          defaultValue={eventDetail?.time_ends}
+                        />
+                      </div>
+                      {/* {errors.location ? (
+                        <p className="mt-1 lg:-mt-1 text-sm text-red text-left">
+                          {errors.time_ends}
+                        </p>
+                      ) : null} */}
                     </div>
                     <div className="w-full mb-4 md:w-1/2 lg:w-1/3">
                       <label className="mb-2 text-left block text-base font-medium text-body-color">
@@ -136,7 +170,7 @@ const EventModal = ({ categories }) => {
                         type="number"
                         placeholder="Harga"
                         className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
-                        defaultValue={eventDetail.price}
+                        defaultValue={eventDetail?.price}
                         onChange={handleChange}
                         name="price"
                       />

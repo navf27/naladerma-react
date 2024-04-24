@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { authInstance, axiosPublicInstance } from "../utils/axiosFetcher";
+import toast from "react-hot-toast";
 
 const AdminDashboardContext = createContext();
 
@@ -9,6 +10,7 @@ export const AdminDashboardProvider = ({ children }) => {
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const [searchOpened, setSearchOpened] = useState(false);
   const [eventModalOpened, setEventModalOpened] = useState(false);
+  const [addEventModalOpened, setAddEventModalOpened] = useState(false);
   const [loading, setLoading] = useState(false);
   const [loadingHoc, setLoadingHoc] = useState(false);
   const [dataFetched, setDataFetched] = useState();
@@ -16,6 +18,9 @@ export const AdminDashboardProvider = ({ children }) => {
   const [eventDetail, setEventDetail] = useState();
   const [eventIdToUpdate, setEventIdToUpdate] = useState();
   const [image, setImage] = useState();
+  const [deleteEventConfirmationOpened, setDeleteEventConfirmationOpened] =
+    useState(false);
+  const [eventToDelete, setEventToDelete] = useState();
 
   const openSidebar = () => {
     setSidebarOpened(!sidebarOpened);
@@ -123,18 +128,11 @@ export const AdminDashboardProvider = ({ children }) => {
     );
   }
 
-  const onEventUpdate = async (values, action) => {
+  const onEventSubmission = async (values, action) => {
     try {
-      const isValuesEmpty = checkValuesEmpty(values);
+      setLoading(true);
 
-      if (isValuesEmpty && !image) {
-        setEventDetail(null);
-        setEventIdToUpdate(null);
-        setEventModalOpened(false);
-      } else if (image) {
-        setLoading(true);
-        console.log("ada gambarnya");
-
+      if (image) {
         const dataImg = new FormData();
         dataImg.append("file", image);
         dataImg.append("upload_preset", "naladerma");
@@ -147,65 +145,167 @@ export const AdminDashboardProvider = ({ children }) => {
           )
           .then((res) => res);
 
-        if (isValuesEmpty) {
-          const updateData = {
-            img_link: resImg.data.url,
-          };
+        const updateData = { ...values };
+        updateData.img_link = resImg.data.url;
 
-          const resUpdt = await authInstance().patch(
-            `/adm/event/${eventIdToUpdate}`,
-            updateData
-          );
-
-          console.log(resUpdt.data);
-        } else {
-          const updateData = { ...values };
-          updateData.img_link = resImg.data.url;
-
-          const resUpdt = await authInstance().patch(
-            `/adm/event/${eventIdToUpdate}`,
-            updateData
-          );
-
-          console.log(resUpdt.data);
-        }
-
-        setLoading(false);
+        const res = await authInstance().post("/adm/event", updateData);
+        console.log(res.data);
       } else {
         setLoading(true);
 
-        // const filteredData = Object.keys(values).reduce((acc, key) => {
-        //   if (values[key] !== null && values[key] !== "") {
-        //     if (key === "category_id") {
-        //       acc[key] = parseInt(values[key], 10);
-        //     } else {
-        //       acc[key] = values[key];
-        //     }
-        //   }
-        //   return acc;
-        // }, {});
-
-        console.log(values);
-
-        // const res = await authInstance().patch(
-        //   `/adm/event/${eventIdToUpdate}`,
-        //   filteredData
-        // );
-
-        // window.location.reload();
-
-        // console.log(res.data);
+        const res = await authInstance().post("/adm/event", values);
+        console.log(res.data);
       }
 
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-
-      // setLoading(false);
+      setLoading(false);
+      window.location.reload();
     } catch (error) {
+      console.log(error);
+    } finally {
+      action.resetForm();
+    }
+  };
+
+  const onEventUpdate = async (values, action) => {
+    try {
+      const isValuesEmpty = checkValuesEmpty(values);
+
+      if (isValuesEmpty && !image) {
+        setEventDetail(null);
+        setEventIdToUpdate(null);
+        setEventModalOpened(false);
+
+        toast("Tidak ada perubahan!", { icon: "🟡", duration: 3000 });
+      } else {
+        if (image) {
+          setLoading(true);
+
+          const dataImg = new FormData();
+          dataImg.append("file", image);
+          dataImg.append("upload_preset", "naladerma");
+          dataImg.append("cloud_name", "dhprwa6af");
+
+          const resImg = await axiosPublicInstance()
+            .post(
+              "https://api.cloudinary.com/v1_1/dhprwa6af/image/upload",
+              dataImg
+            )
+            .then((res) => res);
+
+          if (isValuesEmpty) {
+            const updateData = {
+              img_link: resImg.data.url,
+            };
+
+            const resUpdt = await authInstance().patch(
+              `/adm/event/${eventIdToUpdate}`,
+              updateData
+            );
+
+            console.log(resUpdt.data);
+          } else {
+            const valuesWithData = Object.keys(values).reduce((acc, key) => {
+              if (values[key] !== null && values[key] !== "") {
+                acc[key] = values[key];
+              }
+              return acc;
+            }, {});
+            const updateData = { ...valuesWithData };
+            updateData.img_link = resImg.data.url;
+
+            const resUpdt = await authInstance().patch(
+              `/adm/event/${eventIdToUpdate}`,
+              updateData
+            );
+
+            console.log(resUpdt.data);
+          }
+
+          window.location.reload();
+        } else {
+          setLoading(true);
+
+          const valuesWithData = Object.keys(values).reduce((acc, key) => {
+            if (values[key] !== null && values[key] !== "") {
+              acc[key] = values[key];
+            }
+            return acc;
+          }, {});
+
+          const res = await authInstance().patch(
+            `/adm/event/${eventIdToUpdate}`,
+            valuesWithData
+          );
+
+          console.log(res.data);
+
+          // update local data
+          // const valuesWithData = Object.keys(values).reduce((acc, key) => {
+          //   if (values[key] !== null && values[key] !== "") {
+          //     acc[key] = values[key];
+          //   }
+          //   return acc;
+          // }, {});
+
+          if (valuesWithData.hasOwnProperty("category_id")) {
+            valuesWithData.category_id = parseInt(valuesWithData.category_id);
+
+            const categoryData = categoriesData.find(
+              (item) => item.id === valuesWithData.category_id
+            );
+
+            valuesWithData.category = {
+              id: valuesWithData.category_id,
+              name: categoryData.name,
+            };
+          }
+
+          const updatedEventData = dataFetched.map((item) => {
+            if (item.id === eventIdToUpdate) {
+              return {
+                ...item,
+                ...valuesWithData,
+              };
+            }
+            return item;
+          });
+
+          setDataFetched(updatedEventData);
+          // end of update local data
+
+          toast.success("Event diperbarui!", { duration: 3000 });
+        }
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
     } finally {
       setImage(null);
+      setEventModalOpened(false);
       action.resetForm();
+    }
+  };
+
+  const onEventDelete = async (eventId) => {
+    try {
+      setLoading(true);
+
+      const res = await authInstance().delete(`/adm/event/${eventId}`);
+
+      console.log(res.data);
+
+      const dataAfterDelete = dataFetched.filter((item) => item.id !== eventId);
+
+      setDataFetched(dataAfterDelete);
+
+      setEventToDelete(null);
+      setDeleteEventConfirmationOpened(false);
+      setLoading(false);
+
+      toast.success("Event dihapus!", { duration: 3000 });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -238,6 +338,14 @@ export const AdminDashboardProvider = ({ children }) => {
         setEventDetail,
         setImage,
         image,
+        addEventModalOpened,
+        setAddEventModalOpened,
+        onEventSubmission,
+        deleteEventConfirmationOpened,
+        setDeleteEventConfirmationOpened,
+        eventToDelete,
+        setEventToDelete,
+        onEventDelete,
       }}
     >
       {children}

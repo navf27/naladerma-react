@@ -28,7 +28,7 @@ const AdminDashboard = () => {
         <div className="flex flex-col gap-4">
           {dataFetched ? (
             <>
-              <Card className={"w-full p-5 drop-shadow-md rounded-lg"}>
+              <Card>
                 <div>
                   <img src={EventIcon} className="opacity-55 w-7 mt-1" alt="" />
                   <p className="text-dark text-2xl font-medium mt-4">
@@ -37,7 +37,7 @@ const AdminDashboard = () => {
                   <p className="text-body-color text-base mt-1">Total Event</p>
                 </div>
               </Card>
-              <Card className={"w-full p-5 drop-shadow-md rounded-lg"}>
+              <Card>
                 <div>
                   <img src={UserIcon} className="opacity-55 w-7 mt-1" alt="" />
                   <p className="text-dark text-2xl font-medium mt-4">
@@ -46,7 +46,7 @@ const AdminDashboard = () => {
                   <p className="text-body-color text-base mt-1">Total User</p>
                 </div>
               </Card>
-              <Card className={"w-full p-5 drop-shadow-md rounded-lg"}>
+              <Card>
                 <div>
                   <img
                     src={CustomerIcon}
@@ -61,7 +61,7 @@ const AdminDashboard = () => {
                   </p>
                 </div>
               </Card>
-              <Card className={"w-full p-5 drop-shadow-md rounded-lg"}>
+              <Card>
                 <div>
                   <img src={OrderIcon} className="opacity-55 w-7 mt-1" alt="" />
                   <p className="text-dark text-2xl font-medium mt-4">
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
                   <p className="text-body-color text-base mt-1">Total Order</p>
                 </div>
               </Card>
-              <Card className={"w-full p-5 drop-shadow-md rounded-lg"}>
+              <Card>
                 <div>
                   <img
                     src={TicketIcon}

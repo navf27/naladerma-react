@@ -74,7 +74,27 @@ const Dropdown = () => {
                   onClick={onSignOutClick}
                   className="text-body-color block px-5 py-1 text-base w-full text-left"
                 >
-                  Keluar
+                  <div className="flex gap-2 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="w-5 h-5"
+                    >
+                      <g
+                        stroke="#1C274C"
+                        strokeLinecap="round"
+                        strokeWidth={1.5}
+                      >
+                        <path d="M12 20a8 8 0 1 1 0-16" opacity={0.5} />
+                        <path
+                          strokeLinejoin="round"
+                          d="M10 12h10m0 0-3-3m3 3-3 3"
+                        />
+                      </g>
+                    </svg>
+                    <span>Keluar</span>
+                  </div>
                 </button>
               </div>
             </div>

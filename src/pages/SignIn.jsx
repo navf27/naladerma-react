@@ -45,15 +45,7 @@ const SignIn = () => {
                     .string()
                     .required("Email harus diisi.")
                     .email("Pastikan format email anda benar."),
-                  password: yup
-                    .string()
-                    .required("Password harus diisi.")
-                    .matches(
-                      /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
-                      "Password harus terdiri dari huruf dan angka"
-                    )
-                    .max(255)
-                    .min(6, "Password harus mengandung minimal 6 karakter."),
+                  password: yup.string().required("Password harus diisi."),
                 })}
               >
                 <LogInForm />

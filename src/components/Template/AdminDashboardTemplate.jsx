@@ -97,11 +97,11 @@ const AdminDashboardTemplate = ({ children }) => {
         </header>
 
         <aside
-          className={`h-dvh w-60 bg-[#FFFCF2] z-30 absolute drop-shadow-lg ${
+          className={`h-dvh z-30 fixed drop-shadow-lg top-0 flex ${
             sidebarOpened ? "block" : "hidden"
           }`}
         >
-          <div className="w-full flex flex-col px-3 gap-2 pt-10">
+          <div className="flex flex-col px-3 gap-2 pt-24 w-60 bg-[#FFFCF2]">
             <WhiteButton
               onClick={() => {
                 navigate("/adm/dashboard");
@@ -115,6 +115,20 @@ const AdminDashboardTemplate = ({ children }) => {
               logo={`<i class="fi fi-rr-dashboard"></i>`}
             >
               Dashboard
+            </WhiteButton>
+            <WhiteButton
+              onClick={() => {
+                navigate("/adm/dashboard/categories");
+                openSidebar();
+              }}
+              activeClass={
+                location.pathname === "/adm/dashboard/categories"
+                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  : null
+              }
+              logo={`<i class="fi fi-rr-category-alt"></i>`}
+            >
+              Categories
             </WhiteButton>
             <WhiteButton
               onClick={() => {
@@ -186,6 +200,12 @@ const AdminDashboardTemplate = ({ children }) => {
             >
               Tickets
             </WhiteButton>
+          </div>
+          <div>
+            <button
+              className="w-dvw h-dvh"
+              onClick={() => setSidebarOpened(false)}
+            ></button>
           </div>
         </aside>
 
