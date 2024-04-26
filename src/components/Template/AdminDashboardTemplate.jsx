@@ -32,8 +32,8 @@ const AdminDashboardTemplate = ({ children }) => {
         </div>
       ) : null}
       <div>
-        <header className={`w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-40`}>
-          <div className="flex w-full h-full items-center justify-between">
+        <header className="w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-40 lg:fixed">
+          <div className="flex w-full h-full items-center justify-between lg:pe-6">
             <div>
               <button
                 onClick={() => {
@@ -43,7 +43,7 @@ const AdminDashboardTemplate = ({ children }) => {
                 //   id="navbarToggler"
                 className={`${
                   sidebarOpened && "navbarTogglerActive"
-                } block ms-5`}
+                } block ms-5 lg:hidden`}
               >
                 <span className="relative block h-[2px] w-[30px] bg-body-color"></span>
                 <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color"></span>
@@ -98,10 +98,10 @@ const AdminDashboardTemplate = ({ children }) => {
 
         <aside
           className={`h-dvh z-30 fixed drop-shadow-lg top-0 flex ${
-            sidebarOpened ? "block" : "hidden"
+            sidebarOpened ? "block" : "hidden lg:block"
           }`}
         >
-          <div className="flex flex-col px-3 gap-2 pt-24 w-60 bg-[#FFFCF2]">
+          <div className="flex flex-col px-3 gap-2 pt-24 w-60 bg-[#FFFCF2] lg:h-full">
             <WhiteButton
               onClick={() => {
                 navigate("/adm/dashboard");

@@ -39,6 +39,17 @@ const AdminDashboard = () => {
               </Card>
               <Card>
                 <div>
+                  <img src={EventIcon} className="opacity-55 w-7 mt-1" alt="" />
+                  <p className="text-dark text-2xl font-medium mt-4">
+                    {dataFetched.categories}
+                  </p>
+                  <p className="text-body-color text-base mt-1">
+                    Total Kategori
+                  </p>
+                </div>
+              </Card>
+              <Card>
+                <div>
                   <img src={UserIcon} className="opacity-55 w-7 mt-1" alt="" />
                   <p className="text-dark text-2xl font-medium mt-4">
                     {dataFetched.users}

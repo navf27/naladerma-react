@@ -14,6 +14,7 @@ import AdminUsers from "./pages/AdminPages/AdminUsers";
 import AdminEvents from "./pages/AdminPages/AdminEvents";
 import AdminOrders from "./pages/AdminPages/AdminOrders";
 import AdminTickets from "./pages/AdminPages/AdminTickets";
+import AdminCategories from "./pages/AdminPages/AdminCategories";
 
 export default function App() {
   return (
@@ -61,6 +62,16 @@ export default function App() {
             <SignOutProvider>
               <AdminDashboardProvider>
                 <AdminEvents />
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/categories"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminCategories />
               </AdminDashboardProvider>
             </SignOutProvider>
           }

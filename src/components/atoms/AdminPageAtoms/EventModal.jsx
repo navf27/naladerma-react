@@ -46,7 +46,7 @@ const EventModal = ({ categories }) => {
               </div>
               <div className="h-full overflow-y-auto overflow-x-hidden">
                 {eventDetail ? (
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit} className="">
                     <div className="w-full mb-4 md:w-1/2 lg:w-1/3">
                       <label className="mb-2 text-left block text-base font-medium text-body-color">
                         Nama Event
@@ -175,7 +175,7 @@ const EventModal = ({ categories }) => {
                         name="price"
                       />
                     </div>
-                    <div className="w-full md:w-1/2 lg:w-1/3 pb-16">
+                    <div className="w-full md:w-1/2 lg:w-1/3 mb-16">
                       <label className="mb-2 block text-base font-medium text-body-color text-left">
                         Gambar Baru
                       </label>
@@ -185,7 +185,7 @@ const EventModal = ({ categories }) => {
                         className="w-full cursor-pointer rounded-md border border-stroke text-dark-6 outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-gray-2 file:py-3 file:px-5 file:text-body-color file:hover:bg-[#FFCC00] file:hover:bg-opacity-10 focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2"
                       />
                     </div>
-                    <div className="-mx-3 flex flex-wrap mt-7 fixed left-10 bottom-28 w-80 bg-[#FFFEFB] z-30 pt-3">
+                    {/* <div className="-mx-3 flex flex-wrap mt-7 fixed left-10 bottom-28 w-80 bg-[#FFFEFB] z-30 pt-3">
                       <div className="w-1/2 px-3">
                         <button
                           onClick={() => {
@@ -205,6 +205,30 @@ const EventModal = ({ categories }) => {
                         >
                           <a> Simpan </a>
                         </button>
+                      </div>
+                    </div> */}
+                    <div className="mt-6 fixed bottom-28 w-full left-0 px-10 z-20">
+                      <div className="flex bg-[#FFFEFB] pt-5">
+                        <div className="w-1/2 px-3">
+                          <button
+                            onClick={() => {
+                              setEventDetail(null);
+                              setEventIdToUpdate(null);
+                              setEventModalOpened(false);
+                            }}
+                            className="block w-full rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:border-red-600 hover:bg-red-600 hover:text-white"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                        <div className="w-1/2 px-3">
+                          <button
+                            type="submit"
+                            className="block w-full rounded-md border border-[#FFCC00] bg-[#FFCC00] p-3 text-center text-base font-medium text-dark transition hover:bg-[#FFBB00]"
+                          >
+                            <a> Simpan </a>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </form>

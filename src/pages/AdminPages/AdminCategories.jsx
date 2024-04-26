@@ -11,36 +11,34 @@ import * as yup from "yup";
 import AddEventModal from "../../components/atoms/AdminPageAtoms/AddEventModal";
 import DeleteEventConfirmationModal from "../../components/atoms/AdminPageAtoms/DeleteEventConfirmationModal";
 import toast, { Toaster } from "react-hot-toast";
-import { format, parseISO, parse } from "date-fns";
-import id from "date-fns/locale/id";
+import CategoryModal from "../../components/atoms/AdminPageAtoms/CategoryModal";
+import DeleteCategoryConfirmationModal from "../../components/atoms/AdminPageAtoms/DeleteCategoryConfirmationModal";
+import AddCategoryModal from "../../components/atoms/AdminPageAtoms/AddCategoryModal";
 
-const AdminEvents = () => {
+const AdminCategories = () => {
   const {
-    eventIndex,
     dataFetched,
     clearDataFetched,
     scrollToTop,
     setSidebarOpened,
     searchOpened,
     setSearchOpened,
-    setEventModalOpened,
-    categoriesData,
-    onEventUpdate,
-    loading,
-    setEventIdToUpdate,
-    eventDetail,
-    setEventDetail,
-    setAddEventModalOpened,
-    eventModalOpened,
-    addEventModalOpened,
-    onEventSubmission,
-    deleteEventConfirmationOpened,
-    setDeleteEventConfirmationOpened,
-    setEventToDelete,
+    categoryIndex,
+    categoryModalOpened,
+    setCategoryModalOpened,
+    setCategoryDetail,
+    setCategoryIdToUpdate,
+    onCategoryUpdate,
+    setCategoryToDelete,
+    deleteCategoryConfirmationOpened,
+    setDeleteCategoryConfirmationOpened,
+    setAddCategoryModalOpened,
+    addCategoryModalOpened,
+    onCategorySubmission,
   } = useAdminDashboardContext();
 
   useEffect(() => {
-    eventIndex();
+    categoryIndex();
     succesToastCheck();
 
     return () => {
@@ -48,33 +46,13 @@ const AdminEvents = () => {
     };
   }, []);
 
-  const succesToastCheck = () => {
-    const sessionStorageData = sessionStorage.getItem("addEventSuccess");
-
-    if (sessionStorageData) {
-      toast.success("Event ditambahkan!");
-      sessionStorage.clear();
-    }
-  };
-
   const [pageNumber, setPageNumber] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 10;
 
   const filteredData = Array.isArray(dataFetched)
-    ? dataFetched?.filter(
-        (item) =>
-          item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.category?.name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          item.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.status?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.location?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          item.price
-            ?.toString()
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
+    ? dataFetched?.filter((item) =>
+        item.name?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     : null;
 
@@ -93,98 +71,60 @@ const AdminEvents = () => {
     setPageNumber(0);
   };
 
-  const thData = [
-    "Gambar",
-    "Nama",
-    "Kategori",
-    "Deskripsi",
-    "Status",
-    "Lokasi",
-    "Waktu Dimulai (WIB)",
-    "Waktu Berakhir (WIB)",
-    "Harga",
-    "Aksi",
-  ];
+  const thData = ["Nama", "Aksi"];
 
   const TdStyle = {
     NoStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
-    ImgStyle: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 flex justify-center align-center`,
     TdStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
     TdStyle2: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 text-center text-base font-medium`,
     TdButton: `inline-block px-6 py-2.5 border rounded-md border-primary text-primary hover:bg-primary hover:text-white font-medium`,
   };
 
-  const formatDateTime = (dateTimeString) => {
-    const dateTime = parseISO(dateTimeString);
-    const formattedDateTime = format(dateTime, "EEEE, dd/MM/yyyy HH:mm", {
-      locale: id,
-    });
+  const succesToastCheck = () => {
+    const sessionStorageData = sessionStorage.getItem("addCategorySuccess");
 
-    return formattedDateTime;
+    if (sessionStorageData) {
+      toast.success("Kategori ditambahkan!");
+      sessionStorage.clear();
+    }
   };
 
   return (
     <>
       <Toaster />
+
       <AdminDashboardTemplate>
-        {eventModalOpened ? (
+        {categoryModalOpened ? (
           <>
             <FormikProvider
               initialValues={{
                 name: "",
-                category_id: "",
-                description: "",
-                status: "",
-                location: "",
-                price: "",
               }}
-              onSubmit={onEventUpdate}
+              onSubmit={onCategoryUpdate}
             >
-              <EventModal categories={categoriesData} />
+              <CategoryModal />
             </FormikProvider>
           </>
         ) : null}
 
-        {addEventModalOpened ? (
+        {addCategoryModalOpened ? (
           <>
             <FormikProvider
               initialValues={{
                 name: "",
-                category_id: "",
-                description: "",
-                status: "",
-                location: "",
-                price: "",
-                start_time: "",
-                time_ends: "",
               }}
-              onSubmit={onEventSubmission}
-              // validationSchema={yup.object().shape({
-              //   category_id: yup
-              //     .string()
-              //     .required("Kategori harus diisi.")
-              //     .min(1, "Kategori harus diisi."),
-              //   status: yup
-              //     .string()
-              //     .required("Status harus diisi.")
-              //     .min(1, "Status harus diisi."),
-              //   name: yup.string().required("Nama event harus diisi."),
-              //   description: yup
-              //     .string()
-              //     .required("Deskripsi event harus diisi."),
-              //   location: yup.string().required("Lokasi event harus diisi."),
-              //   price: yup.string().required("Harga event harus diisi."),
-              //   start_time: yup.string().required("Waktu dimulai harus diisi."),
-              //   time_ends: yup.string().required("Waktu berakhir harus diisi."),
-              // })}
+              onSubmit={onCategorySubmission}
+              validationSchema={yup.object().shape({
+                name: yup.string().max(45, "Maksimal 45 karakter."),
+              })}
             >
-              <AddEventModal categories={categoriesData} />
+              <AddCategoryModal />
             </FormikProvider>
           </>
         ) : null}
 
-        {deleteEventConfirmationOpened ? (
-          <DeleteEventConfirmationModal />
+        {deleteCategoryConfirmationOpened ? (
+          <DeleteCategoryConfirmationModal />
         ) : null}
 
         <div className="w-screen p-4">
@@ -192,10 +132,10 @@ const AdminEvents = () => {
             <div>
               <div className="border-l-[5px] border-[#FFD970] pl-4">
                 <h2 className="mb-2 text-2xl font-semibold text-dark">
-                  Events
+                  Categories
                 </h2>
                 <p className="text-sm font-medium text-body-color">
-                  Ketuk event untuk merubah.
+                  Ketuk kategori untuk edit.
                 </p>
               </div>
             </div>
@@ -203,6 +143,7 @@ const AdminEvents = () => {
               <div>
                 <input
                   id="searchInput"
+                  name="searchInput"
                   value={searchTerm}
                   onChange={handleSearchChange}
                   type="text"
@@ -213,7 +154,7 @@ const AdminEvents = () => {
                 />
               </div>
               <div>
-                <button onClick={() => setAddEventModalOpened(true)}>
+                <button onClick={() => setAddCategoryModalOpened(true)}>
                   <svg
                     viewBox="0 0 24 24"
                     fill="none"
@@ -261,176 +202,38 @@ const AdminEvents = () => {
                         <td className={TdStyle.NoStyle}>
                           <div
                             onClick={() => {
-                              setEventDetail(
+                              setCategoryDetail(
                                 currentPageData.find(
                                   (data) => data.id === item.id
                                 )
                               );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
+                              setCategoryIdToUpdate(item.id);
+                              setCategoryModalOpened(true);
                             }}
                           >
                             {pageNumber * itemsPerPage + index + 1}
                           </div>
                         </td>
-                        <td className={TdStyle.ImgStyle}>
+                        <td className={TdStyle.TdStyle2}>
                           <div
                             onClick={() => {
-                              setEventDetail(
+                              setCategoryDetail(
                                 currentPageData.find(
                                   (data) => data.id === item.id
                                 )
                               );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            {item.img_link ? (
-                              <img
-                                src={item.img_link}
-                                className="w-[300px] max-h-56 object-contain"
-                              />
-                            ) : (
-                              <img
-                                src="https://placehold.co/300x200?text=Event+Picture"
-                                alt=""
-                              />
-                            )}
-                          </div>
-                        </td>
-                        <td className={TdStyle.TdStyle}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
+                              setCategoryIdToUpdate(item.id);
+                              setCategoryModalOpened(true);
                             }}
                           >
                             {item.name}
                           </div>
                         </td>
-                        <td className={TdStyle.TdStyle2}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            {item.category?.name}
-                          </div>
-                        </td>
-                        <td className={TdStyle.TdStyle}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                            className="text-justify"
-                          >
-                            {item.description?.length <= 50
-                              ? item.description
-                              : item.description?.substring(0, 50) + "..."}{" "}
-                          </div>
-                        </td>
-                        <td className={TdStyle.TdStyle2}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            {item.status}
-                          </div>
-                        </td>
-                        <td className={TdStyle.TdStyle}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            {item.location}
-                          </div>
-                        </td>
-                        {/* waktu dimulai */}
-                        <td className={TdStyle.TdStyle2}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            {item.start_time
-                              ? formatDateTime(item?.start_time)
-                              : null}
-                          </div>
-                        </td>
-                        <td className={TdStyle.TdStyle}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            {item.start_time
-                              ? formatDateTime(item?.time_ends)
-                              : null}
-                          </div>
-                        </td>
-                        <td className={TdStyle.TdStyle2}>
-                          <div
-                            onClick={() => {
-                              setEventDetail(
-                                currentPageData.find(
-                                  (data) => data.id === item.id
-                                )
-                              );
-                              setEventIdToUpdate(item.id);
-                              setEventModalOpened(true);
-                            }}
-                          >
-                            Rp. {item.price}
-                          </div>
-                        </td>
                         <td className={TdStyle.TdStyle}>
                           <button
                             onClick={() => {
-                              setDeleteEventConfirmationOpened(true);
-                              setEventToDelete(item);
+                              setDeleteCategoryConfirmationOpened(true);
+                              setCategoryToDelete(item);
                             }}
                           >
                             <svg
@@ -522,4 +325,4 @@ const AdminEvents = () => {
   );
 };
 
-export default AdminEvents;
+export default AdminCategories;
