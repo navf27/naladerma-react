@@ -7,10 +7,10 @@ const Table = ({ th, children }) => {
   };
 
   return (
-    <section className="lg:py-[120px] relative">
+    <section className="relative lg:ms-60">
       <div className="container shadow-sm">
         <div className="flex flex-wrap -mx-4">
-          <div className="w-full ">
+          <div className="w-full">
             <div className="max-w-full overflow-x-auto rounded-md">
               <table className="w-full table-auto">
                 <thead className="text-center bg-[#FFD970]">

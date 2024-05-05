@@ -26,7 +26,7 @@ const DeleteCategoryConfirmationModal = () => {
           className={`fixed left-0 top-0 flex h-dvh min-h-screen w-dvw items-center justify-center bg-black bg-opacity-60 px-4 py-5 `} //sementara kasih pb-20
         >
           <div className="w-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px]">
-            <div className="flex flex-col h-full gap-7">
+            <div className="flex flex-col h-full gap-7 lg:-mt-2">
               <div>
                 <h3 className="pb-2 text-xl font-semibold text-dark sm:text-2xl">
                   Hapus Kategori
@@ -51,7 +51,7 @@ const DeleteCategoryConfirmationModal = () => {
                       setCategoryToDelete(null);
                       setDeleteCategoryConfirmationOpened(false);
                     }}
-                    className="block w-full rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:bg-[#FFCC00]"
+                    className="block w-full rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:bg-[#F2EFE6]"
                   >
                     Batal
                   </button>

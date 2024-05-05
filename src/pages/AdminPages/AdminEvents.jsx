@@ -187,10 +187,10 @@ const AdminEvents = () => {
           <DeleteEventConfirmationModal />
         ) : null}
 
-        <div className="w-screen p-4">
-          <section className="mb-4 flex justify-between items-end relative">
+        <div className="p-4">
+          <section className="mb-4 flex justify-between items-end relative lg:ms-60 lg:mt-16">
             <div>
-              <div className="border-l-[5px] border-[#FFD970] pl-4">
+              <div className="border-l-[5px] border-[#FFD970] pl-4 lg:w-56">
                 <h2 className="mb-2 text-2xl font-semibold text-dark">
                   Events
                 </h2>
@@ -199,19 +199,7 @@ const AdminEvents = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2 top-1 relative">
-              <div>
-                <input
-                  id="searchInput"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                  type="text"
-                  placeholder="Cari disini ..."
-                  className={`${
-                    searchOpened ? "opacity-100" : "opacity-0 invisible"
-                  } w-56 bg-white absolute top-1 right-14 z-10 rounded-md drop-shadow-lg dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
-                />
-              </div>
+            <div className="flex items-center gap-2 top-1 relative lg:w-full lg:justify-between">
               <div>
                 <button onClick={() => setAddEventModalOpened(true)}>
                   <svg
@@ -239,6 +227,20 @@ const AdminEvents = () => {
                 </button>
               </div>
               <div className="w-9 h-9">
+                <div>
+                  <input
+                    id="searchInput"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    type="text"
+                    placeholder="Cari disini ..."
+                    className={`${
+                      searchOpened
+                        ? "opacity-100"
+                        : "opacity-0 invisible lg:opacity-100 lg:visible"
+                    } w-56 bg-white absolute top-1 right-14 z-10 rounded-md drop-shadow-lg lg:drop-shadow-md dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2 lg:top-2`}
+                  />
+                </div>
                 <button
                   onClick={() => {
                     setSearchOpened(!searchOpened);
@@ -466,7 +468,7 @@ const AdminEvents = () => {
           )}
 
           {/* <Pagination /> */}
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center lg:ms-60 lg:w-auto">
             <div className="bg-white p-2 mt-4 border border-stroke w-fit rounded-md">
               <ReactPaginate
                 className="flex gap-1"

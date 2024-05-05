@@ -29,7 +29,7 @@ const CategoryModal = () => {
           className={`fixed left-0 top-0 flex h-dvh min-h-screen w-dvw items-center justify-center bg-black bg-opacity-60 px-4 py-5 pb-20`} //sementara kasih pb-20
         >
           <div className="w-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px]">
-            <div className="flex flex-col h-full justify-between">
+            <div className="flex flex-col h-full justify-between lg:-mt-3">
               <div className="">
                 <div>
                   <h3 className="pb-[18px] text-xl font-semibold text-dark sm:text-2xl">
@@ -43,14 +43,14 @@ const CategoryModal = () => {
               <div className="h-full overflow-y-auto overflow-x-hidden">
                 {categoryDetail ? (
                   <form onSubmit={handleSubmit}>
-                    <div className="w-full mb-4 md:w-1/2 lg:w-1/3">
+                    <div className="w-full mb-4 md:w-1/2 lg:w-1/3 lg:w-full">
                       <label className="mb-2 text-left block text-base font-medium text-body-color">
                         Nama Kategori
                       </label>
                       <input
                         type="text"
                         placeholder="Nama Kategori"
-                        className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
+                        className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2 lg:w-full"
                         defaultValue={categoryDetail?.name}
                         onChange={handleChange}
                         name="name"

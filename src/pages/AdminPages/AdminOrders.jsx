@@ -97,8 +97,8 @@ const AdminOrders = () => {
   return (
     <>
       <AdminDashboardTemplate>
-        <div className="w-screen p-4">
-          <section className="mb-4 flex justify-between relative">
+        <div className="p-4">
+          <section className="mb-4 flex justify-between relative lg:ms-60 lg:mt-16">
             <div>
               <div className="border-l-[5px] border-[#FFD970] pl-4">
                 <h2 className="mb-2 text-2xl font-semibold text-dark">
@@ -118,8 +118,10 @@ const AdminOrders = () => {
                   type="text"
                   placeholder="Cari disini ..."
                   className={`${
-                    searchOpened ? "opacity-100" : "opacity-0 invisible"
-                  } w-full bg-white rounded-md drop-shadow-lg dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
+                    searchOpened
+                      ? "opacity-100"
+                      : "opacity-0 invisible lg:opacity-100 lg:visible"
+                  } w-full bg-white rounded-md drop-shadow-lg lg:drop-shadow-md dark:border-dark-3 py-[10px] px-5 text-dark-6 outline-none transition-all focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
                 />
               </div>
               <button
@@ -183,7 +185,7 @@ const AdminOrders = () => {
           )}
 
           {/* <Pagination /> */}
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center lg:ms-60 lg:w-auto">
             <div className="bg-white p-2 mt-4 border border-stroke w-fit rounded-md">
               <ReactPaginate
                 className="flex gap-1"

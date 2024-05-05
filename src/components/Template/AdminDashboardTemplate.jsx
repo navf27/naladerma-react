@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import WhiteButton from "../atoms/WhiteButton";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
 import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignOutContext } from "../../context/SignOutContext";
 import Dropdown from "../atoms/AdminPageAtoms/Dropdown";
 
@@ -33,7 +33,7 @@ const AdminDashboardTemplate = ({ children }) => {
       ) : null}
       <div>
         <header className="w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-40 lg:fixed">
-          <div className="flex w-full h-full items-center justify-between lg:pe-6">
+          <div className="flex w-full h-full items-center justify-between lg:px-6">
             <div>
               <button
                 onClick={() => {
@@ -49,6 +49,12 @@ const AdminDashboardTemplate = ({ children }) => {
                 <span className="relative my-[6px] block h-[2px] w-[30px] bg-body-color"></span>
                 <span className="relative block h-[2px] w-[30px] bg-body-color"></span>
               </button>
+
+              <Link>
+                <span className="font-satisfy font-semibold text-2xl ms-3">
+                  Naladerma
+                </span>
+              </Link>
             </div>
             <Dropdown />
             {/* <nav
@@ -78,7 +84,7 @@ const AdminDashboardTemplate = ({ children }) => {
 
             <a
               href="/#"
-              className="rounded-md bg-[#FFCC00] px-7 py-3 text-base font-medium text-dark hover:bg-[#FFBB00] transition-colors duration-200"
+              className="rounded-md bg-[#FFD970] px-7 py-3 text-base font-medium text-dark hover:bg-[#FFBB00] transition-colors duration-200"
             >
               Daftar
             </a>
@@ -109,7 +115,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-dashboard"></i>`}
@@ -123,7 +129,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/categories"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-category-alt"></i>`}
@@ -137,7 +143,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/events"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-calendar-day"></i>`}
@@ -151,7 +157,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/users"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rs-user"></i>`}
@@ -165,7 +171,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/customers"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-users"></i>`}
@@ -179,7 +185,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/orders"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-shopping-bag"></i>`}
@@ -193,7 +199,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/tickets"
-                  ? "bg-[#FFFEFB] text-dark shadow-1"
+                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-ticket-alt"></i>`}
@@ -201,9 +207,9 @@ const AdminDashboardTemplate = ({ children }) => {
               Tickets
             </WhiteButton>
           </div>
-          <div>
+          <div className="lg:hidden">
             <button
-              className="w-dvw h-dvh"
+              className="w-dvw h-dvh "
               onClick={() => setSidebarOpened(false)}
             ></button>
           </div>

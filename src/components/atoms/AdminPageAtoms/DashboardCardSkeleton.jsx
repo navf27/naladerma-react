@@ -2,9 +2,9 @@ import React from "react";
 
 const DashboardCardSkeleton = () => {
   return (
-    <div className="bg-[#FFFEFB] w-full p-5 drop-shadow-md rounded-lg">
+    <div className="bg-[#FFFEFB] w-full lg:w-80 p-5 shadow-2 rounded-lg">
       <div className="animate-pulse">
-        <div className="w-7 h-7 mt-1 bg-gray-300 rounded-full"></div>
+        <div className="w-7 h-7 bg-gray-300 rounded-full"></div>
         <p className="text-dark text-2xl font-medium mt-4 bg-gray-300 w-fit rounded-full">
           <span className="invisible">12345</span>
         </p>

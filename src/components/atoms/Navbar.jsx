@@ -1,0 +1,121 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+const Navbar = ({ value }) => {
+  const [open, setOpen] = useState(false);
+  const closeToggler = () => {
+    setOpen(false);
+  };
+
+  return (
+    <header className={`flex w-full items-center bg-[#FFFCF2]`}>
+      <div className="container">
+        <div className="relative -mx-4 flex items-center justify-between">
+          <div className="w-60 max-w-full px-4">
+            <a className="block w-full py-5">
+              {/* <img
+                src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
+                alt="logo"
+                className=""
+              /> */}
+              <span className="font-satisfy text-2xl ms-2">Naladerma</span>
+            </a>
+          </div>
+          <div className="flex w-full items-center justify-between px-4">
+            <div>
+              <button
+                onClick={() => setOpen(!open)}
+                id="navbarToggler"
+                className={` ${
+                  open && "navbarTogglerActive"
+                } absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-[#FFCC00] focus:ring-2 lg:hidden`}
+              >
+                <span className="relative my-[6px] block h-[2px] w-[30px] bg-slate-600"></span>
+                <span className="relative my-[6px] block h-[2px] w-[30px] bg-slate-600"></span>
+                <span className="relative my-[6px] block h-[2px] w-[30px] bg-slate-600"></span>
+              </button>
+              <nav
+                // :className="!navbarOpen && 'hidden' "
+                id="navbarCollapse"
+                className={`absolute z-20 right-4 top-full w-full max-w-[250px] rounded-lg bg-[#FFFEFB] px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
+                  !open && "hidden"
+                } `}
+              >
+                <ul className="block lg:flex">
+                  {value?.map((value, index) => {
+                    const lowerCaseValue = value?.toLowerCase();
+
+                    return (
+                      <ListItem
+                        key={index}
+                        NavLink={lowerCaseValue}
+                        idList={lowerCaseValue}
+                        onClick={closeToggler}
+                      >
+                        {value}
+                      </ListItem>
+                    );
+                  })}
+                  <li className="flex flex-col items-center gap-2 mt-2 lg:hidden">
+                    <Link
+                      to={"/sign-in"}
+                      className="p-1 text-body-color w-full text-center text-base font-medium focus:ring-1 ring-body-color rounded"
+                    >
+                      Masuk
+                    </Link>
+                    <Link
+                      to={"/sign-up"}
+                      className="bg-[#FFCC00] w-full text-center rounded p-1 text-dark font-medium text-base"
+                    >
+                      Daftar
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+              <a
+                href="/#"
+                className="px-7 py-3 text-base font-medium text-dark hover:text-primary dark:text-white"
+              >
+                Sign in
+              </a>
+
+              <a
+                href="/#"
+                className="rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-primary/90"
+              >
+                Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Navbar;
+
+const ListItem = ({ children, NavLink, idList, onClick }) => {
+  return (
+    <>
+      <li>
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({
+              top: document.querySelector(`#${idList}`).offsetTop,
+              behavior: "smooth",
+            });
+            setTimeout(() => onClick(), 1000);
+          }}
+          href={NavLink}
+          className="flex py-2 text-base font-medium text-body-color hover:text-dark lg:ml-12 lg:inline-flex"
+        >
+          {children}
+        </a>
+      </li>
+    </>
+  );
+};

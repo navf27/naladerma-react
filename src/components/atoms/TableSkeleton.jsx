@@ -10,8 +10,10 @@ const TdStyle = {
 };
 
 const TableSkeleton = ({ th }) => {
+  const thLength = th.length;
+
   return (
-    <section className="lg:py-[120px] relative">
+    <section className="relative lg:ms-60">
       <div className="container">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full ">
@@ -35,131 +37,107 @@ const TableSkeleton = ({ th }) => {
                         <span className="invisible">abcdef</span>
                       </div>
                     </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
+                    {th?.map((data, index) => (
+                      <td
+                        className={
+                          index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
+                        }
+                      >
+                        <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
+                          <span className="invisible">abcdefghi</span>
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                   <tr>
-                    <td className={TdStyle.TdStyle}>
+                    <td className={TdStyle.NoStyle}>
                       <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
                         <span className="invisible">abcdef</span>
                       </div>
                     </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
+                    {th?.map((data, index) => (
+                      <td
+                        className={
+                          index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
+                        }
+                      >
+                        <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
+                          <span className="invisible">abcdefghi</span>
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                   <tr>
-                    <td className={TdStyle.TdStyle}>
+                    <td className={TdStyle.NoStyle}>
                       <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
                         <span className="invisible">abcdef</span>
                       </div>
                     </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
+                    {th?.map((data, index) => (
+                      <td
+                        className={
+                          index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
+                        }
+                      >
+                        <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
+                          <span className="invisible">abcdefghi</span>
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                   <tr>
-                    <td className={TdStyle.TdStyle}>
+                    <td className={TdStyle.NoStyle}>
                       <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
                         <span className="invisible">abcdef</span>
                       </div>
                     </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
+                    {th?.map((data, index) => (
+                      <td
+                        className={
+                          index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
+                        }
+                      >
+                        <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
+                          <span className="invisible">abcdefghi</span>
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                   <tr>
-                    <td className={TdStyle.TdStyle}>
+                    <td className={TdStyle.NoStyle}>
                       <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
                         <span className="invisible">abcdef</span>
                       </div>
                     </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
+                    {th?.map((data, index) => (
+                      <td
+                        className={
+                          index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
+                        }
+                      >
+                        <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
+                          <span className="invisible">abcdefghi</span>
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                   <tr>
-                    <td className={TdStyle.TdStyle}>
+                    <td className={TdStyle.NoStyle}>
                       <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
                         <span className="invisible">abcdef</span>
                       </div>
                     </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
-                    <td className={TdStyle.TdStyle2}>
-                      <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
-                        <span className="invisible">abcdefghi</span>
-                      </div>
-                    </td>
+                    {th?.map((data, index) => (
+                      <td
+                        className={
+                          index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
+                        }
+                      >
+                        <div className="bg-gray-300 animate-pulse rounded-full w-fit mx-auto">
+                          <span className="invisible">abcdefghi</span>
+                        </div>
+                      </td>
+                    ))}
                   </tr>
                 </tbody>
               </table>
