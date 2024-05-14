@@ -15,6 +15,7 @@ import AdminEvents from "./pages/AdminPages/AdminEvents";
 import AdminOrders from "./pages/AdminPages/AdminOrders";
 import AdminTickets from "./pages/AdminPages/AdminTickets";
 import AdminCategories from "./pages/AdminPages/AdminCategories";
+import EventDetail from "./pages/EventDetail";
 
 export default function App() {
   return (
@@ -25,6 +26,14 @@ export default function App() {
           element={
             <SignOutProvider>
               <Home />
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/event"
+          element={
+            <SignOutProvider>
+              <EventDetail />
             </SignOutProvider>
           }
         />

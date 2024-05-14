@@ -8,17 +8,17 @@ const Navbar = ({ value }) => {
   };
 
   return (
-    <header className={`flex w-full items-center bg-[#FFFCF2]`}>
+    <header id="navbar" className={`flex w-full items-center bg-[#FFFCF2]`}>
       <div className="container">
         <div className="relative -mx-4 flex items-center justify-between">
           <div className="w-60 max-w-full px-4">
-            <a className="block w-full py-5">
+            <a href="#" className="block py-5 w-fit">
               {/* <img
                 src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
                 alt="logo"
                 className=""
               /> */}
-              <span className="font-satisfy text-2xl ms-2">Naladerma</span>
+              <span className="font-satisfy text-2xl lg:ms-0">Naladerma</span>
             </a>
           </div>
           <div className="flex w-full items-center justify-between px-4">
@@ -59,7 +59,7 @@ const Navbar = ({ value }) => {
                   <li className="flex flex-col items-center gap-2 mt-2 lg:hidden">
                     <Link
                       to={"/sign-in"}
-                      className="p-1 text-body-color w-full text-center text-base font-medium focus:ring-1 ring-body-color rounded"
+                      className="p-1 text-dark-4 w-full text-center text-base font-medium focus:ring-1 ring-body-color rounded"
                     >
                       Masuk
                     </Link>
@@ -73,19 +73,19 @@ const Navbar = ({ value }) => {
                 </ul>
               </nav>
             </div>
-            <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+            <div className="hidden justify-end pr-16 sm:flex lg:pr-0 lg:gap-2">
               <a
                 href="/#"
-                className="px-7 py-3 text-base font-medium text-dark hover:text-primary dark:text-white"
+                className="px-7 py-3 text-base font-medium text-dark-2 hover:bg-[#F2EFE6] rounded-md transition-colors"
               >
-                Sign in
+                Masuk
               </a>
 
               <a
                 href="/#"
-                className="rounded-md bg-primary px-7 py-3 text-base font-medium text-white hover:bg-primary/90"
+                className="rounded-md bg-[#FFCC00] px-7 py-3 text-base font-medium text-dark-2 hover:bg-[#FFBB00] transition-colors"
               >
-                Sign Up
+                Daftar
               </a>
             </div>
           </div>
@@ -111,7 +111,7 @@ const ListItem = ({ children, NavLink, idList, onClick }) => {
             setTimeout(() => onClick(), 1000);
           }}
           href={NavLink}
-          className="flex py-2 text-base font-medium text-body-color hover:text-dark lg:ml-12 lg:inline-flex"
+          className="flex py-2 text-base font-medium text-dark-4 hover:text-dark lg:ml-12 lg:inline-flex transition-colors"
         >
           {children}
         </a>
