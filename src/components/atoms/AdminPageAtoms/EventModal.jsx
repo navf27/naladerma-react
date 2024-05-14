@@ -175,7 +175,7 @@ const EventModal = ({ categories }) => {
                         name="price"
                       />
                     </div>
-                    <div className="w-full mb-16">
+                    <div className="w-full mb-7">
                       <label className="mb-2 block text-base font-medium text-body-color text-left">
                         Gambar Baru
                       </label>
@@ -207,7 +207,29 @@ const EventModal = ({ categories }) => {
                         </button>
                       </div>
                     </div> */}
-                    <div className="mt-6 fixed bottom-28 w-full left-0 px-10 z-20 lg:bottom-16">
+                    <div className="flex justify-between lg:bg-[#FFFEFB] lg:w-full lg:pt-5">
+                      <div className="w-1/2 px-3">
+                        <button
+                          onClick={() => {
+                            setEventDetail(null);
+                            setEventIdToUpdate(null);
+                            setEventModalOpened(false);
+                          }}
+                          className="block w-full bg-[#FFFEFB] rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:border-red-600 hover:bg-red-600 hover:text-white"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                      <div className="w-1/2 px-3">
+                        <button
+                          type="submit"
+                          className="block w-full rounded-md border border-[#FFCC00] bg-[#FFCC00] p-3 text-center text-base font-medium text-dark transition hover:bg-[#FFBB00]"
+                        >
+                          <a> Simpan </a>
+                        </button>
+                      </div>
+                    </div>
+                    {/* <div className="mt-6 fixed bottom-28 w-full left-0 px-10 z-20 lg:bottom-16">
                       <div className="flex bg-[#FFFEFB] pt-5 lg:px-96 lg:bg-transparent">
                         <div className="boder border-red lg:flex lg:bg-[#FFFEFB] lg:w-full lg:pt-5">
                           <div className="w-1/2 px-3">
@@ -232,7 +254,7 @@ const EventModal = ({ categories }) => {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </form>
                 ) : (
                   <EventModalInputSkeleton />

@@ -74,19 +74,19 @@ const Navbar = ({ value }) => {
               </nav>
             </div>
             <div className="hidden justify-end pr-16 sm:flex lg:pr-0 lg:gap-2">
-              <a
-                href="/#"
+              <Link
+                to={"/sign-in"}
                 className="px-7 py-3 text-base font-medium text-dark-2 hover:bg-[#F2EFE6] rounded-md transition-colors"
               >
                 Masuk
-              </a>
+              </Link>
 
-              <a
-                href="/#"
+              <Link
+                to={"/sign-up"}
                 className="rounded-md bg-[#FFCC00] px-7 py-3 text-base font-medium text-dark-2 hover:bg-[#FFBB00] transition-colors"
               >
                 Daftar
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -39,7 +39,41 @@ const AddEventModal = ({ categories }) => {
         <div
           className={`fixed left-0 top-0 flex h-dvh min-h-screen w-dvw items-center justify-center bg-black bg-opacity-60 px-4 py-5 pb-20 lg:pb-5`} //sementara kasih pb-20
         >
-          <div className="w-full h-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px]">
+          <div className="w-full h-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px] relative">
+            {/* <div className="flex justify-between absolute">
+              <div>cancel</div>
+              <div>simpan</div>
+            </div> */}
+            <div className="absolute top-6 left-8">
+              <button
+                onClick={() => {
+                  setAddEventModalOpened(false);
+                }}
+                className="opacity-75"
+              >
+                {/* <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  className="w-[25px] h-[25px]"
+                >
+                  <path
+                    d="M936 120a12 12 0 1 1 12-12 12 12 0 0 1-12 12Zm0-22a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm4.706 14.706a.951.951 0 0 1-1.345 0l-3.376-3.376-3.376 3.376a.949.949 0 1 1-1.341-1.342l3.376-3.376-3.376-3.376a.949.949 0 1 1 1.341-1.342l3.376 3.376 3.376-3.376a.949.949 0 1 1 1.342 1.342l-3.376 3.376 3.376 3.376a.95.95 0 0 1 .003 1.342Z"
+                    style={{
+                      fillRule: "evenodd",
+                    }}
+                    transform="translate(-924 -96)"
+                  />
+                </svg> */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
+                  className="w-[25px] h-[25px]"
+                >
+                  <title>{"cancel2"}</title>
+                  <path d="m19.587 16.001 6.096 6.096a1.015 1.015 0 0 1 0 1.435l-2.151 2.151a1.015 1.015 0 0 1-1.435 0L16 19.587l-6.097 6.096a1.014 1.014 0 0 1-1.434 0l-2.152-2.151a1.015 1.015 0 0 1 0-1.435l6.097-6.096-6.097-6.097a1.015 1.015 0 0 1 0-1.435L8.47 6.318a1.014 1.014 0 0 1 1.434 0L16 12.415l6.097-6.097a1.015 1.015 0 0 1 1.435 0l2.151 2.152a1.015 1.015 0 0 1 0 1.435l-6.096 6.096z" />
+                </svg>
+              </button>
+            </div>
             <div className="flex flex-col h-full justify-between">
               <div className="lg:-mt-4">
                 <div>
@@ -226,7 +260,7 @@ const AddEventModal = ({ categories }) => {
                       </p>
                     ) : null}
                   </div>
-                  <div className="w-full mb-16">
+                  <div className="w-full mb-7">
                     <label className="mb-2 block text-base font-medium text-body-color text-left">
                       Gambar
                     </label>
@@ -256,28 +290,44 @@ const AddEventModal = ({ categories }) => {
                       </button>
                     </div>
                   </div> */}
-                  <div className="mt-6 fixed bottom-28 w-full left-0 px-10 z-20 lg:bottom-16">
-                    <div className="flex bg-[#FFFEFB] pt-5 lg:px-96 lg:bg-transparent">
-                      <div className="boder border-red lg:flex lg:bg-[#FFFEFB] lg:w-full lg:pt-5">
-                        <div className="w-1/2 px-3">
-                          <button
-                            onClick={() => {
-                              setAddEventModalOpened(false);
-                            }}
-                            className="block w-full bg-[#FFFEFB] rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:border-red-600 hover:bg-red-600 hover:text-white"
-                          >
-                            Cancel
-                          </button>
-                        </div>
-                        <div className="w-1/2 px-3">
-                          <button
-                            type="submit"
-                            className="block w-full rounded-md border border-[#FFCC00] bg-[#FFCC00] p-3 text-center text-base font-medium text-dark transition hover:bg-[#FFBB00]"
-                          >
-                            <a> Simpan </a>
-                          </button>
-                        </div>
-                      </div>
+
+                  {/* check submit button */}
+                  {/* <button type="submit" className="absolute top-6 right-7">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      className="w-[30px] h-[30px]"
+                    >
+                      <g stroke="#323232" strokeWidth={2}>
+                        <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m9 12 1.683 1.683v0c.175.175.459.175.634 0v0L15 10"
+                        />
+                      </g>
+                    </svg>
+                  </button> */}
+
+                  <div className="flex justify-between lg:bg-[#FFFEFB] lg:w-full lg:pt-5">
+                    <div className="w-1/2 px-3">
+                      <button
+                        onClick={() => {
+                          setAddEventModalOpened(false);
+                        }}
+                        className="block w-full bg-[#FFFEFB] rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:border-red-600 hover:bg-red-600 hover:text-white"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                    <div className="w-1/2 px-3">
+                      <button
+                        type="submit"
+                        className="block w-full rounded-md border border-[#FFCC00] bg-[#FFCC00] p-3 text-center text-base font-medium text-dark transition hover:bg-[#FFBB00]"
+                      >
+                        <a> Simpan </a>
+                      </button>
                     </div>
                   </div>
                 </form>
