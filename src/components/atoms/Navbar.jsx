@@ -18,7 +18,9 @@ const Navbar = ({ value }) => {
                 alt="logo"
                 className=""
               /> */}
-              <span className="font-satisfy text-2xl lg:ms-0">Naladerma</span>
+              <span className="font-satisfy font-semibold text-2xl ms-1 lg:ms-0">
+                Naladerma
+              </span>
             </a>
           </div>
           <div className="flex w-full items-center justify-between px-4">

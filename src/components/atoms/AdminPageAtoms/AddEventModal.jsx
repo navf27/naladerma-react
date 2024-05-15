@@ -44,7 +44,7 @@ const AddEventModal = ({ categories }) => {
               <div>cancel</div>
               <div>simpan</div>
             </div> */}
-            <div className="absolute top-6 left-8">
+            <div className="absolute top-8 left-8">
               <button
                 onClick={() => {
                   setAddEventModalOpened(false);
@@ -69,7 +69,7 @@ const AddEventModal = ({ categories }) => {
                   viewBox="0 0 32 32"
                   className="w-[25px] h-[25px]"
                 >
-                  <title>{"cancel2"}</title>
+                  <title>{"Close"}</title>
                   <path d="m19.587 16.001 6.096 6.096a1.015 1.015 0 0 1 0 1.435l-2.151 2.151a1.015 1.015 0 0 1-1.435 0L16 19.587l-6.097 6.096a1.014 1.014 0 0 1-1.434 0l-2.152-2.151a1.015 1.015 0 0 1 0-1.435l6.097-6.096-6.097-6.097a1.015 1.015 0 0 1 0-1.435L8.47 6.318a1.014 1.014 0 0 1 1.434 0L16 12.415l6.097-6.097a1.015 1.015 0 0 1 1.435 0l2.151 2.152a1.015 1.015 0 0 1 0 1.435l-6.096 6.096z" />
                 </svg>
               </button>

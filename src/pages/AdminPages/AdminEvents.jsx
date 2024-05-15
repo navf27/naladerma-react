@@ -59,7 +59,7 @@ const AdminEvents = () => {
 
   const [pageNumber, setPageNumber] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
-  const itemsPerPage = 10;
+  const itemsPerPage = 4;
 
   const filteredData = Array.isArray(dataFetched)
     ? dataFetched?.filter(

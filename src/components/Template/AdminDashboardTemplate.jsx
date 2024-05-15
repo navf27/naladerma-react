@@ -50,7 +50,7 @@ const AdminDashboardTemplate = ({ children }) => {
                 <span className="relative block h-[2px] w-[30px] bg-body-color"></span>
               </button>
 
-              <Link className="hidden lg:block">
+              <Link to={"/"} className="hidden lg:block">
                 <span className="font-satisfy font-semibold text-2xl ms-3">
                   Naladerma
                 </span>

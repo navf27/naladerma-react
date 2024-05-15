@@ -101,7 +101,7 @@ const Home = () => {
       {/* navbar */}
       <Navbar value={["Event", "Karya", "Tentang Kami"]} />
       <div className="px-5 lg:container">
-        <div className="lg:flex lg:justify-between lg:items-center lg:relative lg:z-10 lg:mt-0 lg:h-screen">
+        <div className="lg:flex lg:justify-between lg:items-center lg:relative lg:z-10 lg:mt-0 lg:py-32">
           <div className="relative z-10 mt-16 lg:mt-0">
             <h1 className="font-bold text-4xl leading-tight text-dark lg:text-5xl">
               Sanggar Seni Naladerma
@@ -163,7 +163,7 @@ const Home = () => {
           <div className="border-b-2 border-[#FFD970] w-72 lg:w-80 mx-auto drop-shadow-md mt-1"></div>
         </div>
 
-        <div className="mt-12 lg:mt-12 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
+        <div className="mt-16 lg:mt-16 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
           <div className="lg:mt-0 flex justify-center lg:justify-normal">
             <div className="bg-[#FFFEFB] max-w-[320px] rounded-lg shadow-lg lg:shadow-none lg:border-2 lg:border-slate-200">
               <div className="flex justify-center">
@@ -212,19 +212,25 @@ const Home = () => {
             </div>
             <div className="ps-10 hidden lg:block">
               <p className="text-dark-3 text-base text-justify">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
-                alias voluptatem, voluptate quasi et fugiat error earum atque
-                sit accusamus? Totam autem veritatis deserunt nam expedita nulla
-                consequatur optio rem laboriosam ducimus similique sapiente,
-                necessitatibus ut eveniet a quisquam magnam itaque hic rerum est
-                molestiae animi reprehenderit et beatae? Fugiat laboriosam atque
-                culpa eaque asperiores ea incidunt, voluptatibus sequi tempora,
-                dolorum, tempore deleniti. Dolorum ipsum quo alias, architecto
-                ullam autem a accusantium delectus, perferendis sequi dolorem
-                temporibus, in optio sapiente repellat nesciunt velit nam totam
-                facilis rem. Perspiciatis voluptatem error praesentium illum
-                facere quasi voluptas debitis. Temporibus veniam debitis
-                repudiandae.
+                Node JS merupakan runtime environtment yang bersifat open source
+                dan cross platform untuk menjalankan bahasa pemrograman
+                JavaScript. Node JS dikembangkan oleh Ryan Dahl pada 27 Mei
+                2009. Idenya berawal dari keterbatasan untuk menjalankan
+                JavaScript yang pada saat itu hanya bisa dijalankan di web
+                browser. Node JS mengusung model event-driven dan non-blocking
+                I/O sehingga cocok untuk mengembangkan aplikasi real-time
+                seperti aplikasi chatting, game online, REST API, streaming, dan
+                yang lainnya. Mau tau caranya mengembangkan aplikasi realtime
+                menggunakan Node JS? Yuk ikut workshop Dunia Coding yang akan
+                membahas Node JS dengan judul “Membuat CRUD Basic RESTful API
+                Menggunakan Node JS”. Workshop kali ini akan diisi oleh Imam
+                Mukhlis Ismail seorang Backend Developer di PT. Astra
+                International Tbk. Pada workshop ini kalian akan mempelajari
+                tentang Fundamental Node JS, Penggunaan Framework Express JS,
+                Pembuatan Table di MySQL dan Cara Mengintegrasikannya ke Express
+                JS, sampai menghasilkan output RESTful API. Penasaran gimana
+                kelanjutannya? DAFTAR SEKARANG!!! JANGAN SAMPAI LEWATKAN
+                KESEMPATAN INI!🔥🔥🔥
               </p>
             </div>
           </div>
@@ -258,7 +264,7 @@ const Home = () => {
             {renderCount.map((data, index) => (
               <div
                 key={index}
-                className="bg-[#FFFEFB] max-w-[320px] rounded-lg shadow-lg"
+                className="bg-[#FFFEFB] max-w-[320px] rounded-lg drop-shadow-md"
               >
                 <div className="flex justify-center">
                   <img
@@ -464,7 +470,7 @@ const Home = () => {
             <Link
               to={"https://www.wikipedia.org"}
               target="blank"
-              className="font-medium"
+              className="font-semibold"
             >
               Wikipedia
             </Link>
