@@ -13,6 +13,7 @@ import Footer from "../components/atoms/Footer";
 
 const Home = () => {
   const [scroolTopVisible, setScroolTopVisible] = useState(false);
+  const { loading, authCheck, logoutLoading } = useSignOutContext();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,12 +23,13 @@ const Home = () => {
 
     window.addEventListener("scroll", handleScroll);
 
+    authCheck();
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  const { loading } = useSignOutContext();
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -52,6 +54,16 @@ const Home = () => {
 
   return (
     <div>
+      {loading || logoutLoading ? (
+        <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative inline-flex">
+            <div className="w-8 h-8 bg-[#FFD970] rounded-full"></div>
+            <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-ping"></div>
+            <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-pulse"></div>
+          </div>
+        </div>
+      ) : null}
+
       <button
         onClick={(e) => {
           e.preventDefault();
@@ -88,16 +100,6 @@ const Home = () => {
         className="h-72 absolute right-0 top-16 z-0 lg:h-[600px] lg:top-24 lg:w-[400px]"
       /> */}
 
-      {loading ? (
-        <div className="border border-red-500 fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative inline-flex">
-            <div className="w-8 h-8 bg-[#FFD970] rounded-full"></div>
-            <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-ping"></div>
-            <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-pulse"></div>
-          </div>
-        </div>
-      ) : null}
-
       {/* navbar */}
       <Navbar value={["Event", "Karya", "Tentang Kami"]} />
       <div className="px-5 lg:container">
@@ -114,7 +116,7 @@ const Home = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   window.scrollTo({
-                    top: document.querySelector("#blog").offsetTop,
+                    top: document.querySelector("#blog").offsetTop - 16,
                     behavior: "smooth",
                   });
                 }}
@@ -148,7 +150,7 @@ const Home = () => {
                 <p className="font-semibold text-dark lg:text-center">
                   Bapak Joko Sriyono
                 </p>
-                <p className="text-body-color text-sm font-medium lg:text-dark-3 lg:text-center">
+                <p className="text-body-color text-sm font-medium lg:text-dark lg:text-center">
                   Pendiri sanggar seni naladerma dan pegiat wayang beber.
                 </p>
               </div>
@@ -165,7 +167,7 @@ const Home = () => {
 
         <div className="mt-16 lg:mt-16 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
           <div className="lg:mt-0 flex justify-center lg:justify-normal">
-            <div className="bg-[#FFFEFB] max-w-[320px] rounded-lg shadow-lg lg:shadow-none lg:border-2 lg:border-slate-200">
+            <div className="bg-[#FFFEFB] max-w-[320px] rounded-lg shadow-lg lg:h-fit lg:shadow-none lg:border-2 lg:border-slate-200">
               <div className="flex justify-center">
                 <img
                   src="https://placehold.co/320x320?text=Square+Event+Picture"
@@ -211,7 +213,7 @@ const Home = () => {
               </div>
             </div>
             <div className="ps-10 hidden lg:block">
-              <p className="text-dark-3 text-base text-justify">
+              <p className="text-dark-3 text-base leading-relaxed">
                 Node JS merupakan runtime environtment yang bersifat open source
                 dan cross platform untuk menjalankan bahasa pemrograman
                 JavaScript. Node JS dikembangkan oleh Ryan Dahl pada 27 Mei

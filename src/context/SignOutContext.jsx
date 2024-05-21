@@ -9,6 +9,9 @@ export const useSignOutContext = () => useContext(SignOutContext);
 
 export const SignOutProvider = ({ children }) => {
   const [logoutLoading, setLogoutLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const onSignOutClick = async () => {
@@ -27,6 +30,7 @@ export const SignOutProvider = ({ children }) => {
       Cookies.remove("_auth");
 
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     } finally {
@@ -34,8 +38,40 @@ export const SignOutProvider = ({ children }) => {
     }
   };
 
+  const authCheck = async () => {
+    setLoading(true);
+
+    try {
+      const tokenExist = Cookies.get("_auth");
+      if (tokenExist) {
+        const res = await authInstance().get("/me");
+
+        if (res.status === 200) {
+          setLoggedIn(true);
+          setUsername(res.data.data.name);
+        }
+      } else {
+        setLoggedIn(false);
+      }
+    } catch (error) {
+      console.log(error.response);
+      setLoggedIn(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <SignOutContext.Provider value={{ onSignOutClick, logoutLoading }}>
+    <SignOutContext.Provider
+      value={{
+        onSignOutClick,
+        logoutLoading,
+        authCheck,
+        loading,
+        loggedIn,
+        username,
+      }}
+    >
       {children}
     </SignOutContext.Provider>
   );

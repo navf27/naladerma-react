@@ -3,7 +3,10 @@ import React from "react";
 const Footer = () => {
   return (
     <>
-      <footer className="relative z-10 bg-[#002129] pb-10 pt-20 lg:pb-20 lg:pt-32">
+      <footer
+        id="footer"
+        className="relative z-10 bg-[#002129] pb-10 pt-20 lg:pb-20 lg:pt-32"
+      >
         <div className="container">
           <div className="-mx-4 flex flex-wrap lg:bg-white lg:bg-opacity-5 lg:p-10 lg:rounded-2xl">
             <div className="w-full px-5 lg:px-0 sm:w-2/3 lg:w-3/12">
@@ -156,7 +159,7 @@ const Footer = () => {
                 <div className="mb-6 flex items-center">
                   <a
                     href="#"
-                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border hover:bg-primary hover:text-white border-dark-3 text-white hover:border-primary sm:mr-4 lg:mr-3 xl:mr-4"
+                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border hover:bg-[#FFBB00] hover:text-white border-dark-3 text-white sm:mr-4 lg:mr-3 xl:mr-4"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +176,7 @@ const Footer = () => {
                   </a>
                   <a
                     href="#"
-                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border hover:bg-primary hover:text-white border-dark-3 text-white hover:border-primary sm:mr-4 lg:mr-3 xl:mr-4"
+                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border hover:bg-[#FFBB00] hover:text-white border-dark-3 text-white sm:mr-4 lg:mr-3 xl:mr-4"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSignOutContext } from "../../context/SignOutContext";
+import DropdownUser from "./DropdownUser";
 
 const Navbar = ({ value }) => {
   const [open, setOpen] = useState(false);
   const closeToggler = () => {
     setOpen(false);
   };
+  const { loading, loggedIn } = useSignOutContext();
 
   return (
     <header id="navbar" className={`flex w-full items-center bg-[#FFFCF2]`}>
@@ -47,6 +50,21 @@ const Navbar = ({ value }) => {
                   {value?.map((value, index) => {
                     const lowerCaseValue = value?.toLowerCase();
 
+                    if (value === "Tentang Kami") {
+                      const lowerCaseValue2 = "footer";
+
+                      return (
+                        <ListItem
+                          key={index}
+                          NavLink={lowerCaseValue}
+                          idList={lowerCaseValue2}
+                          onClick={closeToggler}
+                        >
+                          {value}
+                        </ListItem>
+                      );
+                    }
+
                     return (
                       <ListItem
                         key={index}
@@ -75,7 +93,11 @@ const Navbar = ({ value }) => {
                 </ul>
               </nav>
             </div>
-            <div className="hidden justify-end pr-16 sm:flex lg:pr-0 lg:gap-2">
+            <div
+              className={`${loading && "invisible"} ${
+                loggedIn && "invisible"
+              } hidden justify-end pr-16 sm:flex lg:pr-0 lg:gap-2`}
+            >
               <Link
                 to={"/sign-in"}
                 className="px-7 py-3 text-base font-medium text-dark-2 hover:bg-[#F2EFE6] rounded-md transition-colors"
@@ -90,6 +112,7 @@ const Navbar = ({ value }) => {
                 Daftar
               </Link>
             </div>
+            {loggedIn ? <DropdownUser /> : null}
           </div>
         </div>
       </div>
@@ -107,7 +130,7 @@ const ListItem = ({ children, NavLink, idList, onClick }) => {
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({
-              top: document.querySelector(`#${idList}`).offsetTop,
+              top: document.querySelector(`#${idList}`).offsetTop - 16,
               behavior: "smooth",
             });
             setTimeout(() => onClick(), 1000);

@@ -2,12 +2,23 @@ import React from "react";
 import Navbar from "../components/atoms/Navbar";
 import testPic from "../assets/images/testPic.png";
 import Footer from "../components/atoms/Footer";
+import { useEventDetailContext } from "../context/EventDetailContext";
+import EventDetailModal from "../components/atoms/EventDetailModal";
 
 const EventDetail = () => {
+  const {
+    modalOpened,
+    setModalOpened,
+    quantity,
+    setQuantity,
+    decreaseQuantity,
+  } = useEventDetailContext();
+
   return (
     <>
+      {modalOpened && <EventDetailModal />}
       <Navbar value={["Event", "Karya", "Tentang Kami"]} />
-      <div className="container mb-14 lg:h-screen">
+      <div className="container mb-14 lg:mb-16">
         <div className="mt-5 lg:mt-16">
           <h1 className="text-2xl font-semibold text-dark leading-relaxed lg:text-4xl">
             Mengenal Sejarah Wayang Beber Bersama Sang Maestro Joko Sriyono
@@ -96,7 +107,7 @@ const EventDetail = () => {
               <div className="flex justify-between">
                 <div className="flex gap-3">
                   <p className="font-medium">Jml</p>
-                  <div>
+                  <button onClick={() => decreaseQuantity()}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -121,16 +132,16 @@ const EventDetail = () => {
                         d="M9 12h6"
                       />
                     </svg>
-                  </div>
+                  </button>
 
                   <input
                     type="number"
                     className="w-5 text-center focus:ring-0 active:ring-0 lg:decoration-transparent"
                     max={2}
-                    defaultValue={1}
+                    value={quantity}
                   />
 
-                  <div>
+                  <button onClick={() => setQuantity(quantity + 1)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -155,22 +166,27 @@ const EventDetail = () => {
                         d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                       />
                     </svg>
-                  </div>
+                  </button>
                 </div>
 
                 <p className="font-medium">Rp. 50.000</p>
               </div>
-              <button className="mt-5 w-full bg-[#FFCC00] hover:bg-[#FFBB00] transition-colors rounded-md inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-dark disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5">
+              <button
+                onClick={() => {
+                  setModalOpened(true);
+                }}
+                className="mt-5 w-full bg-[#FFCC00] hover:bg-[#FFBB00] transition-colors rounded-md inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-dark disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5"
+              >
                 Beli Tiket
               </button>
             </div>
           </div>
           <div className="bg-[#FFFEFB] p-5 border border-slate-300 rounded-lg hidden lg:block w-1/2 lg:drop-shadow-md">
-            <h2 className="text-dark font-medium text-xl py-1">
+            <h2 className="text-dark font-semibold text-xl py-1 underline decoration-[#FFD970] decoration-wavy underline-offset-4">
               Informasi Event
             </h2>
             <div className="mt-2">
-              <p className="text-dark-3 leading-loose">
+              <p className="text-dark-2 leading-loose">
                 Node JS merupakan runtime environtment yang bersifat open source
                 dan cross platform untuk menjalankan bahasa pemrograman
                 JavaScript. Node JS dikembangkan oleh Ryan Dahl pada 27 Mei
