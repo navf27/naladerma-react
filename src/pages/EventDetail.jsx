@@ -282,7 +282,7 @@ const EventDetail = () => {
                     <span className="invisible">Rp. 50.000</span>
                   </p>
                 ) : (
-                  <p className="font-medium">Rp. 50.000</p>
+                  <p className="font-medium">{"Rp. " + eventFetched?.price}</p>
                 )}
               </div>
               <button

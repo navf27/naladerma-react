@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignOutContext } from "../../context/SignOutContext";
 import DropdownUser from "./DropdownUser";
 
@@ -8,6 +8,8 @@ const Navbar = ({ value }) => {
   const closeToggler = () => {
     setOpen(false);
   };
+  const location = useLocation();
+  const navigate = useNavigate();
   const { loading, loggedIn } = useSignOutContext();
 
   return (
@@ -47,7 +49,7 @@ const Navbar = ({ value }) => {
                 } `}
               >
                 <ul className="block lg:flex">
-                  {value?.map((value, index) => {
+                  {/* {value?.map((value, index) => {
                     const lowerCaseValue = value?.toLowerCase();
 
                     if (value === "Tentang Kami") {
@@ -56,7 +58,7 @@ const Navbar = ({ value }) => {
                       return (
                         <ListItem
                           key={index}
-                          NavLink={lowerCaseValue}
+                          // NavLink={lowerCaseValue}
                           idList={lowerCaseValue2}
                           onClick={closeToggler}
                         >
@@ -68,14 +70,74 @@ const Navbar = ({ value }) => {
                     return (
                       <ListItem
                         key={index}
-                        NavLink={lowerCaseValue}
+                        // NavLink={"/"}
                         idList={lowerCaseValue}
                         onClick={closeToggler}
                       >
                         {value}
                       </ListItem>
                     );
-                  })}
+                  })} */}
+                  <li>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+
+                        if (location.pathname !== "/") {
+                          navigate("/");
+                          return;
+                        }
+
+                        window.scrollTo({
+                          top: document.querySelector(`#event`).offsetTop - 16,
+                          behavior: "smooth",
+                        });
+                        setTimeout(() => onClick(), 1000);
+                      }}
+                      // to={NavLink}
+                      className="flex py-2 text-base font-medium text-dark-4 hover:text-dark lg:ml-12 lg:inline-flex transition-colors"
+                    >
+                      Event
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+
+                        if (location.pathname !== "/") {
+                          navigate("/");
+                          return;
+                        }
+
+                        window.scrollTo({
+                          top: document.querySelector(`#karya`).offsetTop - 16,
+                          behavior: "smooth",
+                        });
+                        setTimeout(() => onClick(), 1000);
+                      }}
+                      // to={NavLink}
+                      className="flex py-2 text-base font-medium text-dark-4 hover:text-dark lg:ml-12 lg:inline-flex transition-colors"
+                    >
+                      Karya
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.scrollTo({
+                          top: document.querySelector(`#footer`).offsetTop,
+                          behavior: "smooth",
+                        });
+                        setTimeout(() => onClick(), 1000);
+                      }}
+                      // to={NavLink}
+                      className="flex py-2 text-base font-medium text-dark-4 hover:text-dark lg:ml-12 lg:inline-flex transition-colors"
+                    >
+                      Tentang Kami
+                    </Link>
+                  </li>
                   <li className="flex flex-col items-center gap-2 mt-2 lg:hidden">
                     <Link
                       to={"/sign-in"}
@@ -132,7 +194,7 @@ const ListItem = ({ children, NavLink, idList, onClick }) => {
   return (
     <>
       <li>
-        <a
+        <Link
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({
@@ -141,11 +203,11 @@ const ListItem = ({ children, NavLink, idList, onClick }) => {
             });
             setTimeout(() => onClick(), 1000);
           }}
-          href={NavLink}
+          to={NavLink}
           className="flex py-2 text-base font-medium text-dark-4 hover:text-dark lg:ml-12 lg:inline-flex transition-colors"
         >
           {children}
-        </a>
+        </Link>
       </li>
     </>
   );

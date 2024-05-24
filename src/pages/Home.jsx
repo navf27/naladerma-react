@@ -310,7 +310,9 @@ const Home = () => {
         <div id="event" className="mt-16 flex justify-between font-medium">
           <p className="text-dark text-2xl font-semibold">Event</p>
           <div className="text-body-color flex items-center">
-            <p className="font-medium text-base text-dark-4">Lebih banyak </p>
+            <Link to={"/all-events"}>
+              <p className="font-medium text-base text-dark-4">Lebih banyak </p>
+            </Link>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

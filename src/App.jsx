@@ -45,10 +45,12 @@ export default function App() {
           }
         />
         <Route
-          path="/all-event"
+          path="/all-events"
           element={
             <SignOutProvider>
-              <AllEvent />
+              <HomeProvider>
+                <AllEvent />
+              </HomeProvider>
             </SignOutProvider>
           }
         />

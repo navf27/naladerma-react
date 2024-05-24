@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useEventDetailContext } from "../../context/EventDetailContext";
 
 const EventDetailModal = () => {
-  const { setModalOpened, quantity } = useEventDetailContext();
+  const { setModalOpened, quantity, eventFetched } = useEventDetailContext();
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -114,7 +114,7 @@ const EventDetailModal = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder={`Rp 50000`}
+                    placeholder={"Rp. " + eventFetched?.price * quantity}
                     disabled
                     className="w-full rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
                   />
