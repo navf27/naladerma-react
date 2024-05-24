@@ -8,12 +8,17 @@ import ilustration from "../assets/images/ilustration.jpg";
 import blob from "../assets/images/blob.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/atoms/Footer";
+import { useHomeContext } from "../context/HomeContext";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 const Home = () => {
   const [scroolTopVisible, setScroolTopVisible] = useState(false);
   const { loading, authCheck, logoutLoading } = useSignOutContext();
+  const { getAllEvents, loadingContext, fetchedEvents } = useHomeContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +29,8 @@ const Home = () => {
     window.addEventListener("scroll", handleScroll);
 
     authCheck();
+
+    getAllEvents();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -52,9 +59,22 @@ const Home = () => {
 
   const renderCount = [1, 2, 3, 4, 5, 6];
 
+  const latestEvent = fetchedEvents?.reduce((latest, current) => {
+    return current.id > latest.id ? current : latest;
+  }, fetchedEvents[0]);
+
+  // const formattedLatestEventDate = format(
+  //   new Date(latestEvent?.start_time),
+  //   "dd MMMM yyyy"
+  // );
+  // const formattedLatestEventTime = format(
+  //   new Date(latestEvent?.start_time),
+  //   "HH:mm"
+  // );
+
   return (
     <div>
-      {loading || logoutLoading ? (
+      {/* {loading || logoutLoading || loadingContext ? (
         <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative inline-flex">
             <div className="w-8 h-8 bg-[#FFD970] rounded-full"></div>
@@ -62,7 +82,7 @@ const Home = () => {
             <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-pulse"></div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
 
       <button
         onClick={(e) => {
@@ -167,15 +187,18 @@ const Home = () => {
 
         <div className="mt-16 lg:mt-16 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
           <div className="lg:mt-0 flex justify-center lg:justify-normal">
-            <div className="bg-[#FFFEFB] max-w-[320px] rounded-lg shadow-lg lg:h-fit lg:shadow-none lg:border-2 lg:border-slate-200">
+            <div
+              onClick={() => navigate(`/event/${latestEvent?.id}`)}
+              className="bg-[#FFFEFB] max-w-[320px] rounded-lg shadow-lg lg:h-fit lg:shadow-none lg:border-2 lg:border-slate-200"
+            >
               <div className="flex justify-center">
                 <img
-                  src="https://placehold.co/320x320?text=Square+Event+Picture"
+                  src={latestEvent?.img_link}
                   alt=""
-                  className="rounded-t-lg object-contain max-w-[320px] max-h-[320px] lg:hidden"
+                  className="rounded-t-lg object-cover w-full lg:hidden"
                 />
                 <img
-                  src={testPic}
+                  src={latestEvent && latestEvent?.img_link}
                   alt=""
                   className="rounded-t-lg object-contain max-w-[320px] max-h-[320px] hidden lg:block"
                 />
@@ -197,24 +220,68 @@ const Home = () => {
                     />
                   </svg>
                   <p className="text-md text-body-color pt-1 font-medium">
-                    03 Mei 2024
+                    {/* 03 Mei 2024 */}
+                    {latestEvent?.start_time &&
+                      format(
+                        new Date(latestEvent?.start_time),
+                        "dd MMMM yyyy",
+                        { locale: id }
+                      )}
+                  </p>
+                  <div>
+                    {latestEvent?.status === "upcoming" ? (
+                      <p className="text-xs text-white mt-[3px] bg-[#008E9F] p-1 rounded">
+                        Akan Datang
+                      </p>
+                    ) : (
+                      <p className="text-xs text-[#D13F53] mt-[3px] bg-[#FCECED] py-1 px-2 rounded">
+                        Berakhir
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-2 items-center w-fit">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    className="w-5 h-5 opacity-60"
+                  >
+                    <path
+                      stroke="#000"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 7v5h3m6 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                  <p className="text-md text-body-color pt-1 font-medium">
+                    {/* 03 Mei 2024 */}
+                    {latestEvent?.start_time &&
+                      format(new Date(latestEvent?.start_time), "HH:mm")}
+                    <span> - </span>
+                    {latestEvent?.time_ends &&
+                      format(new Date(latestEvent?.time_ends), "HH:mm") +
+                        " WIB"}
                   </p>
                 </div>
                 <div className="my-2 max-w-[300px]">
-                  <p className="text-md text-body-color">
-                    Mengenal sejarah wayang beber di Surakarta
+                  <p className="text-md text-dark-4 font-medium">
+                    {/* Mengenal sejarah wayang beber di Surakarta */}
+                    {latestEvent?.name}
                   </p>
                 </div>
                 <div>
                   <p className="text-[#3EA644] font-semibold w-fit">
-                    Rp. 25.000
+                    {/* Rp. 25.000 */}
+                    {"Rp. " + latestEvent?.price}
                   </p>
                 </div>
               </div>
             </div>
             <div className="ps-10 hidden lg:block">
               <p className="text-dark-3 text-base leading-relaxed">
-                Node JS merupakan runtime environtment yang bersifat open source
+                {/* Node JS merupakan runtime environtment yang bersifat open source
                 dan cross platform untuk menjalankan bahasa pemrograman
                 JavaScript. Node JS dikembangkan oleh Ryan Dahl pada 27 Mei
                 2009. Idenya berawal dari keterbatasan untuk menjalankan
@@ -232,7 +299,8 @@ const Home = () => {
                 Pembuatan Table di MySQL dan Cara Mengintegrasikannya ke Express
                 JS, sampai menghasilkan output RESTful API. Penasaran gimana
                 kelanjutannya? DAFTAR SEKARANG!!! JANGAN SAMPAI LEWATKAN
-                KESEMPATAN INI!🔥🔥🔥
+                KESEMPATAN INI!🔥🔥🔥 */}
+                {latestEvent && latestEvent?.description}
               </p>
             </div>
           </div>
@@ -262,58 +330,113 @@ const Home = () => {
 
         {/* carousel */}
         <div className="mt-5">
-          <Carousel responsive={responsive} showDots={true} className="pb-10">
-            {renderCount.map((data, index) => (
-              <div
-                key={index}
-                className="bg-[#FFFEFB] max-w-[320px] rounded-lg drop-shadow-md"
-              >
-                <div className="flex justify-center">
-                  <img
-                    src={testPic}
-                    alt="Event Picture"
-                    className="rounded-t-lg object-contain max-w-[320px] max-h-[300px]"
-                    draggable={false}
-                  />
-                  {/* <img
-                  src="https://placehold.co/320x200?text=Landscape+Event+Picture"
-                  alt=""
-                  className="rounded-t-lg object-contain max-w-[320px] max-h-[300px]"
-                /> */}
-                </div>
-                <div className="p-4">
-                  <div className="flex gap-2 items-center w-fit">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      className="w-5 h-5 opacity-60"
-                    >
-                      <path
-                        stroke="#000"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 9h18M7 3v2m10-2v2M6 12h4v4H6v-4Zm.2 9h11.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C21 19.48 21 18.92 21 17.8V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C19.48 5 18.92 5 17.8 5H6.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C3 6.52 3 7.08 3 8.2v9.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C4.52 21 5.08 21 6.2 21Z"
+          <Carousel
+            responsive={responsive}
+            showDots={true}
+            renderArrowsWhenDisabled={true}
+            className="pb-10"
+          >
+            {fetchedEvents &&
+              fetchedEvents?.map((data, index) => {
+                const formattedDate = format(
+                  new Date(data.start_time),
+                  "dd MMMM yyyy",
+                  { locale: id }
+                );
+                const formattedTime = format(
+                  new Date(data.start_time),
+                  "HH:mm"
+                );
+
+                return (
+                  <div
+                    key={index}
+                    className="bg-[#FFFEFB] max-w-[320px] rounded-lg drop-shadow-md"
+                    onClick={() => navigate(`/event/${data.id}`)}
+                  >
+                    <div className="flex justify-center">
+                      <img
+                        src={data.img_link}
+                        alt="Event Picture"
+                        className="rounded-t-lg object-contain max-w-[320px] h-48"
+                        draggable={false}
                       />
-                    </svg>
-                    <p className="text-md text-body-color pt-1 font-medium">
-                      03 Mei 2024
-                    </p>
+                    </div>
+                    <div className="p-4">
+                      <div className="flex gap-2 items-center w-fit">
+                        <div>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            className="w-5 h-5 opacity-60"
+                          >
+                            <path
+                              stroke="#000"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 9h18M7 3v2m10-2v2M6 12h4v4H6v-4Zm.2 9h11.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C21 19.48 21 18.92 21 17.8V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C19.48 5 18.92 5 17.8 5H6.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C3 6.52 3 7.08 3 8.2v9.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C4.52 21 5.08 21 6.2 21Z"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-md text-body-color mt-[3px] font-medium">
+                            {/* 03 Mei 2024 */}
+                            {formattedDate}
+                          </p>
+                        </div>
+                        <div>
+                          {data.status === "upcoming" ? (
+                            <p className="text-xs text-white mt-[3px] bg-[#008E9F] p-1 rounded">
+                              Akan Datang
+                            </p>
+                          ) : (
+                            <p className="text-xs text-[#D13F53] mt-[3px] bg-[#FCECED] py-1 px-2 rounded">
+                              Berakhir
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 items-center w-fit">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          className="w-5 h-5 opacity-60"
+                        >
+                          <path
+                            stroke="#000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 7v5h3m6 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                          />
+                        </svg>
+                        <p className="text-md text-body-color pt-1 font-medium">
+                          {/* 03 Mei 2024 */}
+                          {formattedTime +
+                            " - " +
+                            format(new Date(latestEvent?.time_ends), "HH:mm") +
+                            " WIB"}
+                        </p>
+                      </div>
+                      <div className="my-2">
+                        <p className="text-md text-dark-4 text-me font-medium">
+                          {/* Mengenal sejarah wayang beber di Surakarta */}
+                          {data.name}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-[#3EA644] font-semibold w-fit">
+                          {/* Rp. 25.000 */}
+                          {`Rp. ` + data.price}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="my-2">
-                    <p className="text-md text-dark-4 text-base">
-                      Mengenal sejarah wayang beber di Surakarta
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-[#3EA644] font-semibold w-fit">
-                      Rp. 25.000
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
           </Carousel>
         </div>
 

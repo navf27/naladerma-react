@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/atoms/Navbar";
 import testPic from "../assets/images/testPic.png";
 import Footer from "../components/atoms/Footer";
 import { useEventDetailContext } from "../context/EventDetailContext";
 import EventDetailModal from "../components/atoms/EventDetailModal";
+import { useParams } from "react-router-dom";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
+import { useSignOutContext } from "../context/SignOutContext";
 
 const EventDetail = () => {
   const {
@@ -12,31 +16,89 @@ const EventDetail = () => {
     quantity,
     setQuantity,
     decreaseQuantity,
+    loadingEv,
+    eventFetched,
+    getEventDetail,
   } = useEventDetailContext();
+
+  const { loading, authCheck } = useSignOutContext();
+
+  const { idE } = useParams();
+
+  useEffect(() => {
+    // first;
+    // return () => {
+    //   second;
+    // };
+    window.scrollTo(0, 0);
+
+    authCheck();
+
+    getEventDetail(idE);
+  }, []);
 
   return (
     <>
+      {/* {loadingEv || loading ? (
+        <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative inline-flex">
+            <div className="w-8 h-8 bg-[#FFD970] rounded-full"></div>
+            <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-ping"></div>
+            <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-pulse"></div>
+          </div>
+        </div>
+      ) : null} */}
+
       {modalOpened && <EventDetailModal />}
       <Navbar value={["Event", "Karya", "Tentang Kami"]} />
       <div className="container mb-14 lg:mb-16">
-        <div className="mt-5 lg:mt-16">
+        <div className="mt-5 lg:mt-10">
           <h1 className="text-2xl font-semibold text-dark leading-relaxed lg:text-4xl">
-            Mengenal Sejarah Wayang Beber Bersama Sang Maestro Joko Sriyono
+            {/* Mengenal Sejarah Wayang Beber Bersama Sang Maestro Joko Sriyono */}
+            {eventFetched?.name ? (
+              eventFetched?.name
+            ) : (
+              <span className="bg-gray-300 animate-pulse rounded-full">
+                <span className="invisible">Mengenal Sejarah</span>
+              </span>
+            )}
           </h1>
           {/* <div className="w-fit bg-[#008E9F] px-4 py-2 rounded">
             <span className="font-medium text-white">Up Coming</span>
           </div> */}
         </div>
         <div className="mt-3">
-          <div className="w-fit bg-[#008E9F] px-4 py-2 rounded">
-            <span className="font-medium text-white">Up Coming</span>
-          </div>
+          {loadingEv ? (
+            <div className="w-fit bg-gray-300 px-4 py-2 rounded-full animate-pulse">
+              <span className="font-medium text-white invisible">
+                Up Coming
+              </span>
+            </div>
+          ) : (
+            <div className="w-fit bg-[#008E9F] px-4 py-2 rounded">
+              <span className="font-medium text-white">Up Coming</span>
+            </div>
+          )}
         </div>
         <div className="lg:mt-5 lg:flex lg:flex-row lg:gap-5">
           <div className="lg:flex lg:flex-col lg:gap-5 lg:h-fit lg:w-1/2">
-            <div className="mt-5 lg:mt-0 lg:w-fit">
-              <img src={testPic} alt="" className="rounded-lg lg:w-full" />
-            </div>
+            {loadingEv ? (
+              <div className="mt-5 lg:mt-0 flex justify-center rounded-2xl lg:rounded-xl h-48 lg:h-80 bg-gray-300">
+                {/* <img
+                  src={""}
+                  alt=""
+                  className="rounded-lg w-full object-contain lg:object-cover"
+                /> */}
+              </div>
+            ) : (
+              <div className="mt-5 lg:mt-0 flex justify-center max-h-60 lg:max-h-[320px]">
+                <img
+                  src={eventFetched?.img_link}
+                  alt=""
+                  className="rounded-lg w-full object-contain lg:object-cover"
+                />
+              </div>
+            )}
 
             <div className="bg-[#FFFEFB] p-5 border border-slate-300 mt-5 lg:mt-0 rounded-lg lg:w-full lg:drop-shadow-md">
               <div className="flex flex-col gap-2">
@@ -56,8 +118,25 @@ const EventDetail = () => {
                       <path d="M18 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM18 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM13 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM13 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM8 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM8 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z" />
                     </g>
                   </svg>
-                  <p className="text-sm lg:text-base font-medium text-dark-4">
-                    27 Agustus 2023
+                  <p
+                    className={`text-sm ${
+                      loadingEv && "bg-gray-300 rounded-full"
+                    } lg:text-base font-medium text-dark-4`}
+                  >
+                    {/* 27 Agustus 2023 */}
+                    {}
+                    {loadingEv ? (
+                      <span className="invisible">fdkldsfladjffddd</span>
+                    ) : (
+                      eventFetched?.start_time &&
+                      format(
+                        new Date(eventFetched?.start_time),
+                        "dd MMMM yyyy",
+                        {
+                          locale: id,
+                        }
+                      )
+                    )}
                   </p>
                 </div>
                 <div className="flex gap-2 items-center">
@@ -79,8 +158,28 @@ const EventDetail = () => {
                       />
                     </g>
                   </svg>
-                  <p className="text-sm lg:text-base font-medium text-dark-4">
-                    09:00 - 12:00
+                  <p
+                    className={`text-sm lg:text-base font-medium text-dark-4 ${
+                      loadingEv && "bg-gray-300 rounded-full"
+                    }`}
+                  >
+                    {/* 09:00 - 12:00 */}
+                    {loadingEv ? (
+                      <span className="invisible">fdkldsfladjffddddsfa</span>
+                    ) : (
+                      <span>
+                        {eventFetched?.start_time &&
+                          format(new Date(eventFetched?.start_time), "HH:mm", {
+                            locale: id,
+                          })}{" "}
+                        <span> - </span>
+                        {eventFetched?.time_ends &&
+                          format(new Date(eventFetched?.time_ends), "HH:mm", {
+                            locale: id,
+                          })}
+                        <span> WIB</span>
+                      </span>
+                    )}
                   </p>
                 </div>
                 <div className="flex gap-2 items-center">
@@ -98,8 +197,17 @@ const EventDetail = () => {
                       <path d="M12 12.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
                     </g>
                   </svg>
-                  <p className="text-sm lg:text-base font-medium text-dark-4">
-                    Benteng Vastenburg, Surakarta.
+                  <p
+                    className={`text-sm lg:text-base font-medium text-dark-4 ${
+                      loadingEv && "bg-gray-300 rounded-full"
+                    }`}
+                  >
+                    {/* Benteng Vastenburg, Surakarta. */}
+                    {loadingEv ? (
+                      <span className="invisible">fdkldsfladjffddd</span>
+                    ) : (
+                      eventFetched?.location
+                    )}
                   </p>
                 </div>
               </div>
@@ -169,7 +277,13 @@ const EventDetail = () => {
                   </button>
                 </div>
 
-                <p className="font-medium">Rp. 50.000</p>
+                {loadingEv ? (
+                  <p className="font-medium bg-gray-300 rounded-full">
+                    <span className="invisible">Rp. 50.000</span>
+                  </p>
+                ) : (
+                  <p className="font-medium">Rp. 50.000</p>
+                )}
               </div>
               <button
                 onClick={() => {
@@ -182,12 +296,23 @@ const EventDetail = () => {
             </div>
           </div>
           <div className="bg-[#FFFEFB] p-5 border border-slate-300 rounded-lg hidden lg:block w-1/2 lg:drop-shadow-md">
-            <h2 className="text-dark font-semibold text-xl py-1 underline decoration-[#FFD970] decoration-wavy underline-offset-4">
-              Informasi Event
-            </h2>
+            {loadingEv ? (
+              <h2 className="text-dark font-semibold text-xl py-1 underline decoration-[#FFD970] decoration-wavy underline-offset-4 bg-gray-300 w-fit rounded-full">
+                <span className="invisible">Informasi Event</span>
+              </h2>
+            ) : (
+              <h2 className="text-dark font-semibold text-xl py-1 underline decoration-[#FFD970] decoration-wavy underline-offset-4">
+                Informasi Event
+              </h2>
+            )}
+
             <div className="mt-2">
-              <p className="text-dark-2 leading-loose">
-                Node JS merupakan runtime environtment yang bersifat open source
+              <p
+                className={`text-dark-2 leading-loose ${
+                  loadingEv && "bg-gray-300 rounded-xl"
+                }`}
+              >
+                {/* Node JS merupakan runtime environtment yang bersifat open source
                 dan cross platform untuk menjalankan bahasa pemrograman
                 JavaScript. Node JS dikembangkan oleh Ryan Dahl pada 27 Mei
                 2009. Idenya berawal dari keterbatasan untuk menjalankan
@@ -205,19 +330,45 @@ const EventDetail = () => {
                 Pembuatan Table di MySQL dan Cara Mengintegrasikannya ke Express
                 JS, sampai menghasilkan output RESTful API. Penasaran gimana
                 kelanjutannya? DAFTAR SEKARANG!!! JANGAN SAMPAI LEWATKAN
-                KESEMPATAN INI!🔥🔥🔥
+                KESEMPATAN INI!🔥🔥🔥 */}
+                {loadingEv ? (
+                  <span className="invisible">
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Dolorem, placeat vero. Molestias sapiente blanditiis iste
+                    iure, a nisi quaerat voluptate, corrupti assumenda porro
+                    optio consequatur aut saepe perspiciatis commodi in?Lorem
+                    ipsum dolor sit amet consectetur adipisicing elit. Optio
+                    quibusdam architecto veritatis, voluptas cupiditate
+                    nesciunt. Delectus perferendis itaque impedit omnis minus
+                    unde, cumque et voluptas molestiae neque nulla reiciendis
+                    exercitationem iusto molestias? Modi nemo consequatur"{" "}
+                  </span>
+                ) : (
+                  eventFetched?.description
+                )}
               </p>
             </div>
           </div>
         </div>
         {/* event information */}
         <div className="bg-[#FFFEFB] p-5 border border-slate-300 mt-5 rounded-lg lg:hidden">
-          <h2 className="text-dark font-medium text-xl py-1">
-            Informasi Event
-          </h2>
+          {loadingEv ? (
+            <h2 className="text-dark font-semibold text-xl py-1 underline decoration-[#FFD970] decoration-wavy underline-offset-4 bg-gray-300 w-fit rounded-full">
+              <span className="invisible">Informasi Event</span>
+            </h2>
+          ) : (
+            <h2 className="text-dark font-medium text-xl py-1 underline decoration-[#FFD970] decoration-wavy underline-offset-8">
+              Informasi Event
+            </h2>
+          )}
+
           <div className="mt-2">
-            <p className="text-dark-3 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta
+            <p
+              className={`text-dark-3 leading-relaxed ${
+                loadingEv && "bg-gray-300 rounded-xl"
+              }`}
+            >
+              {/* Lorem ipsum dolor sit amet consectetur, adipisicing elit. Soluta
               accusantium, nisi eius ad iste quam dignissimos deserunt excepturi
               a dolores animi minus nostrum. Ratione deleniti sint nostrum fuga
               obcaecati odio doloremque architecto vel eos, consequatur
@@ -228,7 +379,21 @@ const EventDetail = () => {
               rem, ad nostrum sint necessitatibus, cumque asperiores consectetur
               nihil porro? Iste accusantium, ad eum reiciendis ab ea impedit
               molestiae tenetur, itaque quaerat dignissimos quasi quam commodi
-              architecto tempora nemo.
+              architecto tempora nemo. */}
+              {loadingEv ? (
+                <span className="invisible">
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Dolorem, placeat vero. Molestias sapiente blanditiis iste
+                  iure, a nisi quaerat voluptate, corrupti assumenda porro optio
+                  consequatur aut saepe perspiciatis commodi in?Lorem ipsum
+                  dolor sit amet consectetur adipisicing elit. Neque iure facere
+                  placeat minus exercitationem dignissimos minima ipsa ipsum
+                  quis
+                  enim!"sfdnjaklsfdjlasdhfjkalshdfjlasjdfahsjdklfasddsajdfjasfdhjlasdfhjlasdhfjklasfdjkals
+                </span>
+              ) : (
+                eventFetched?.description
+              )}
             </p>
           </div>
         </div>

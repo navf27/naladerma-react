@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSignOutContext } from "../../context/SignOutContext";
+import { Link } from "react-router-dom";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
@@ -25,7 +26,7 @@ let useClickOutside = (handler) => {
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { onSignOutClick, username } = useSignOutContext();
+  const { onSignOutClick, username, loggedIn } = useSignOutContext();
 
   let domNode = useClickOutside(() => {
     setDropdownOpen(false);
@@ -41,7 +42,9 @@ const DropdownUser = () => {
   return (
     <>
       {/* <!-- ====== Dropdowns Section Start --> */}
-      <div className="lg:flex flex-wrap hidden">
+      <div
+        className={`lg:flex flex-wrap hidden ${loggedIn ? null : "lg:hidden"}`}
+      >
         {/* one */}
         <div ref={domNode}>
           <div className="text-center">
@@ -73,8 +76,12 @@ const DropdownUser = () => {
                     : "top-[110%] invisible opacity-0"
                 }`}
               >
-                <button
-                  onClick={onSignOutClick}
+                <Link
+                  to={
+                    username === "admin"
+                      ? "http://localhost:5173/adm/dashboard"
+                      : "/"
+                  }
                   className="text-body-color block px-5 py-1 text-base w-full text-left"
                 >
                   <div className="flex gap-2 items-center">
@@ -96,7 +103,7 @@ const DropdownUser = () => {
                     </svg>
                     <span className="text-sm">Dashboard</span>
                   </div>
-                </button>
+                </Link>
                 <button
                   onClick={onSignOutClick}
                   className="text-body-color block px-5 py-1 text-base w-full text-left lg:mt-2"

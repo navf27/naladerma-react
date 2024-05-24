@@ -18,6 +18,7 @@ import AdminCategories from "./pages/AdminPages/AdminCategories";
 import EventDetail from "./pages/EventDetail";
 import AllEvent from "./pages/AllEvent";
 import { EventDetailProvider } from "./context/EventDetailContext";
+import { HomeProvider } from "./context/HomeContext";
 
 export default function App() {
   return (
@@ -27,12 +28,14 @@ export default function App() {
           path="/"
           element={
             <SignOutProvider>
-              <Home />
+              <HomeProvider>
+                <Home />
+              </HomeProvider>
             </SignOutProvider>
           }
         />
         <Route
-          path="/event"
+          path="/event/:idE"
           element={
             <SignOutProvider>
               <EventDetailProvider>

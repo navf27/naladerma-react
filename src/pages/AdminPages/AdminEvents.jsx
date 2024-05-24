@@ -290,7 +290,7 @@ const AdminEvents = () => {
                             {item.img_link ? (
                               <img
                                 src={item.img_link}
-                                className="w-[300px] max-h-56 object-contain"
+                                className="w-56 max-h-56 object-contain"
                               />
                             ) : (
                               <img

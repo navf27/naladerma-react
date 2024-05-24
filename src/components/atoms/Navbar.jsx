@@ -15,7 +15,7 @@ const Navbar = ({ value }) => {
       <div className="container">
         <div className="relative -mx-4 flex items-center justify-between">
           <div className="w-60 max-w-full px-4">
-            <a href="#" className="block py-5 w-fit">
+            <a href="/" className="block py-5 w-fit">
               {/* <img
                 src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
                 alt="logo"
@@ -94,9 +94,9 @@ const Navbar = ({ value }) => {
               </nav>
             </div>
             <div
-              className={`${loading && "invisible"} ${
-                loggedIn && "invisible"
-              } hidden justify-end pr-16 sm:flex lg:pr-0 lg:gap-2`}
+              className={`${
+                loggedIn ? null : "flex"
+              } hidden justify-end pr-16 lg:pr-0 lg:gap-2`}
             >
               <Link
                 to={"/sign-in"}
@@ -112,7 +112,13 @@ const Navbar = ({ value }) => {
                 Daftar
               </Link>
             </div>
-            {loggedIn ? <DropdownUser /> : null}
+            {loading ? (
+              <p className="bg-gray-300 rounded-full hidden lg:block animate-pulse">
+                <span className="invisible">administrator</span>
+              </p>
+            ) : (
+              <DropdownUser />
+            )}
           </div>
         </div>
       </div>

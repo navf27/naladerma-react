@@ -39,6 +39,7 @@ const TableSkeleton = ({ th }) => {
                     </td>
                     {th?.map((data, index) => (
                       <td
+                        key={index}
                         className={
                           index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
                         }
@@ -57,6 +58,7 @@ const TableSkeleton = ({ th }) => {
                     </td>
                     {th?.map((data, index) => (
                       <td
+                        key={index}
                         className={
                           index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
                         }
@@ -75,6 +77,7 @@ const TableSkeleton = ({ th }) => {
                     </td>
                     {th?.map((data, index) => (
                       <td
+                        key={index}
                         className={
                           index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
                         }
@@ -93,6 +96,7 @@ const TableSkeleton = ({ th }) => {
                     </td>
                     {th?.map((data, index) => (
                       <td
+                        key={index}
                         className={
                           index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
                         }
@@ -111,6 +115,7 @@ const TableSkeleton = ({ th }) => {
                     </td>
                     {th?.map((data, index) => (
                       <td
+                        key={index}
                         className={
                           index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
                         }
@@ -129,6 +134,7 @@ const TableSkeleton = ({ th }) => {
                     </td>
                     {th?.map((data, index) => (
                       <td
+                        key={index}
                         className={
                           index % 2 === 0 ? TdStyle.TdStyle2 : TdStyle.TdStyle
                         }
