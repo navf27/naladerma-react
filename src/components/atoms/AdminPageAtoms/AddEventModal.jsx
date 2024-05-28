@@ -51,19 +51,6 @@ const AddEventModal = ({ categories }) => {
                 }}
                 className="opacity-75"
               >
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="w-[25px] h-[25px]"
-                >
-                  <path
-                    d="M936 120a12 12 0 1 1 12-12 12 12 0 0 1-12 12Zm0-22a10 10 0 1 0 10 10 10 10 0 0 0-10-10Zm4.706 14.706a.951.951 0 0 1-1.345 0l-3.376-3.376-3.376 3.376a.949.949 0 1 1-1.341-1.342l3.376-3.376-3.376-3.376a.949.949 0 1 1 1.341-1.342l3.376 3.376 3.376-3.376a.949.949 0 1 1 1.342 1.342l-3.376 3.376 3.376 3.376a.95.95 0 0 1 .003 1.342Z"
-                    style={{
-                      fillRule: "evenodd",
-                    }}
-                    transform="translate(-924 -96)"
-                  />
-                </svg> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 32 32"
@@ -168,11 +155,11 @@ const AddEventModal = ({ categories }) => {
                         name="status"
                         defaultValue={""}
                       >
-                        <option value={""} disabled>
+                        {/* <option value={""} disabled>
                           -- Pilih Status --
-                        </option>
-                        <option value="ongoing">On Going</option>
+                        </option> */}
                         <option value="upcoming">Up Coming</option>
+                        <option value="ongoing">On Going</option>
                         <option value="finished">Finished</option>
                       </select>
                       <span className="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"></span>

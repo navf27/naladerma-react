@@ -8,22 +8,73 @@ import { useParams } from "react-router-dom";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useSignOutContext } from "../context/SignOutContext";
+import { FormikProvider } from "../context/FormikContext";
+import SnapModal from "../components/atoms/SnapModal";
+import { Toaster } from "react-hot-toast";
 
 const EventDetail = () => {
   const {
     modalOpened,
     setModalOpened,
-    quantity,
-    setQuantity,
+    quantityBuy,
+    setQuantityBuy,
     decreaseQuantity,
     loadingEv,
     eventFetched,
     getEventDetail,
+    userInfo,
+    getUserInfo,
+    onPayNowSubmit,
+    buyButtonClicked,
+    setBuyButtonClicked,
+    snapOpened,
   } = useEventDetailContext();
 
-  const { loading, authCheck } = useSignOutContext();
+  const { logoutLoading, authCheck } = useSignOutContext();
 
   const { idE } = useParams();
+
+  const formikRender = (quantityValue) => {
+    return userInfo ? (
+      <FormikProvider
+        initialValues={{
+          name: userInfo?.name,
+          email: userInfo?.email,
+          phone: userInfo?.phone,
+          quantity: quantityValue,
+        }}
+        onSubmit={onPayNowSubmit}
+        // validationSchema={yup.object().shape({
+        //   // email: yup
+        //   //   .string()
+        //   //   .required("Email harus diisi.")
+        //   //   .email("Pastikan format email anda benar."),
+        //   // password: yup.string().required("Password harus diisi."),
+        // })}
+      >
+        {modalOpened && <EventDetailModal userInfo={userInfo} />}
+      </FormikProvider>
+    ) : (
+      <FormikProvider
+        initialValues={{
+          name: "",
+          email: "",
+          phone: "",
+          quantity: quantityValue,
+        }}
+        onSubmit={onPayNowSubmit}
+        // validationSchema={yup.object().shape({
+        //   // email: yup
+        //   //   .string()
+        //   //   .required("Email harus diisi.")
+        //   //   .email("Pastikan format email anda benar."),
+        //   // password: yup.string().required("Password harus diisi."),
+        // })}
+      >
+        {modalOpened && <EventDetailModal userInfo={userInfo} />}
+      </FormikProvider>
+    );
+  };
 
   useEffect(() => {
     // first;
@@ -31,15 +82,37 @@ const EventDetail = () => {
     //   second;
     // };
     window.scrollTo(0, 0);
+    getUserInfo();
 
     authCheck();
 
     getEventDetail(idE);
   }, []);
 
+  useEffect(() => {
+    // You can also change below url value to any script url you wish to load,
+    // for example this is snap.js for Sandbox Env (Note: remove `.sandbox` from url if you want to use production version)
+    const midtransScriptUrl = "https://app.sandbox.midtrans.com/snap/snap.js";
+
+    let scriptTag = document.createElement("script");
+    scriptTag.src = midtransScriptUrl;
+
+    // Optional: set script attribute, for example snap.js have data-client-key attribute
+    // (change the value according to your client-key)
+    const myMidtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
+    scriptTag.setAttribute("data-client-key", myMidtransClientKey);
+
+    document.body.appendChild(scriptTag);
+
+    return () => {
+      document.body.removeChild(scriptTag);
+    };
+  }, []);
+
   return (
     <>
-      {/* {loadingEv || loading ? (
+      <Toaster />
+      {logoutLoading ? (
         <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative inline-flex">
             <div className="w-8 h-8 bg-[#FFD970] rounded-full"></div>
@@ -47,9 +120,10 @@ const EventDetail = () => {
             <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-pulse"></div>
           </div>
         </div>
-      ) : null} */}
+      ) : null}
 
-      {modalOpened && <EventDetailModal />}
+      {buyButtonClicked && formikRender(quantityBuy)}
+
       <Navbar value={["Event", "Karya", "Tentang Kami"]} />
       <div className="container mb-14 lg:mb-16">
         <div className="mt-5 lg:mt-10">
@@ -245,11 +319,13 @@ const EventDetail = () => {
                   <input
                     type="number"
                     className="w-5 text-center focus:ring-0 active:ring-0 lg:decoration-transparent"
-                    max={2}
-                    value={quantity}
+                    maxLength={2}
+                    // defaultValue={1}
+                    value={quantityBuy}
+                    onChange={(e) => setQuantityBuy(e.target.value)}
                   />
 
-                  <button onClick={() => setQuantity(quantity + 1)}>
+                  <button onClick={() => setQuantityBuy(quantityBuy + 1)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -282,14 +358,27 @@ const EventDetail = () => {
                     <span className="invisible">Rp. 50.000</span>
                   </p>
                 ) : (
-                  <p className="font-medium">{"Rp. " + eventFetched?.price}</p>
+                  <p className="font-medium">
+                    {"Rp. " + eventFetched?.price * quantityBuy}
+                  </p>
                 )}
               </div>
+              <p
+                className={`${
+                  quantityBuy < 1 ? "block" : "hidden"
+                } text-sm mt-2 text-[#D13F53]`}
+              >
+                Minimum pembelian 1 tiket.
+              </p>
               <button
                 onClick={() => {
+                  setBuyButtonClicked(true);
                   setModalOpened(true);
                 }}
-                className="mt-5 w-full bg-[#FFCC00] hover:bg-[#FFBB00] transition-colors rounded-md inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-dark disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5"
+                disabled={quantityBuy < 1 ? true : false}
+                className={`mt-5 ${
+                  quantityBuy < 1 ? "mt-1" : null
+                } w-full bg-[#FFCC00] hover:bg-[#FFBB00] transition-colors rounded-md inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-dark disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5`}
               >
                 Beli Tiket
               </button>

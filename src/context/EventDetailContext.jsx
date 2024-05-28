@@ -1,20 +1,33 @@
 import { createContext, useContext, useState } from "react";
-import { axiosPublicInstance } from "../utils/axiosFetcher";
+import { authInstance, axiosPublicInstance } from "../utils/axiosFetcher";
+import Cookies from "js-cookie";
+import { useSignOutContext } from "./SignOutContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const EventDetailContext = createContext();
 export const useEventDetailContext = () => useContext(EventDetailContext);
 
 export const EventDetailProvider = ({ children }) => {
   const [modalOpened, setModalOpened] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const [quantityBuy, setQuantityBuy] = useState(1);
   const [loadingEv, setLoadingEv] = useState(false);
+  const [loadingUserInfo, setLoadingUserInfo] = useState(false);
   const [eventFetched, setEventFetched] = useState([]);
+  const [userInfo, setUserInfo] = useState();
+  const [buyButtonClicked, setBuyButtonClicked] = useState(false);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
+  const [snapOpened, setSnapOpened] = useState(false);
+  const [snapToken, setSnapToken] = useState();
+  const { loggedIn } = useSignOutContext();
+
+  const navigate = useNavigate();
 
   const decreaseQuantity = () => {
-    if (quantity === 1) {
+    if (quantityBuy === 1) {
       return;
     } else {
-      setQuantity(quantity - 1);
+      setQuantityBuy(quantityBuy - 1);
     }
   };
 
@@ -32,17 +45,90 @@ export const EventDetailProvider = ({ children }) => {
     }
   };
 
+  const getUserInfo = async () => {
+    try {
+      setLoadingUserInfo(true);
+
+      const auth = Cookies.get("_auth");
+
+      if (auth) {
+        const res = await authInstance().get("/me");
+
+        if (res.status === 401) {
+          return;
+        }
+
+        setUserInfo(res.data.data);
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setLoadingUserInfo(false);
+    }
+  };
+
+  const onPayNowSubmit = async (values, action) => {
+    setLoadingCheckout(true);
+    setQuantityBuy(1);
+
+    try {
+      console.log(values);
+      if (loggedIn) {
+        const res = await authInstance().post(
+          `/checkout-user/${eventFetched?.id}`,
+          values
+        );
+        console.log(res.data);
+      } else {
+        const res = await axiosPublicInstance().post(
+          `/checkout-customer/${eventFetched?.id}`,
+          values
+        );
+
+        console.log(res.data);
+
+        setModalOpened(false);
+
+        window.snap.pay(res.data.data.snapToken, {
+          onClose: function () {
+            toast.error("Transaksi Dibatalkan.");
+          },
+          onSuccess: function (result) {
+            toast.success("Pembayaran Berhasil.");
+            console.log(result);
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setLoadingCheckout(false);
+      action.resetForm();
+    }
+  };
+
   return (
     <EventDetailContext.Provider
       value={{
         modalOpened,
         setModalOpened,
-        quantity,
-        setQuantity,
+        quantityBuy,
+        setQuantityBuy,
         decreaseQuantity,
         getEventDetail,
         eventFetched,
         loadingEv,
+        getUserInfo,
+        userInfo,
+        loadingUserInfo,
+        onPayNowSubmit,
+        buyButtonClicked,
+        setBuyButtonClicked,
+        loadingCheckout,
+        snapOpened,
+        setSnapOpened,
       }}
     >
       {children}

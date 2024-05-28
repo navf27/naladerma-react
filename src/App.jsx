@@ -19,6 +19,7 @@ import EventDetail from "./pages/EventDetail";
 import AllEvent from "./pages/AllEvent";
 import { EventDetailProvider } from "./context/EventDetailContext";
 import { HomeProvider } from "./context/HomeContext";
+import Payment from "./pages/Payment";
 
 export default function App() {
   return (
@@ -40,6 +41,16 @@ export default function App() {
             <SignOutProvider>
               <EventDetailProvider>
                 <EventDetail />
+              </EventDetailProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/payment/:id"
+          element={
+            <SignOutProvider>
+              <EventDetailProvider>
+                <Payment />
               </EventDetailProvider>
             </SignOutProvider>
           }

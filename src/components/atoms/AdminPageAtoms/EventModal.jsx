@@ -31,8 +31,27 @@ const EventModal = ({ categories }) => {
         >
           <div
             // onFocus={() => setEventModalOpened(false)}
-            className="w-full h-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px]"
+            className="w-full h-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px] relative"
           >
+            <div className="absolute top-7 left-7 lg:top-8 lg:left-8">
+              <button
+                onClick={() => {
+                  setEventDetail(null);
+                  setEventIdToUpdate(null);
+                  setEventModalOpened(false);
+                }}
+                className="opacity-75"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 32 32"
+                  className="w-[25px] h-[25px]"
+                >
+                  <title>{"Close"}</title>
+                  <path d="m19.587 16.001 6.096 6.096a1.015 1.015 0 0 1 0 1.435l-2.151 2.151a1.015 1.015 0 0 1-1.435 0L16 19.587l-6.097 6.096a1.014 1.014 0 0 1-1.434 0l-2.152-2.151a1.015 1.015 0 0 1 0-1.435l6.097-6.096-6.097-6.097a1.015 1.015 0 0 1 0-1.435L8.47 6.318a1.014 1.014 0 0 1 1.434 0L16 12.415l6.097-6.097a1.015 1.015 0 0 1 1.435 0l2.151 2.152a1.015 1.015 0 0 1 0 1.435l-6.096 6.096z" />
+                </svg>
+              </button>
+            </div>
             <div className="flex flex-col h-full justify-between">
               <div className="lg:-mt-4">
                 <div>

@@ -43,7 +43,7 @@ const CategoryModal = () => {
               <div className="h-full overflow-y-auto overflow-x-hidden">
                 {categoryDetail ? (
                   <form onSubmit={handleSubmit}>
-                    <div className="w-full mb-4 md:w-1/2 lg:w-1/3 lg:w-full">
+                    <div className="w-full mb-4 md:w-1/2 lg:w-full">
                       <label className="mb-2 text-left block text-base font-medium text-body-color">
                         Nama Kategori
                       </label>
