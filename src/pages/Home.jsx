@@ -30,7 +30,7 @@ const Home = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    authCheck();
+    // authCheck();
 
     getAllEvents();
 
@@ -65,14 +65,14 @@ const Home = () => {
     return current.id > latest.id ? current : latest;
   }, fetchedEvents[0]);
 
-  // const formattedLatestEventDate = format(
-  //   new Date(latestEvent?.start_time),
-  //   "dd MMMM yyyy"
-  // );
-  // const formattedLatestEventTime = format(
-  //   new Date(latestEvent?.start_time),
-  //   "HH:mm"
-  // );
+  const formatRupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(number);
+  };
 
   return (
     <div>
@@ -318,7 +318,7 @@ const Home = () => {
                   )}
                 </div>
                 <div className="my-2 max-w-[300px]">
-                  <p className="text-md text-dark-4 font-medium">
+                  <p className="text-lg text-dark-4 font-medium">
                     {/* Mengenal sejarah wayang beber di Surakarta */}
                     {latestEvent?.name}
                   </p>
@@ -326,7 +326,8 @@ const Home = () => {
                 <div>
                   <p className="text-[#3EA644] font-semibold w-fit">
                     {/* Rp. 25.000 */}
-                    {"Rp. " + latestEvent?.price}
+                    {latestEvent?.price &&
+                      formatRupiah(Number(latestEvent?.price))}
                   </p>
                 </div>
               </div>
@@ -405,7 +406,7 @@ const Home = () => {
                 );
 
                 return (
-                  <Link key={index} to={`/event/${data.id}`}>
+                  <Link key={index} to={`/event/${data.id}`} draggable={false}>
                     <div
                       className="bg-[#FFFEFB] max-w-[320px] rounded-lg drop-shadow-md"
                       // onClick={() => navigate(`/event/${data.id}`)}
@@ -501,7 +502,7 @@ const Home = () => {
                           </p>
                         </div>
                         <div className="my-2">
-                          <p className="text-md text-dark-4 text-me font-medium">
+                          <p className="text-lg text-dark-4 text-me font-medium">
                             {/* Mengenal sejarah wayang beber di Surakarta */}
                             {/* {data.name} */}
                             {data.name?.length <= 25
@@ -512,7 +513,7 @@ const Home = () => {
                         <div>
                           <p className="text-[#3EA644] font-semibold w-fit">
                             {/* Rp. 25.000 */}
-                            {`Rp. ` + data.price}
+                            {data?.price && formatRupiah(Number(data?.price))}
                           </p>
                         </div>
                       </div>

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { authInstance } from "../utils/axiosFetcher";
+import toast from "react-hot-toast";
 
 const SignOutContext = createContext();
 
@@ -9,9 +10,15 @@ export const useSignOutContext = () => useContext(SignOutContext);
 
 export const SignOutProvider = ({ children }) => {
   const [logoutLoading, setLogoutLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [username, setUsername] = useState("");
+  const [totalPending, setTotalPending] = useState();
+  const [fetchedPending, setFetchedPending] = useState([]);
+  const [trsDelLoading, setTrsDelLoading] = useState(false);
+  const [delConfirmOpened, setDelConfirmOpened] = useState(false);
+  const [trsToDelete, setTrsToDelete] = useState("");
+
   const navigate = useNavigate();
 
   const onSignOutClick = async () => {
@@ -61,6 +68,48 @@ export const SignOutProvider = ({ children }) => {
     }
   };
 
+  const paymentPendingCheck = async () => {
+    setLoading(true);
+
+    try {
+      if (loggedIn) {
+        const res = await authInstance().get("/user-pdg-payments");
+
+        setTotalPending(res.data.data.length);
+        setFetchedPending(res.data.data);
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onTransactionDelete = async (transId) => {
+    setTrsDelLoading(true);
+    try {
+      const res = await authInstance().delete(`/del-transaction/${transId}`);
+
+      console.log(res.data);
+
+      const dataAfterDelete = fetchedPending.filter(
+        (item) => item.id !== transId
+      );
+
+      setFetchedPending(dataAfterDelete);
+      setTotalPending(dataAfterDelete.length);
+      setTrsToDelete(null);
+      setDelConfirmOpened(false);
+    } catch (error) {
+      console.log(error.response);
+    } finally {
+      setTrsDelLoading(false);
+      toast.success("Transaksi Dihapus.");
+    }
+  };
+
   return (
     <SignOutContext.Provider
       value={{
@@ -70,6 +119,15 @@ export const SignOutProvider = ({ children }) => {
         loading,
         loggedIn,
         username,
+        paymentPendingCheck,
+        totalPending,
+        fetchedPending,
+        onTransactionDelete,
+        trsDelLoading,
+        delConfirmOpened,
+        setDelConfirmOpened,
+        trsToDelete,
+        setTrsToDelete,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSignOutContext } from "../../context/SignOutContext";
 import DropdownUser from "./DropdownUser";
@@ -10,7 +10,19 @@ const Navbar = ({ value }) => {
   };
   const location = useLocation();
   const navigate = useNavigate();
-  const { loading, loggedIn, onSignOutClick } = useSignOutContext();
+  const {
+    authCheck,
+    loading,
+    loggedIn,
+    totalPending,
+    onSignOutClick,
+    paymentPendingCheck,
+  } = useSignOutContext();
+
+  useEffect(() => {
+    authCheck();
+    paymentPendingCheck();
+  }, []);
 
   return (
     <header id="navbar" className={`flex w-full items-center bg-[#FFFCF2]`}>
@@ -33,13 +45,31 @@ const Navbar = ({ value }) => {
               <button
                 onClick={() => setOpen(!open)}
                 id="navbarToggler"
+                disabled={loading ? true : false}
                 className={` ${
                   open && "navbarTogglerActive"
                 } absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-[#FFCC00] focus:ring-2 lg:hidden`}
               >
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-slate-600"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-slate-600"></span>
-                <span className="relative my-[6px] block h-[2px] w-[30px] bg-slate-600"></span>
+                <span
+                  className={`relative my-[6px] block h-[2px] w-[30px] bg-slate-600 ${
+                    loading ? "animate-pulse" : null
+                  }`}
+                ></span>
+                <span
+                  className={`relative my-[6px] block h-[2px] w-[30px] bg-slate-600 ${
+                    loading ? "animate-pulse" : null
+                  }`}
+                ></span>
+                <span
+                  className={`relative my-[6px] block h-[2px] w-[30px] bg-slate-600 ${
+                    loading ? "animate-pulse" : null
+                  }`}
+                ></span>
+                {totalPending > 0 && (
+                  <span className="absolute top-0 right-0 bg-[#D13F53] px-2 py-1 rounded-full text-xs text-white drop-shadow-md">
+                    {totalPending}
+                  </span>
+                )}
               </button>
               <nav
                 // :className="!navbarOpen && 'hidden' "
@@ -49,35 +79,6 @@ const Navbar = ({ value }) => {
                 } `}
               >
                 <ul className="block lg:flex">
-                  {/* {value?.map((value, index) => {
-                    const lowerCaseValue = value?.toLowerCase();
-
-                    if (value === "Tentang Kami") {
-                      const lowerCaseValue2 = "footer";
-
-                      return (
-                        <ListItem
-                          key={index}
-                          // NavLink={lowerCaseValue}
-                          idList={lowerCaseValue2}
-                          onClick={closeToggler}
-                        >
-                          {value}
-                        </ListItem>
-                      );
-                    }
-
-                    return (
-                      <ListItem
-                        key={index}
-                        // NavLink={"/"}
-                        idList={lowerCaseValue}
-                        onClick={closeToggler}
-                      >
-                        {value}
-                      </ListItem>
-                    );
-                  })} */}
                   <li>
                     <Link
                       onClick={(e) => {
@@ -138,6 +139,30 @@ const Navbar = ({ value }) => {
                       Tentang Kami
                     </Link>
                   </li>
+                  {totalPending > 0 && (
+                    <li className="flex items-center gap-2">
+                      <Link
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate("/pending-transaction");
+
+                          // window.scrollTo({
+                          //   top: document.querySelector(`#footer`).offsetTop,
+                          //   behavior: "smooth",
+                          // });
+                          // setTimeout(() => onClick(), 1000);
+                        }}
+                        // to={NavLink}
+                        className="flex py-2 text-base font-medium text-dark-4 hover:text-dark lg:ml-12 lg:inline-flex transition-colors"
+                      >
+                        Transaksi Tertunda
+                      </Link>
+                      <div className="bg-[#D13F53] h-fit inline-block px-2 py-1 rounded-full text-xs text-white">
+                        {totalPending > 0 && totalPending}
+                      </div>
+                    </li>
+                  )}
+
                   <li
                     className={`flex flex-col items-center gap-2 mt-2 lg:hidden ${
                       loggedIn && "hidden"
@@ -190,8 +215,8 @@ const Navbar = ({ value }) => {
               </nav>
             </div>
             <div
-              className={`${loggedIn ? null : "lg:flex"} ${
-                loading && "invisible"
+              className={`${loading ? "invisible" : null} ${
+                loggedIn ? null : "lg:flex"
               } hidden justify-end pr-16 lg:pr-0 lg:gap-2`}
             >
               <Link

@@ -20,6 +20,8 @@ import AllEvent from "./pages/AllEvent";
 import { EventDetailProvider } from "./context/EventDetailContext";
 import { HomeProvider } from "./context/HomeContext";
 import Payment from "./pages/Payment";
+import TransactionPending from "./pages/TransactionPending";
+import { TransactionPendingProvider } from "./context/TransactionPendingContext";
 
 export default function App() {
   return (
@@ -62,6 +64,16 @@ export default function App() {
               <HomeProvider>
                 <AllEvent />
               </HomeProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/pending-transaction"
+          element={
+            <SignOutProvider>
+              <TransactionPendingProvider>
+                <TransactionPending />
+              </TransactionPendingProvider>
             </SignOutProvider>
           }
         />

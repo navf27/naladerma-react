@@ -81,6 +81,19 @@ export const EventDetailProvider = ({ children }) => {
           values
         );
         console.log(res.data);
+
+        setModalOpened(false);
+
+        window.snap.pay(res.data.data.snapToken, {
+          onClose: function () {
+            // toast.error("Transaksi Ditunda.");
+            window.location.reload();
+          },
+          onSuccess: function (result) {
+            toast.success("Pembayaran Berhasil.");
+            console.log(result);
+          },
+        });
       } else {
         const res = await axiosPublicInstance().post(
           `/checkout-customer/${eventFetched?.id}`,
@@ -93,7 +106,8 @@ export const EventDetailProvider = ({ children }) => {
 
         window.snap.pay(res.data.data.snapToken, {
           onClose: function () {
-            toast.error("Transaksi Dibatalkan.");
+            // toast.error("Transaksi Dibatalkan.");
+            window.location.reload();
           },
           onSuccess: function (result) {
             toast.success("Pembayaran Berhasil.");
