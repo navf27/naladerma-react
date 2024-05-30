@@ -14,7 +14,7 @@ const TableSkeleton = ({ th }) => {
 
   return (
     <section className="relative lg:ms-60">
-      <div className="container">
+      <div className="px-4">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full ">
             <div className="max-w-full overflow-hidden rounded-md">

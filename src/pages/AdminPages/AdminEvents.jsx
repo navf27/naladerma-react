@@ -93,6 +93,15 @@ const AdminEvents = () => {
     setPageNumber(0);
   };
 
+  const formatRupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(number);
+  };
+
   const thData = [
     "Gambar",
     "Nama",
@@ -108,7 +117,7 @@ const AdminEvents = () => {
 
   const TdStyle = {
     NoStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
-    ImgStyle: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 flex justify-center align-center`,
+    ImgStyle: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-8 px-2 flex justify-center align-center`,
     TdStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
     TdStyle2: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 text-center text-base font-medium`,
     TdButton: `inline-block px-6 py-2.5 border rounded-md border-primary text-primary hover:bg-primary hover:text-white font-medium`,
@@ -425,7 +434,8 @@ const AdminEvents = () => {
                               setEventModalOpened(true);
                             }}
                           >
-                            Rp. {item.price}
+                            {/* Rp. {item.price} */}
+                            {item?.price && formatRupiah(Number(item?.price))}
                           </div>
                         </td>
                         <td className={TdStyle.TdStyle}>

@@ -85,7 +85,7 @@ const Navbar = ({ value }) => {
                         e.preventDefault();
 
                         if (location.pathname !== "/") {
-                          navigate("/");
+                          navigate("/all-events");
                           return;
                         }
 
@@ -140,7 +140,7 @@ const Navbar = ({ value }) => {
                     </Link>
                   </li>
                   {totalPending > 0 && (
-                    <li className="flex items-center gap-2">
+                    <li className="flex items-center gap-2 lg:hidden">
                       <Link
                         onClick={(e) => {
                           e.preventDefault();

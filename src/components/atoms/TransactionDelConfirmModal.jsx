@@ -80,7 +80,7 @@ const TransactionDelConfirmModal = ({ eventName }) => {
                     setTrsToDelete(null);
                     setDelConfirmOpened(false);
                   }}
-                  className="block w-full rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:border-red-600 hover:bg-red-600 hover:text-white"
+                  className="block w-full rounded-md border border-stroke p-3 text-center text-base font-medium text-dark transition hover:bg-[#F2EFE6] hover:text-dark"
                 >
                   Batal
                 </button>

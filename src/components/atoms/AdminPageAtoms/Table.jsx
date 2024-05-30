@@ -8,7 +8,7 @@ const Table = ({ th, children }) => {
 
   return (
     <section className="relative lg:ms-60">
-      <div className="container shadow-sm">
+      <div className="shadow-sm px-4">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full">
             <div className="max-w-full overflow-x-auto rounded-md">
