@@ -335,7 +335,7 @@ export const AdminDashboardProvider = ({ children }) => {
 
       toast.success("Event dihapus!", {});
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 

@@ -27,11 +27,18 @@ let useClickOutside = (handler) => {
 const Dropdown = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { setSidebarOpened, setSearchOpened } = useAdminDashboardContext();
-  const { onSignOutClick } = useSignOutContext();
+  const { onSignOutClick, username, loading } = useSignOutContext();
 
   let domNode = useClickOutside(() => {
     setDropdownOpen(false);
   });
+
+  const getFirstTwoWords = (name) => {
+    const words = name.split(" ");
+    return words.slice(0, 2).join(" ");
+  };
+
+  const firstTwoWords = getFirstTwoWords(username);
 
   return (
     <>
@@ -49,7 +56,20 @@ const Dropdown = () => {
                 }}
                 className={`flex items-center me-4 text-base font-medium text-body-color`}
               >
-                Administrator
+                {loading ? (
+                  <p className="bg-gray-300 rounded-full hidden lg:block animate-pulse">
+                    <span className="invisible">administrator</span>
+                  </p>
+                ) : username ? (
+                  username ? (
+                    `${firstTwoWords}`
+                  ) : (
+                    "Administrator"
+                  )
+                ) : (
+                  "Administrator"
+                )}
+
                 <span className="pl-4">
                   <svg
                     width={20}

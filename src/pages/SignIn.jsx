@@ -14,7 +14,7 @@ const SignIn = () => {
       <div className="lg:bg-[#FFD970] lg:w-72 lg:h-screen lg:absolute lg:right-0 rounded-s-xl"></div>
       <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 p-7 py-9 lg:absolute lg:w-[900px] lg:h-[500px] lg:flex lg:flex-row-reverse lg:items-center lg:justify-between lg:p-0">
         {loading ? (
-          <div className="border border-red-500 fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+          <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
             <div className="relative inline-flex">
               <div className="w-8 h-8 bg-[#FFD970] rounded-full"></div>
               <div className="w-8 h-8 bg-[#FFD970] rounded-full absolute top-0 left-0 animate-ping"></div>

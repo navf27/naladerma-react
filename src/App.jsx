@@ -22,6 +22,8 @@ import { HomeProvider } from "./context/HomeContext";
 import Payment from "./pages/Payment";
 import TransactionPending from "./pages/TransactionPending";
 import { TransactionPendingProvider } from "./context/TransactionPendingContext";
+import UserDashboard from "./pages/UserDashboard";
+import { UserDashboardProvider } from "./context/UserDashboardContext";
 
 export default function App() {
   return (
@@ -101,6 +103,18 @@ export default function App() {
             <SignOutProvider>
               <AdminDashboardProvider>
                 <AdminDashboard />
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <UserDashboardProvider>
+                  <UserDashboard />
+                </UserDashboardProvider>
               </AdminDashboardProvider>
             </SignOutProvider>
           }

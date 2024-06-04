@@ -13,6 +13,7 @@ export const SignOutProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(true);
   const [username, setUsername] = useState("");
+  const [userData, setUserData] = useState();
   const [totalPending, setTotalPending] = useState();
   const [fetchedPending, setFetchedPending] = useState([]);
   const [trsDelLoading, setTrsDelLoading] = useState(false);
@@ -56,6 +57,7 @@ export const SignOutProvider = ({ children }) => {
         if (res.status === 200) {
           setLoggedIn(true);
           setUsername(res.data.data.name);
+          setUserData(res.data.data);
         }
       } else {
         setLoggedIn(false);
@@ -119,6 +121,7 @@ export const SignOutProvider = ({ children }) => {
         loading,
         loggedIn,
         username,
+        setUsername,
         paymentPendingCheck,
         totalPending,
         fetchedPending,
@@ -128,6 +131,8 @@ export const SignOutProvider = ({ children }) => {
         setDelConfirmOpened,
         trsToDelete,
         setTrsToDelete,
+        userData,
+        setUserData,
       }}
     >
       {children}

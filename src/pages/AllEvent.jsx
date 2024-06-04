@@ -73,8 +73,8 @@ const AllEvent = () => {
         </div>
         {/* content start here */}
 
-        <div className="">
-          <div className="flex flex-col mt-10 lg:mt-14 items-center gap-5 lg:gap-6 lg:px-2 lg:flex-row lg:flex-wrap lg:justify-center">
+        <div className="flex justify-center">
+          <div className="flex flex-col mt-10 lg:mt-14 items-center gap-6 lg:gap-6 lg:grid lg:grid-cols-3 lg:w-fit">
             {loadingContext
               ? count.map((value, index) => (
                   <div

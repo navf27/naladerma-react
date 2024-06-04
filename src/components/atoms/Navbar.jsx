@@ -182,13 +182,35 @@ const Navbar = ({ value }) => {
                     </Link>
                   </li>
                   <li
-                    className={`flex flex-col items-center gap-2 mt-2 lg:hidden ${
+                    className={`flex flex-col items-center gap-1 mt-2 lg:hidden ${
                       loggedIn ? null : "hidden"
                     }`}
                   >
+                    <Link
+                      to={"/dashboard"}
+                      className="bg-[#FFFEFB] flex justify-center items-center gap-1 w-full text-center rounded-md p-1 text-dark font-medium text-base"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 -0.5 25 25"
+                        className="w-5 h-5 opacity-80"
+                      >
+                        <g
+                          stroke="#000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          clipRule="evenodd"
+                        >
+                          <path d="M9.918 10H7.082A1.57 1.57 0 0 0 5.5 11.556v5.89A1.569 1.569 0 0 0 7.082 19h2.836a1.569 1.569 0 0 0 1.582-1.555v-5.889a1.569 1.569 0 0 0-1.582-1.555ZM9.918 4H7.082A1.54 1.54 0 0 0 5.5 5.495v1.014A1.54 1.54 0 0 0 7.082 8h2.836A1.54 1.54 0 0 0 11.5 6.508V5.494A1.54 1.54 0 0 0 9.918 4ZM15.082 13h2.835a1.57 1.57 0 0 0 1.583-1.555V5.557A1.569 1.569 0 0 0 17.918 4h-2.836A1.57 1.57 0 0 0 13.5 5.557v5.888A1.569 1.569 0 0 0 15.082 13ZM15.082 19h2.835a1.54 1.54 0 0 0 1.583-1.492v-1.014A1.54 1.54 0 0 0 17.918 15h-2.836a1.54 1.54 0 0 0-1.582 1.493v1.013A1.54 1.54 0 0 0 15.082 19Z" />
+                        </g>
+                      </svg>
+                      <span className="pe-1">Dashboard</span>
+                    </Link>
                     <button
                       onClick={() => onSignOutClick()}
-                      className="bg-[#FFCC00] flex justify-center items-center gap-2 w-full text-center rounded p-1 text-dark font-medium text-base"
+                      className="bg-[#FFCC00] flex justify-center items-center gap-2 w-full text-center rounded-md p-1 text-dark font-medium text-base"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

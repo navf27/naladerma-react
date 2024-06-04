@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WhiteButton from "../atoms/WhiteButton";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
 import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
@@ -18,7 +18,13 @@ const AdminDashboardTemplate = ({ children }) => {
     setSearchOpened,
     setSidebarOpened,
   } = useAdminDashboardContext();
-  const { onSignOutClick, logoutLoading } = useSignOutContext();
+
+  const { onSignOutClick, logoutLoading, authCheck, username } =
+    useSignOutContext();
+
+  useEffect(() => {
+    authCheck();
+  }, []);
 
   return (
     <>
@@ -32,7 +38,7 @@ const AdminDashboardTemplate = ({ children }) => {
         </div>
       ) : null}
       <div>
-        <header className="w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-40 lg:fixed">
+        <header className="w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-30 lg:fixed">
           <div className="flex w-full h-full items-center justify-between lg:px-6">
             <div>
               <button
@@ -103,11 +109,15 @@ const AdminDashboardTemplate = ({ children }) => {
         </header>
 
         <aside
-          className={`h-dvh z-30 fixed drop-shadow-lg top-0 flex ${
+          className={`h-dvh z-20 fixed drop-shadow-lg top-0 flex ${
             sidebarOpened ? "block" : "hidden lg:block"
           }`}
         >
-          <div className="flex flex-col px-3 gap-2 pt-24 w-60 bg-[#FFFCF2] lg:h-full">
+          <div
+            className={`flex flex-col px-3 gap-2 pt-24 w-60 bg-white lg:h-full ${
+              username === "admin" ? null : "hidden"
+            }`}
+          >
             <WhiteButton
               onClick={() => {
                 navigate("/adm/dashboard");
@@ -115,7 +125,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-dashboard"></i>`}
@@ -129,7 +139,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/categories"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-category-alt"></i>`}
@@ -143,7 +153,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/events"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-calendar-day"></i>`}
@@ -157,7 +167,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/users"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rs-user"></i>`}
@@ -171,7 +181,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/customers"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-users"></i>`}
@@ -185,7 +195,7 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/orders"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-shopping-bag"></i>`}
@@ -199,12 +209,49 @@ const AdminDashboardTemplate = ({ children }) => {
               }}
               activeClass={
                 location.pathname === "/adm/dashboard/tickets"
-                  ? "bg-[#FFFEFB] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  ? "bg-[#FFD970] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
                   : null
               }
               logo={`<i class="fi fi-rr-ticket-alt"></i>`}
             >
               Tickets
+            </WhiteButton>
+          </div>
+
+          {/* user side bar */}
+          <div
+            className={`flex flex-col px-3 gap-3 pt-24 w-60 bg-white lg:h-full ${
+              username === "admin" ? "hidden" : null
+            }`}
+          >
+            <WhiteButton
+              onClick={() => {
+                navigate("/adm/dashboard");
+                openSidebar();
+              }}
+              activeClass={
+                location.pathname === "/dashboard"
+                  ? "bg-[#FFCC00] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  : null
+              }
+              logo={`<i class="fi fi-rr-dashboard"></i>`}
+            >
+              Dashboard
+            </WhiteButton>
+
+            <WhiteButton
+              onClick={() => {
+                navigate("/adm/dashboard/events");
+                openSidebar();
+              }}
+              activeClass={
+                location.pathname === "/dashboard/events"
+                  ? "bg-[#FFCC00] text-dark shadow-1 lg:bg-[#FFD970] lg:hover:bg-[#FFD970]"
+                  : null
+              }
+              logo={`<i class="fi fi-rr-calendar-day"></i>`}
+            >
+              Events
             </WhiteButton>
           </div>
           <div className="lg:hidden">
