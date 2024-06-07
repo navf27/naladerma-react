@@ -267,7 +267,7 @@ export const AdminDashboardProvider = ({ children }) => {
             valuesWithData
           );
 
-          console.log(res.data);
+          // console.log(res.data);
 
           // update local data
           // const valuesWithData = Object.keys(values).reduce((acc, key) => {

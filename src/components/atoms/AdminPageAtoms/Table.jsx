@@ -2,8 +2,8 @@ import React from "react";
 
 const Table = ({ th, children }) => {
   const TdStyle = {
-    ThStyle: `w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-7 lg:px-4`,
-    ThNoStyle: `w-1/6 min-w-20 border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-7 lg:px-4`,
+    ThStyle: `w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-4 lg:px-4`,
+    ThNoStyle: `w-1/6 min-w-20 border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-4 lg:px-4`,
   };
 
   return (

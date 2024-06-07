@@ -112,6 +112,7 @@ const AdminEvents = () => {
     "Waktu Dimulai (WIB)",
     "Waktu Berakhir (WIB)",
     "Harga",
+    "Link File",
     "Aksi",
   ];
 
@@ -146,6 +147,7 @@ const AdminEvents = () => {
                 status: "",
                 location: "",
                 price: "",
+                file_link: "",
               }}
               onSubmit={onEventUpdate}
             >
@@ -161,11 +163,12 @@ const AdminEvents = () => {
                 name: "",
                 category_id: "",
                 description: "",
-                status: "",
+                status: "upcoming",
                 location: "",
                 price: "",
                 start_time: "",
                 time_ends: "",
+                file_link: "",
               }}
               onSubmit={onEventSubmission}
               // validationSchema={yup.object().shape({
@@ -350,7 +353,7 @@ const AdminEvents = () => {
                               setEventIdToUpdate(item.id);
                               setEventModalOpened(true);
                             }}
-                            className="text-justify"
+                            className="text-start"
                           >
                             {item.description?.length <= 50
                               ? item.description
@@ -439,6 +442,22 @@ const AdminEvents = () => {
                           </div>
                         </td>
                         <td className={TdStyle.TdStyle}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {/* Rp. {item.price} */}
+                            {item?.file_link && item.file_link}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle2}>
                           <button
                             onClick={() => {
                               setDeleteEventConfirmationOpened(true);

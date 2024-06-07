@@ -19,7 +19,7 @@ const AdminDashboardTemplate = ({ children }) => {
     setSidebarOpened,
   } = useAdminDashboardContext();
 
-  const { onSignOutClick, logoutLoading, authCheck, username } =
+  const { onSignOutClick, logoutLoading, authCheck, userData } =
     useSignOutContext();
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const AdminDashboardTemplate = ({ children }) => {
         >
           <div
             className={`flex flex-col px-3 gap-2 pt-24 w-60 bg-white lg:h-full ${
-              username === "admin" ? null : "hidden"
+              userData?.role === "admin" ? null : "hidden"
             }`}
           >
             <WhiteButton
@@ -221,12 +221,12 @@ const AdminDashboardTemplate = ({ children }) => {
           {/* user side bar */}
           <div
             className={`flex flex-col px-3 gap-3 pt-24 w-60 bg-white lg:h-full ${
-              username === "admin" ? "hidden" : null
+              userData?.role === "admin" ? "hidden" : null
             }`}
           >
             <WhiteButton
               onClick={() => {
-                navigate("/adm/dashboard");
+                navigate("/dashboard");
                 openSidebar();
               }}
               activeClass={
@@ -241,7 +241,7 @@ const AdminDashboardTemplate = ({ children }) => {
 
             <WhiteButton
               onClick={() => {
-                navigate("/adm/dashboard/events");
+                navigate("/dashboard/events");
                 openSidebar();
               }}
               activeClass={
@@ -263,6 +263,28 @@ const AdminDashboardTemplate = ({ children }) => {
         </aside>
 
         {children}
+      </div>
+      <div
+        className={`fixed right-7 bottom-7 lg:right-8 lg:bottom-8 drop-shadow-sm bg-[#FFCC00] p-2 rounded-full ${
+          userData?.role === "admin" ? null : "hidden"
+        }`}
+      >
+        <Link to={"/adm/dashboard/scan"}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="#000"
+            viewBox="0 0 24 24"
+            className="w-8 h-8"
+          >
+            <path
+              fill="#fff"
+              fillRule="evenodd"
+              d="M5 8a1 1 0 0 1-2 0V5.923c0-.76.082-1.185.319-1.627.223-.419.558-.754.977-.977C4.738 3.082 5.162 3 5.923 3H8a1 1 0 0 1 0 2H5.923c-.459 0-.57.022-.684.082a.364.364 0 0 0-.157.157c-.06.113-.082.225-.082.684V8zm3 11a1 1 0 1 1 0 2H5.923c-.76 0-1.185-.082-1.627-.319a2.363 2.363 0 0 1-.977-.977C3.082 19.262 3 18.838 3 18.077V16a1 1 0 1 1 2 0v2.077c0 .459.022.57.082.684.038.07.087.12.157.157.113.06.225.082.684.082H8zm7-15a1 1 0 0 0 1 1h2.077c.459 0 .57.022.684.082.07.038.12.087.157.157.06.113.082.225.082.684V8a1 1 0 1 0 2 0V5.923c0-.76-.082-1.185-.319-1.627a2.363 2.363 0 0 0-.977-.977C19.262 3.082 18.838 3 18.077 3H16a1 1 0 0 0-1 1zm4 12a1 1 0 1 1 2 0v2.077c0 .76-.082 1.185-.319 1.627a2.364 2.364 0 0 1-.977.977c-.442.237-.866.319-1.627.319H16a1 1 0 1 1 0-2h2.077c.459 0 .57-.022.684-.082a.363.363 0 0 0 .157-.157c.06-.113.082-.225.082-.684V16zM3 11a1 1 0 1 0 0 2h18a1 1 0 1 0 0-2H3z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </Link>
       </div>
     </>
   );

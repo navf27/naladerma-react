@@ -12,7 +12,7 @@ const AdminOnlyRoute = (Component) => {
 
     const roleCheck = async () => {
       try {
-        setAdminCheckLoading(true);
+        // setAdminCheckLoading(true);
         const res = await axios.get("http://localhost:8000/api/me", {
           headers: {
             Accept: "application/json",

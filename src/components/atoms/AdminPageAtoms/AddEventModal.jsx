@@ -37,7 +37,7 @@ const AddEventModal = ({ categories }) => {
       ) : null}
       <div className={`container absolute z-40 mx-auto`}>
         <div
-          className={`fixed left-0 top-0 flex h-dvh min-h-screen w-dvw items-center justify-center bg-black bg-opacity-60 px-4 py-5 pb-20 lg:pb-5`} //sementara kasih pb-20
+          className={`fixed left-0 top-0 flex h-dvh min-h-screen w-dvw items-center justify-center bg-black bg-opacity-60 px-4 py-5 lg:pb-5`} //sementara kasih pb-20
         >
           <div className="w-full h-full max-w-[570px] rounded-[20px] bg-[#FFFEFB] p-8 text-center md:px-[70px] md:py-[60px] relative">
             {/* <div className="flex justify-between absolute">
@@ -186,6 +186,25 @@ const AddEventModal = ({ categories }) => {
                     {errors.location ? (
                       <p className="mt-1 lg:-mt-1 text-sm text-red text-left">
                         {errors.location}
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="w-full mb-4">
+                    <label className="mb-2 text-left block text-base font-medium text-body-color">
+                      Link File
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Link File"
+                      className={`w-full bg-transparent rounded-md border ${
+                        errors.file_link ? "border-red" : "border-stroke"
+                      } py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
+                      onChange={handleChange}
+                      name="file_link"
+                    />
+                    {errors.file_link ? (
+                      <p className="mt-1 lg:-mt-1 text-sm text-red text-left">
+                        {errors.file_link}
                       </p>
                     ) : null}
                   </div>

@@ -7,12 +7,14 @@ const UserDashboardContext = createContext();
 export const useUserDashboardContext = () => useContext(UserDashboardContext);
 
 export const UserDashboardProvider = ({ children }) => {
+  const { userData, setUserData, setUsername } = useSignOutContext();
+
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const [loadingHoc, setLoadingHoc] = useState(false);
   const [searchOpened, setSearchOpened] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { userData, setUserData, setUsername } = useSignOutContext();
+  const [usrOrdersFetched, setUsrOrdersFetched] = useState();
 
   const openSidebar = () => {
     setSidebarOpened(!sidebarOpened);
@@ -56,6 +58,16 @@ export const UserDashboardProvider = ({ children }) => {
     }
   };
 
+  const getUserOrders = async () => {
+    try {
+      const res = await authInstance().get("/user-orders");
+
+      setUsrOrdersFetched(res.data.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   return (
     <UserDashboardContext.Provider
       value={{
@@ -70,6 +82,8 @@ export const UserDashboardProvider = ({ children }) => {
         setModalOpened,
         loading,
         onUserUpdate,
+        getUserOrders,
+        usrOrdersFetched,
       }}
     >
       {children}

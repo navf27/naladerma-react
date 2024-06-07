@@ -74,7 +74,7 @@ const Navbar = ({ value }) => {
               <nav
                 // :className="!navbarOpen && 'hidden' "
                 id="navbarCollapse"
-                className={`absolute z-20 right-4 top-full w-full max-w-[250px] rounded-lg bg-[#FFFEFB] px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
+                className={`absolute z-20 right-4 top-full w-full max-w-[250px] rounded-lg px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
                   !open && "hidden"
                 } `}
               >

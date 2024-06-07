@@ -24,6 +24,8 @@ import TransactionPending from "./pages/TransactionPending";
 import { TransactionPendingProvider } from "./context/TransactionPendingContext";
 import UserDashboard from "./pages/UserDashboard";
 import { UserDashboardProvider } from "./context/UserDashboardContext";
+import UserEventsDashboard from "./pages/UserEventsDashboard";
+import AdminScanner from "./pages/AdminPages/AdminScanner";
 
 export default function App() {
   return (
@@ -115,6 +117,28 @@ export default function App() {
                 <UserDashboardProvider>
                   <UserDashboard />
                 </UserDashboardProvider>
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/dashboard/events"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <UserDashboardProvider>
+                  <UserEventsDashboard />
+                </UserDashboardProvider>
+              </AdminDashboardProvider>
+            </SignOutProvider>
+          }
+        />
+        <Route
+          path="/adm/dashboard/scan"
+          element={
+            <SignOutProvider>
+              <AdminDashboardProvider>
+                <AdminScanner />
               </AdminDashboardProvider>
             </SignOutProvider>
           }

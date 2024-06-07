@@ -1,12 +1,12 @@
 import React from "react";
 
 const TdStyle = {
-  ThStyle: `w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-7 lg:px-4`,
-  TdStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
-  TdStyle2: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-5 px-2 text-center text-base font-medium`,
+  ThStyle: `w-1/6 min-w-[160px] border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-4 lg:px-4`,
+  TdStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-4 px-2 text-center text-base font-medium`,
+  TdStyle2: `text-dark border-b border-[#E8E8E8] bg-[#FFFEFB] py-4 px-2 text-center text-base font-medium`,
   TdButton: `inline-block px-6 py-2.5 border rounded-md border-primary text-primary hover:bg-primary hover:text-white font-medium`,
-  ThNoStyle: `w-1/6 min-w-20 border-l border-transparent py-4 px-3 text-lg font-medium text-dark lg:py-7 lg:px-4`,
-  NoStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-5 px-2 text-center text-base font-medium`,
+  ThNoStyle: `w-1/6 min-w-20 border-l border-transparent py-3 px-3 text-lg font-medium text-dark lg:py-4 lg:px-4`,
+  NoStyle: `text-dark border-b border-l border-[#E8E8E8] bg-[#FFFCF2] py-4 px-2 text-center text-base font-medium`,
 };
 
 const TableSkeleton = ({ th }) => {
