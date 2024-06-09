@@ -435,6 +435,20 @@ export const AdminDashboardProvider = ({ children }) => {
     }
   };
 
+  const onQrScan = async (endpoint) => {
+    try {
+      setLoading(true);
+
+      const res = await authInstance().patch(`${endpoint}`);
+
+      setLoading(false);
+      toast.success("Berhasil.");
+    } catch (error) {
+      setLoading(false);
+      return toast.error("Ticket already used!");
+    }
+  };
+
   return (
     <AdminDashboardContext.Provider
       value={{
@@ -488,6 +502,7 @@ export const AdminDashboardProvider = ({ children }) => {
         addCategoryModalOpened,
         setAddCategoryModalOpened,
         onCategorySubmission,
+        onQrScan,
       }}
     >
       {children}

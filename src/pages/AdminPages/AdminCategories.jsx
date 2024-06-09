@@ -14,6 +14,7 @@ import toast, { Toaster } from "react-hot-toast";
 import CategoryModal from "../../components/atoms/AdminPageAtoms/CategoryModal";
 import DeleteCategoryConfirmationModal from "../../components/atoms/AdminPageAtoms/DeleteCategoryConfirmationModal";
 import AddCategoryModal from "../../components/atoms/AdminPageAtoms/AddCategoryModal";
+import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
 
 const AdminCategories = () => {
   const {
@@ -327,4 +328,4 @@ const AdminCategories = () => {
   );
 };
 
-export default AdminCategories;
+export default AdminOnlyRoute(AdminCategories);

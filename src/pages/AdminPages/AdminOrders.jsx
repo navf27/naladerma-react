@@ -5,6 +5,7 @@ import TableSkeleton from "../../components/atoms/TableSkeleton";
 import { useAdminDashboardContext } from "../../context/AdminDashboardContext";
 import ReactPaginate from "react-paginate";
 import SearchIcon from "../../assets/search.png";
+import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
 
 const AdminOrders = () => {
   const {
@@ -244,4 +245,4 @@ const AdminOrders = () => {
   );
 };
 
-export default AdminOrders;
+export default AdminOnlyRoute(AdminOrders);

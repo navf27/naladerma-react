@@ -17,6 +17,7 @@ const Navbar = ({ value }) => {
     totalPending,
     onSignOutClick,
     paymentPendingCheck,
+    userData,
   } = useSignOutContext();
 
   useEffect(() => {
@@ -74,7 +75,7 @@ const Navbar = ({ value }) => {
               <nav
                 // :className="!navbarOpen && 'hidden' "
                 id="navbarCollapse"
-                className={`absolute z-20 right-4 top-full w-full max-w-[250px] rounded-lg px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
+                className={`absolute bg-white z-20 right-4 top-full w-full max-w-[250px] rounded-lg px-6 py-5 shadow lg:static lg:block lg:w-full lg:max-w-full lg:shadow-none lg:dark:bg-transparent ${
                   !open && "hidden"
                 } `}
               >
@@ -187,7 +188,11 @@ const Navbar = ({ value }) => {
                     }`}
                   >
                     <Link
-                      to={"/dashboard"}
+                      to={
+                        userData?.role === "admin"
+                          ? "/adm/dashboard"
+                          : "dashboard"
+                      }
                       className="bg-[#FFFEFB] flex justify-center items-center gap-1 w-full text-center rounded-md p-1 text-dark font-medium text-base"
                     >
                       <svg

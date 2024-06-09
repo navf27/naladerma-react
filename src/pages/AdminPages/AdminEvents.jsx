@@ -13,6 +13,7 @@ import DeleteEventConfirmationModal from "../../components/atoms/AdminPageAtoms/
 import toast, { Toaster } from "react-hot-toast";
 import { format, parseISO, parse } from "date-fns";
 import id from "date-fns/locale/id";
+import AdminOnlyRoute from "../../hoc/AdminOnlyRoute";
 
 const AdminEvents = () => {
   const {
@@ -109,8 +110,8 @@ const AdminEvents = () => {
     "Deskripsi",
     "Status",
     "Lokasi",
-    "Waktu Dimulai (WIB)",
-    "Waktu Berakhir (WIB)",
+    "Waktu Dimulai",
+    "Waktu Berakhir",
     "Harga",
     "Link File",
     "Aksi",
@@ -405,7 +406,8 @@ const AdminEvents = () => {
                           >
                             {item.start_time
                               ? formatDateTime(item?.start_time)
-                              : null}
+                              : null}{" "}
+                            WIB
                           </div>
                         </td>
                         <td className={TdStyle.TdStyle}>
@@ -422,7 +424,8 @@ const AdminEvents = () => {
                           >
                             {item.start_time
                               ? formatDateTime(item?.time_ends)
-                              : null}
+                              : null}{" "}
+                            WIB
                           </div>
                         </td>
                         <td className={TdStyle.TdStyle2}>
@@ -454,7 +457,9 @@ const AdminEvents = () => {
                             }}
                           >
                             {/* Rp. {item.price} */}
-                            {item?.file_link && item.file_link}
+                            {item.file_link?.length <= 40
+                              ? item.file_link
+                              : item.file_link?.substring(0, 40) + "..."}
                           </div>
                         </td>
                         <td className={TdStyle.TdStyle2}>
@@ -553,4 +558,4 @@ const AdminEvents = () => {
   );
 };
 
-export default AdminEvents;
+export default AdminOnlyRoute(AdminEvents);

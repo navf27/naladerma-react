@@ -26,7 +26,7 @@ let useClickOutside = (handler) => {
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { onSignOutClick, username, loggedIn, totalPending } =
+  const { onSignOutClick, username, userData, loggedIn, totalPending } =
     useSignOutContext();
 
   let domNode = useClickOutside(() => {
@@ -83,7 +83,9 @@ const DropdownUser = () => {
                 }`}
               >
                 <Link
-                  to={username === "admin" ? "/adm/dashboard" : "/dashboard"}
+                  to={
+                    userData?.role === "admin" ? "/adm/dashboard" : "/dashboard"
+                  }
                   className="text-body-color block px-5 py-1 text-base w-full text-left"
                 >
                   <div className="flex gap-2 items-center">

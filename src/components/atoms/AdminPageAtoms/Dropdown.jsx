@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAdminDashboardContext } from "../../../context/AdminDashboardContext";
 import { useSignOutContext } from "../../../context/SignOutContext";
+import { useNavigate } from "react-router-dom";
 
 // Handler hook for when Outside click dropdown close
 let useClickOutside = (handler) => {
@@ -39,6 +40,8 @@ const Dropdown = () => {
   };
 
   const firstTwoWords = getFirstTwoWords(username);
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -90,6 +93,29 @@ const Dropdown = () => {
                     : "top-[110%] invisible opacity-0"
                 }`}
               >
+                <button
+                  onClick={() => navigate("/")}
+                  className="text-body-color block px-5 py-1 text-base w-full text-left mb-2"
+                >
+                  <div className="flex gap-2 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 -0.5 25 25"
+                      className="w-5 h-5 opacity-70"
+                    >
+                      <g stroke="#000" strokeLinecap="round" strokeWidth={1.5}>
+                        <path
+                          strokeLinejoin="round"
+                          d="M5.5 10.967v4.645A3.312 3.312 0 0 0 8.733 19h7.538a3.312 3.312 0 0 0 3.23-3.388v-4.645a4.38 4.38 0 0 0-1.727-3.493l-3.06-1.855a4.262 4.262 0 0 0-4.425 0l-3.06 1.855a4.381 4.381 0 0 0-1.727 3.493Z"
+                          clipRule="evenodd"
+                        />
+                        <path d="M14.655 15.183a2.678 2.678 0 0 1-4.308 0" />
+                      </g>
+                    </svg>
+                    <span>Beranda</span>
+                  </div>
+                </button>
                 <button
                   onClick={onSignOutClick}
                   className="text-body-color block px-5 py-1 text-base w-full text-left"

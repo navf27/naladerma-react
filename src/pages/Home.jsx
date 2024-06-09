@@ -187,7 +187,7 @@ const Home = () => {
           <div className="border-b-2 border-[#FFD970] w-72 lg:w-80 mx-auto drop-shadow-md mt-1"></div>
         </div>
 
-        <div className="mt-16 lg:mt-16 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
+        <div className="mt-14 lg:mt-16 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
           <div className="lg:mt-0 flex justify-center lg:justify-normal">
             <div
               onClick={() => navigate(`/event/${latestEvent?.id}`)}

@@ -38,7 +38,7 @@ const AdminDashboardTemplate = ({ children }) => {
         </div>
       ) : null}
       <div>
-        <header className="w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-30 lg:fixed">
+        <header className="w-screen bg-[#FFFEFB] h-16 shadow-1 relative z-40 lg:fixed">
           <div className="flex w-full h-full items-center justify-between lg:px-6">
             <div>
               <button
@@ -109,7 +109,7 @@ const AdminDashboardTemplate = ({ children }) => {
         </header>
 
         <aside
-          className={`h-dvh z-20 fixed drop-shadow-lg top-0 flex ${
+          className={`h-dvh z-30 fixed drop-shadow-lg top-0 flex ${
             sidebarOpened ? "block" : "hidden lg:block"
           }`}
         >
