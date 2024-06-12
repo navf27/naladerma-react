@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { axiosPublicInstance } from "../utils/axiosFetcher";
+import toast from "react-hot-toast";
 
 const SignInContext = createContext();
 
@@ -35,6 +36,7 @@ export const SignInProvider = ({ children }) => {
         navigate("/");
       }
     } catch (err) {
+      toast.error("Login gagal!");
       console.log(err);
       setUserNotFound(true);
     } finally {

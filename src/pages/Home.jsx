@@ -13,6 +13,8 @@ import Footer from "../components/atoms/Footer";
 import { useHomeContext } from "../context/HomeContext";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const Home = () => {
   const [scroolTopVisible, setScroolTopVisible] = useState(false);
@@ -22,6 +24,8 @@ const Home = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    AOS.init();
 
     const handleScroll = () => {
       const scrolled = document.documentElement.scrollTop;
@@ -75,7 +79,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       {logoutLoading ? (
         <div className="fixed top-0 left-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative inline-flex">
@@ -126,7 +130,11 @@ const Home = () => {
       <Navbar value={["Event", "Karya", "Tentang Kami"]} />
       <div className="px-5 lg:container">
         <div className="lg:flex lg:justify-between lg:items-center lg:relative lg:z-10 lg:mt-0 lg:py-32">
-          <div className="relative z-10 mt-16 lg:mt-0">
+          <div
+            className="relative z-10 mt-16 lg:mt-0"
+            data-aos="fade-up"
+            data-aos-duration="1400"
+          >
             <h1 className="font-bold text-4xl leading-tight text-dark lg:text-5xl">
               Sanggar Seni Naladerma
             </h1>
@@ -150,7 +158,11 @@ const Home = () => {
           </div>
 
           {/* pak joko */}
-          <div className="mt-16 lg:mt-0 lg:me-10">
+          <div
+            className="mt-16 lg:mt-0 lg:me-10"
+            data-aos="fade-up"
+            data-aos-duration="1400"
+          >
             <div className="flex gap-4 lg:flex-col lg:items-center">
               <div>
                 <div className="bg-[#000000] lg:hidden rounded-full h-32 w-32 flex justify-center items-center">
@@ -190,6 +202,8 @@ const Home = () => {
         <div className="mt-14 lg:mt-16 lg:bg-[#FFFEFB] lg:relative lg:z-20 lg:rounded-lg lg:drop-shadow-md lg:p-14">
           <div className="lg:mt-0 flex justify-center lg:justify-normal">
             <div
+              data-aos="fade-right"
+              data-aos-duration="1000"
               onClick={() => navigate(`/event/${latestEvent?.id}`)}
               className="bg-[#FFFEFB] w-full max-w-[320px] rounded-lg shadow-lg lg:h-fit lg:shadow-none lg:border-2 lg:border-slate-200"
             >
@@ -320,7 +334,10 @@ const Home = () => {
                 <div className="my-2 max-w-[300px]">
                   <p className="text-lg text-dark-4 font-medium">
                     {/* Mengenal sejarah wayang beber di Surakarta */}
-                    {latestEvent?.name}
+                    {/* {latestEvent?.name} */}
+                    {latestEvent?.name?.length <= 27
+                      ? latestEvent?.name
+                      : latestEvent?.name?.substring(0, 27) + "..."}
                   </p>
                 </div>
                 <div>
@@ -332,7 +349,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="ps-10 hidden lg:block">
+            <div
+              data-aos="fade-left"
+              data-aos-duration="1000"
+              className="ps-10 hidden lg:block"
+            >
               <p className="text-dark-3 text-base leading-relaxed">
                 {/* Node JS merupakan runtime environtment yang bersifat open source
                 dan cross platform untuk menjalankan bahasa pemrograman
@@ -355,6 +376,37 @@ const Home = () => {
                 KESEMPATAN INI!🔥🔥🔥 */}
                 {latestEvent && latestEvent?.description}
               </p>
+              <div>
+                <button
+                  onClick={() => navigate(`/event/${latestEvent?.id}`)}
+                  className="bg-[#008E9F] flex gap-3 items-center py-3 px-4 text-white font-medium rounded-md mt-4"
+                >
+                  Daftar Sekarang
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlSpace="preserve"
+                    id="_x32_"
+                    width={200}
+                    height={200}
+                    fill="#fff"
+                    stroke="#fff"
+                    viewBox="0 0 512 512"
+                    className="w-5 h-5"
+                  >
+                    <g id="SVGRepo_iconCarrier">
+                      <style>{".st0{fill:#fff}"}</style>
+                      <path
+                        d="M165.013 288.946h75.034c6.953 0 12.609 5.656 12.609 12.608v26.424c0 7.065 3.659 9.585 7.082 9.585 2.106 0 4.451-.936 6.78-2.702l90.964-69.014c3.416-2.589 5.297-6.087 5.297-9.844 0-3.762-1.881-7.259-5.297-9.849l-90.964-69.014c-2.329-1.766-4.674-2.702-6.78-2.702-3.424 0-7.082 2.519-7.082 9.584v26.425c0 6.952-5.656 12.608-12.609 12.608h-75.034c-8.707 0-15.79 7.085-15.79 15.788v34.313c0 8.706 7.082 15.79 15.79 15.79z"
+                        className="st0"
+                      />
+                      <path
+                        d="M256 0C114.842 0 .002 114.84.002 256S114.842 512 256 512s255.998-114.84 255.998-256S397.158 0 256 0zm0 66.785c104.334 0 189.216 84.879 189.216 189.215S360.334 445.215 256 445.215 66.783 360.336 66.783 256 151.667 66.785 256 66.785z"
+                        className="st0"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -384,7 +436,7 @@ const Home = () => {
         </div>
 
         {/* carousel */}
-        <div className="mt-5">
+        <div className="mt-5" data-aos="fade-up" data-aos-duration="1500">
           <Carousel
             responsive={responsive}
             showDots={true}
@@ -536,7 +588,11 @@ const Home = () => {
         </div>
 
         <div className="flex flex-col gap-10 mt-16">
-          <div className="bg-[#D9ECEE] rounded-lg p-5 lg:p-12">
+          <div
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            className="bg-[#D9ECEE] rounded-lg p-5 lg:p-12"
+          >
             <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
               Ramayana
             </h2>
@@ -563,7 +619,11 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#E4EDE0] rounded-lg p-5 lg:p-12">
+          <div
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            className="bg-[#E4EDE0] rounded-lg p-5 lg:p-12"
+          >
             <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
               Ramayana
             </h2>
@@ -590,7 +650,11 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#ECEDD4] rounded-lg p-5 lg:p-12">
+          <div
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            className="bg-[#ECEDD4] rounded-lg p-5 lg:p-12"
+          >
             <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
               Ramayana
             </h2>
@@ -617,7 +681,11 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#F5EDC7] rounded-lg p-5 lg:p-12">
+          <div
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            className="bg-[#F5EDC7] rounded-lg p-5 lg:p-12"
+          >
             <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
               Ramayana
             </h2>

@@ -63,7 +63,11 @@ const Footer = () => {
                   </span>
                   <span>+62895365913689</span>
                 </p>
-                <p className="flex items-center text-sm font-medium text-white mb-7">
+                <a
+                  target="blank"
+                  href="https://wa.me/+62895365913689"
+                  className="flex items-center text-sm font-medium text-white mb-7"
+                >
                   <span className="mr-3">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +92,7 @@ const Footer = () => {
                     </svg>
                   </span>
                   <span>+62895365913689</span>
-                </p>
+                </a>
                 <p className="flex items-center text-sm font-medium text-white">
                   <span className="mr-3">
                     <svg
@@ -158,7 +162,8 @@ const Footer = () => {
                 </h4>
                 <div className="mb-6 flex items-center">
                   <a
-                    href="#"
+                    target="blank"
+                    href="https://www.instagram.com/wayang.beber?igsh=cHg0bjZvNzZ6d2I="
                     className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border hover:bg-[#FFBB00] hover:text-white border-dark-3 text-white sm:mr-4 lg:mr-3 xl:mr-4"
                   >
                     <svg
@@ -175,7 +180,8 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
-                    href="#"
+                    target="blank"
+                    href="https://www.tiktok.com/@sukarti_jokosriyono?_t=8n95um1OPr6&_r=1"
                     className="mr-3 flex h-8 w-8 items-center justify-center rounded-full border hover:bg-[#FFBB00] hover:text-white border-dark-3 text-white sm:mr-4 lg:mr-3 xl:mr-4"
                   >
                     <svg

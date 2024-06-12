@@ -141,7 +141,22 @@ const EventDetail = () => {
             <span className="font-medium text-white">Up Coming</span>
           </div> */}
         </div>
-        <div className="mt-3">
+        <div className="mt-3 flex gap-2 lg:gap-4">
+          {loadingEv ? (
+            <div className="w-fit bg-gray-300 px-4 py-2 rounded-full animate-pulse">
+              <span className="font-medium text-white invisible">
+                Up Coming
+              </span>
+            </div>
+          ) : eventFetched?.status === "upcoming" ? (
+            <div className="w-fit bg-[#008E9F] px-4 py-2 rounded">
+              <span className="font-medium text-white">Up Coming</span>
+            </div>
+          ) : (
+            <div className="w-fit bg-[#FCECED] ring-1 ring-[#D13F53] px-4 py-2 rounded">
+              <span className="font-medium text-[#D13F53]">Berakhir</span>
+            </div>
+          )}
           {loadingEv ? (
             <div className="w-fit bg-gray-300 px-4 py-2 rounded-full animate-pulse">
               <span className="font-medium text-white invisible">
@@ -149,8 +164,10 @@ const EventDetail = () => {
               </span>
             </div>
           ) : (
-            <div className="w-fit bg-[#008E9F] px-4 py-2 rounded">
-              <span className="font-medium text-white">Up Coming</span>
+            <div className="w-fit bg-white ring-1 ring-[#008E9F] px-4 py-2 rounded">
+              <span className="font-medium text-[#008E9F]">
+                {eventFetched?.category?.name}
+              </span>
             </div>
           )}
         </div>

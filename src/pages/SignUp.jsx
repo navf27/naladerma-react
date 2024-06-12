@@ -31,7 +31,8 @@ const SignUp = () => {
                 Ayo buat akunmu disini!
               </h2>
               <h5 className="text-xs text-body-color mt-2">
-                Dengan memiliki akun, kamu dapat mengakses fitur tambahan lho.
+                Dengan memiliki akun, kamu dapat mengakses materi yang
+                dibawakan.
               </h5>
               <FormikProvider
                 initialValues={{

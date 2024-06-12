@@ -80,7 +80,7 @@ export const EventDetailProvider = ({ children }) => {
           `/checkout-user/${eventFetched?.id}`,
           values
         );
-        console.log(res.data);
+        // console.log(res.data);
 
         setModalOpened(false);
 
@@ -100,7 +100,7 @@ export const EventDetailProvider = ({ children }) => {
           values
         );
 
-        console.log(res.data);
+        // console.log(res.data);
 
         setModalOpened(false);
 

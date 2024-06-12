@@ -5,12 +5,14 @@ import LogInForm from "../components/molecules/LogInForm";
 import { useSignInContext } from "../context/SignInContext";
 import { Link } from "react-router-dom";
 import AlreadyLoggedInRoute from "../hoc/AlreadyLoggedInRoute";
+import { Toaster } from "react-hot-toast";
 
 const SignIn = () => {
   const { onFormikSubmit, loading } = useSignInContext();
 
   return (
     <div className="flex justify-center items-center h-dvh">
+      <Toaster />
       <div className="lg:bg-[#FFD970] lg:w-72 lg:h-screen lg:absolute lg:right-0 rounded-s-xl"></div>
       <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 p-7 py-9 lg:absolute lg:w-[900px] lg:h-[500px] lg:flex lg:flex-row-reverse lg:items-center lg:justify-between lg:p-0">
         {loading ? (

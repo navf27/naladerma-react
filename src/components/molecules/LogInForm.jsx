@@ -14,11 +14,11 @@ const LogInForm = () => {
       <EmailInput />
       <PasswordInput />
       <div className="w-full mt-9 lg:mt-8">
-        {userNotFound && (
+        {/* {userNotFound && (
           <p className="text-sm text-red -mt-7 mb-2 text-center">
             Akun tidak ditemukan, coba lagi ya!
           </p>
-        )}
+        )} */}
         <YellowButton width={"w-full"}>Masuk</YellowButton>
       </div>
     </form>

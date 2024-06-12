@@ -129,14 +129,14 @@ const AdminCategories = () => {
         ) : null}
 
         <div className="p-4">
-          <section className="mb-4 flex justify-between items-end relative lg:ms-60 lg:mt-16">
+          <section className="mb-4 flex justify-between items-end relative lg:ms-60 lg:mt-16 lg:hidden">
             <div>
               <div className="border-l-[5px] border-[#FFD970] pl-4 lg:w-56">
                 <h2 className="mb-2 text-2xl font-semibold text-dark">
                   Categories
                 </h2>
                 <p className="text-sm font-medium text-body-color">
-                  Ketuk kategori untuk edit.
+                  Ketuk kategori untuk merubah.
                 </p>
               </div>
             </div>
@@ -196,6 +196,63 @@ const AdminCategories = () => {
               </div>
             </div>
           </section>
+
+          {/* desktop version */}
+          <section className="hidden lg:block">
+            <div className="mb-4 lg:ms-60 lg:mt-16 flex justify-between">
+              <div>
+                <div className="border-l-[5px] border-[#FFD970] pl-4 lg:w-56">
+                  <h2 className="mb-2 text-2xl font-semibold text-dark">
+                    Categories
+                  </h2>
+                  <p className="text-sm font-medium text-body-color w-60">
+                    Ketuk kategori untuk merubah.
+                  </p>
+                </div>
+              </div>
+              <div className=" flex items-center gap-5">
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => {
+                      setSearchOpened(!searchOpened);
+                      setSidebarOpened(false);
+                    }}
+                  >
+                    <label htmlFor="searchInput">
+                      <img
+                        src={SearchIcon}
+                        alt=""
+                        className="opacity-60 w-8 h-8"
+                      />
+                    </label>
+                  </button>
+                  <div>
+                    <input
+                      id="searchInput"
+                      name="searchInput"
+                      value={searchTerm}
+                      onChange={handleSearchChange}
+                      type="text"
+                      placeholder="Cari disini ..."
+                      className={`${
+                        searchOpened
+                          ? "opacity-100"
+                          : "opacity-0 invisible lg:opacity-100 lg:visible"
+                      } w-56 bg-white rounded-md ring-1 ring-slate-300 py-[10px] px-5 text-dark-6 outline-none transition-all disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2 lg:top-2`}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  className="flex bg-[#008E9F] px-4 py-[10px] rounded-md items-center gap-1 text-white font-medium text-md"
+                  onClick={() => setAddCategoryModalOpened(true)}
+                >
+                  Tambah
+                </button>
+              </div>
+            </div>
+          </section>
+
           {dataFetched ? (
             <>
               <Table th={thData}>
