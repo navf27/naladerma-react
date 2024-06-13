@@ -28,7 +28,7 @@ export const SignOutProvider = ({ children }) => {
     try {
       const token = Cookies.get("_auth");
 
-      const res = await authInstance().get("http://localhost:8000/api/logout", {
+      const res = await authInstance().get("/logout", {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
