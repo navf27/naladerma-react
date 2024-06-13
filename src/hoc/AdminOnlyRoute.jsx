@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useAdminDashboardContext } from "../context/AdminDashboardContext";
+import { authInstance } from "../utils/axiosFetcher";
 
 const AdminOnlyRoute = (Component) => {
   return () => {
@@ -13,7 +14,7 @@ const AdminOnlyRoute = (Component) => {
     const roleCheck = async () => {
       try {
         // setAdminCheckLoading(true);
-        const res = await axios.get("http://localhost:8000/api/me", {
+        const res = await authInstance().get("/me", {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${auth}`,
