@@ -91,7 +91,7 @@ const Navbar = ({ value }) => {
                         }
 
                         window.scrollTo({
-                          top: document.querySelector(`#event`).offsetTop - 16,
+                          top: document.querySelector(`#event`).offsetTop - 110,
                           behavior: "smooth",
                         });
                         // setTimeout(() => onClick(), 1000);
@@ -113,7 +113,7 @@ const Navbar = ({ value }) => {
                         }
 
                         window.scrollTo({
-                          top: document.querySelector(`#karya`).offsetTop - 16,
+                          top: document.querySelector(`#karya`).offsetTop - 60,
                           behavior: "smooth",
                         });
                         // setTimeout(() => onClick(), 1000);

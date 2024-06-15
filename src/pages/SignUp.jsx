@@ -4,12 +4,15 @@ import { FormikProvider } from "../context/FormikContext";
 import { SignUpContext } from "../context/SignUpContext";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import Banner from "../assets/images/signUpPic.jpg";
+import { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
   const { onFormikSubmit, loading } = useContext(SignUpContext);
 
   return (
     <>
+      <Toaster />
       <div className="lg:bg-[#FFD970] lg:w-44 lg:h-screen lg:absolute rounded-e-xl"></div>
       <div className="flex justify-center items-center h-dvh lg:absolute lg:z-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-screen">
         <div className="bg-[#FFFEFB] shadow-lg rounded-lg w-80 px-7 py-9 lg:w-[1200px] lg:flex lg:p-0 lg:h-[500px]">
@@ -22,8 +25,13 @@ const SignUp = () => {
               </div>
             </div>
           ) : null}
-          <div className="hidden lg:block lg:h-auto lg:w-2/3 lg:border lg:border-red-500">
-            <p>INI GAMBAR</p>
+          <div className="hidden lg:block lg:h-auto lg:w-2/3 border-r-2 border-[#FFCC00]">
+            {/* <p>INI GAMBAR</p> */}
+            <img
+              src={Banner}
+              alt=""
+              className="object-cover h-full brightness-75"
+            />
           </div>
           <div className="lg:flex lg:items-center lg:w-full lg:justify-center lg:px-12 lg:py-11">
             <div>

@@ -48,7 +48,7 @@ const UserDetailModal = () => {
           Open Modal
         </button> */}
         <div
-          className={`fixed z-40 left-0 top-0 flex h-full min-h-screen w-full items-center justify-center bg-dark/90 px-4 py-5}`}
+          className={`fixed z-50 left-0 top-0 flex h-full min-h-screen w-full items-center justify-center bg-dark/90 px-4 py-5}`}
         >
           <div
             // ref={modal}

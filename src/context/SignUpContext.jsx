@@ -1,6 +1,8 @@
 import { useState, createContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosPublicInstance } from "../utils/axiosFetcher";
+import toast from "react-hot-toast";
 
 export const SignUpContext = createContext({});
 export const SignUpProvider = ({ children }) => {
@@ -15,17 +17,16 @@ export const SignUpProvider = ({ children }) => {
   const onFormikSubmit = async (values, action) => {
     setLoading(true);
     try {
-      const res = await axios.post(
-        "http://localhost:8000/api/register",
-        values,
-        { headers: { Accept: "application/json" } }
-      );
+      const res = await axiosPublicInstance().post("/register", values, {
+        headers: { Accept: "application/json" },
+      });
 
       console.log(res.data);
 
       navigate("/sign-in");
     } catch (err) {
-      console.log(err);
+      toast.error(err.response.data.message);
+      console.log(err.response);
     } finally {
       action.resetForm();
       setLoading(false);

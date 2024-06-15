@@ -6,6 +6,7 @@ import { useSignInContext } from "../context/SignInContext";
 import { Link } from "react-router-dom";
 import AlreadyLoggedInRoute from "../hoc/AlreadyLoggedInRoute";
 import { Toaster } from "react-hot-toast";
+import Banner from "../assets/images/banner.jpg";
 
 const SignIn = () => {
   const { onFormikSubmit, loading } = useSignInContext();
@@ -24,8 +25,12 @@ const SignIn = () => {
             </div>
           </div>
         ) : null}
-        <div className="hidden lg:block lg:border lg:border-red-500 lg:w-1/2 lg:h-full">
-          INI GAMBAR
+        <div className="hidden lg:block lg:w-1/2 lg:h-full lg:border-l-2 lg:border-[#FFCC00]">
+          <img
+            src={Banner}
+            alt=""
+            className="h-full w-full object-fill rounded-r-lg brightness-75"
+          />
         </div>
         <div className="lg:w-full">
           <div className="lg:flex lg:justify-center">
