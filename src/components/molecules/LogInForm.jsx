@@ -7,18 +7,22 @@ import { useSignInContext } from "../../context/SignInContext";
 
 const LogInForm = () => {
   const { handleSubmit } = useFormikContext();
-  const { userNotFound } = useSignInContext();
+  const { userNotFound, setResetModalOpened } = useSignInContext();
 
   return (
     <form onSubmit={handleSubmit} className="lg:-mt-2 -mt-1">
       <EmailInput />
       <PasswordInput />
-      <div className="w-full mt-9 lg:mt-8">
-        {/* {userNotFound && (
-          <p className="text-sm text-red -mt-7 mb-2 text-center">
-            Akun tidak ditemukan, coba lagi ya!
-          </p>
-        )} */}
+      <p
+        onClick={() => {
+          setResetModalOpened(true);
+          console.log("kliked");
+        }}
+        className="text-[#FFCC00] my-3 text-sm w-full text-right cursor-pointer"
+      >
+        Lupa password
+      </p>
+      <div className="w-full">
         <YellowButton width={"w-full"}>Masuk</YellowButton>
       </div>
     </form>

@@ -15,15 +15,24 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Klenting from "../assets/images/klenting.jpg";
+import Panji from "../assets/images/panji.jpg";
+import ArtworkModal from "../components/atoms/ArtworkModal";
 
 const Home = () => {
   const [scroolTopVisible, setScroolTopVisible] = useState(false);
   const { loading, authCheck, logoutLoading } = useSignOutContext();
-  const { getAllEvents, loadingContext, fetchedEvents } = useHomeContext();
+  const {
+    getAllEvents,
+    loadingContext,
+    fetchedEvents,
+    setStoryOpened,
+    storyOpened,
+  } = useHomeContext();
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
 
     AOS.init();
 
@@ -89,6 +98,8 @@ const Home = () => {
           </div>
         </div>
       ) : null}
+
+      {storyOpened ? <ArtworkModal /> : null}
 
       <button
         onClick={(e) => {
@@ -331,15 +342,26 @@ const Home = () => {
                     </p>
                   )}
                 </div>
-                <div className="my-2 max-w-[300px]">
-                  <p className="text-lg text-dark-4 font-medium">
-                    {/* Mengenal sejarah wayang beber di Surakarta */}
-                    {/* {latestEvent?.name} */}
-                    {latestEvent?.name?.length <= 27
-                      ? latestEvent?.name
-                      : latestEvent?.name?.substring(0, 27) + "..."}
-                  </p>
-                </div>
+                {latestEvent?.name ? (
+                  <div className="my-2 max-w-[300px]">
+                    <p className="text-lg text-dark-4 font-medium">
+                      {/* Mengenal sejarah wayang beber di Surakarta */}
+                      {/* {latestEvent?.name} */}
+                      {latestEvent?.name?.length <= 27
+                        ? latestEvent?.name
+                        : latestEvent?.name?.substring(0, 27) + "..."}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="my-2 max-w-[300px]">
+                    <p className="text-lg text-dark-4 bg-gray-300 w-fit rounded-full font-medium">
+                      {/* Mengenal sejarah wayang beber di Surakarta */}
+                      {/* {latestEvent?.name} */}
+                      <span className="invisible"> Undifenedwkwkwk</span>
+                    </p>
+                  </div>
+                )}
+
                 <div>
                   <p className="text-[#3EA644] font-semibold w-fit">
                     {/* Rp. 25.000 */}
@@ -374,12 +396,16 @@ const Home = () => {
                 JS, sampai menghasilkan output RESTful API. Penasaran gimana
                 kelanjutannya? DAFTAR SEKARANG!!! JANGAN SAMPAI LEWATKAN
                 KESEMPATAN INI!🔥🔥🔥 */}
-                {latestEvent && latestEvent?.description}
+                {/* {latestEvent && latestEvent?.description} */}
+                {latestEvent?.description?.length <= 800
+                  ? latestEvent?.description
+                  : latestEvent?.description?.substring(0, 800) + "..."}
               </p>
-              <div>
+              <div className="">
                 <button
                   onClick={() => navigate(`/event/${latestEvent?.id}`)}
-                  className="bg-[#008E9F] flex gap-3 items-center py-3 px-4 text-white font-medium rounded-md mt-4"
+                  className="bg-[#008E9F] flex gap-3 items-center py-3 px-4 text-white font-medium rounded-md mt-7"
+                  disabled={latestEvent ? false : true}
                 >
                   Daftar Sekarang
                   <svg
@@ -436,7 +462,7 @@ const Home = () => {
         </div>
 
         {/* carousel */}
-        <div className="mt-5" data-aos="fade-up" data-aos-duration="1500">
+        <div className="mt-5" data-aos="fade-up" data-aos-duration="1000">
           <Carousel
             responsive={responsive}
             showDots={true}
@@ -594,121 +620,79 @@ const Home = () => {
             className="bg-[#D9ECEE] rounded-lg p-5 lg:p-12"
           >
             <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
-              Ramayana
+              Klenting Kuning
             </h2>
             <div className="lg:flex lg:flex-row-reverse lg:gap-10">
-              <div className="mt-5 lg:mt-0">
+              <div className="mt-5 lg:mt-0 border border-red lg:h-80">
                 <img
-                  src={testPic}
+                  src={Klenting}
                   alt="Karya Ramayana"
-                  className="rounded-md lg:rounded-lg lg:max-w-xl"
+                  className="rounded-md lg:rounded-lg lg:max-w-xl lg:object-cover lg:h-full"
                 />
               </div>
               <div className="lg:flex lg:flex-col lg:gap-5">
                 <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
-                  Ramayana
+                  Klenting Kuning
                 </h2>
-                <p className="mt-5 lg:mt-0 text-dark-3 text-base text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                  libero alias sint incidunt. Debitis eius a corrupti ea impedit
-                  perferendis, nulla sequi? Alias distinctio error voluptatibus
-                  in quaerat fuga quod fugit quas rem, quidem impedit vitae
-                  iusto deserunt id dolorem corporis eligendi atque quia dicta
-                  maiores. Id explicabo ipsam qui.
+                <p className="mt-5 mb-3 lg:mb-0 lg:mt-0 text-dark-3 text-base text-justify">
+                  Ande Ande Lumut (variasi ejaan: Ande-ande Lumut) adalah cerita
+                  rakyat yang berasal dari Jawa. Cerita ini dikenal dalam
+                  berbagai versi. Versi yang banyak dikenal dan "tradisional"
+                  adalah yang mengaitkannya dengan bersatunya (kembali) Kerajaan
+                  Jenggala dan Kediri. Cerita ini mengisahkan tentang Pangeran
+                  Kusumayuda (dianggap sebagai pangeran Panji atau personifikasi
+                  dari pangeran Kamesywara, raja Kadiri) yang bertemu dengan
+                  Kleting Kuning, si bungsu dari empat bersaudara (Kleting
+                  Abang, Kleting Biru, Kleting Ijo dan Kleting Kuning).
                 </p>
+                <Link
+                  to={"https://id.wikipedia.org/wiki/Ande_Ande_Lumut"}
+                  className="text-dark-2 font-medium"
+                  target="blank"
+                >
+                  Lebih banyak
+                </Link>
               </div>
             </div>
           </div>
+
           <div
             data-aos="fade-left"
-            data-aos-duration="1000"
-            className="bg-[#E4EDE0] rounded-lg p-5 lg:p-12"
-          >
-            <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
-              Ramayana
-            </h2>
-            <div className="lg:flex lg:flex-row lg:gap-10">
-              <div className="mt-5 lg:mt-0">
-                <img
-                  src={testPic}
-                  alt="Karya Ramayana"
-                  className="rounded-md lg:rounded-lg lg:max-w-xl"
-                />
-              </div>
-              <div className="lg:flex lg:flex-col lg:gap-5">
-                <h2 className="text-2xl lg:text-end font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
-                  Ramayana
-                </h2>
-                <p className="mt-5 lg:mt-0 text-dark-3 text-base text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                  libero alias sint incidunt. Debitis eius a corrupti ea impedit
-                  perferendis, nulla sequi? Alias distinctio error voluptatibus
-                  in quaerat fuga quod fugit quas rem, quidem impedit vitae
-                  iusto deserunt id dolorem corporis eligendi atque quia dicta
-                  maiores. Id explicabo ipsam qui.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            data-aos="fade-right"
             data-aos-duration="1000"
             className="bg-[#ECEDD4] rounded-lg p-5 lg:p-12"
           >
             <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
-              Ramayana
-            </h2>
-            <div className="lg:flex lg:flex-row-reverse lg:gap-10">
-              <div className="mt-5 lg:mt-0">
-                <img
-                  src={testPic}
-                  alt="Karya Ramayana"
-                  className="rounded-md lg:rounded-lg lg:max-w-xl"
-                />
-              </div>
-              <div className="lg:flex lg:flex-col lg:gap-5">
-                <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
-                  Ramayana
-                </h2>
-                <p className="mt-5 lg:mt-0 text-dark-3 text-base text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                  libero alias sint incidunt. Debitis eius a corrupti ea impedit
-                  perferendis, nulla sequi? Alias distinctio error voluptatibus
-                  in quaerat fuga quod fugit quas rem, quidem impedit vitae
-                  iusto deserunt id dolorem corporis eligendi atque quia dicta
-                  maiores. Id explicabo ipsam qui.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
-            data-aos="fade-left"
-            data-aos-duration="1000"
-            className="bg-[#F5EDC7] rounded-lg p-5 lg:p-12"
-          >
-            <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl lg:hidden">
-              Ramayana
+              Panji Asmarabangun
             </h2>
             <div className="lg:flex lg:flex-row lg:gap-10">
               <div className="mt-5 lg:mt-0">
                 <img
-                  src={testPic}
+                  src={Panji}
                   alt="Karya Ramayana"
-                  className="rounded-md lg:rounded-lg lg:max-w-xl"
+                  className="rounded-md lg:rounded-lg lg:max-w-md h-80"
                 />
               </div>
               <div className="lg:flex lg:flex-col lg:gap-5">
-                <h2 className="text-2xl lg:text-end font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
-                  Ramayana
+                <h2 className="text-2xl lg:mb-1 lg:text-end font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
+                  Panji Asmarabangun
                 </h2>
                 <p className="mt-5 lg:mt-0 text-dark-3 text-base text-justify">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo
-                  libero alias sint incidunt. Debitis eius a corrupti ea impedit
-                  perferendis, nulla sequi? Alias distinctio error voluptatibus
-                  in quaerat fuga quod fugit quas rem, quidem impedit vitae
-                  iusto deserunt id dolorem corporis eligendi atque quia dicta
-                  maiores. Id explicabo ipsam qui.
+                  Cerita Panji Aksara Jawa: ꦕꦼꦫꦶꦠꦥꦤ꧀ꦗꦶ atau Lingkup Cerita Panji
+                  merupakan sekumpulan cerita yang berkisar pada, atau memiliki
+                  keterkaitan dengan, dua tokoh utamanya, yaitu Raden Panji Inu
+                  Kertapati (atau Kudawaningpati atau Asmarabangun), seorang
+                  pangeran dari Kerajaan Janggala, dan Dewi Sekartaji (atau
+                  Galuh Candrakirana), seorang puteri dari Kerajaan Kadiri.
+                  Kedua bangsawan tersebut saling mencinta dan cerita-cerita
+                  sering kali berakhir dengan persatuan cinta tersebut.
                 </p>
+                <a
+                  href={"https://id.wikipedia.org/wiki/Cerita_Panji"}
+                  className="text-dark-2 font-medium text-right"
+                  target="blank"
+                >
+                  Lebih banyak
+                </a>
               </div>
             </div>
           </div>

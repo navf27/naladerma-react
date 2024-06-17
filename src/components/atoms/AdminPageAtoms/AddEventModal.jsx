@@ -159,7 +159,7 @@ const AddEventModal = ({ categories }) => {
                           -- Pilih Status --
                         </option> */}
                         <option value="upcoming">Up Coming</option>
-                        <option value="ongoing">On Going</option>
+                        {/* <option value="ongoing">On Going</option> */}
                         <option value="finished">Finished</option>
                       </select>
                       <span className="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"></span>

@@ -134,19 +134,22 @@ const AdminTickets = () => {
                           <div className="flex justify-center">
                             <div
                               className={`${
-                                item.ticket_used === 0
+                                item?.ticket_used === "0"
                                   ? "bg-[#ECF6EE] text-[#3EA644] py-1 px-4 rounded-full"
                                   : "bg-[#FCECED] text-[#D13F53] py-1 px-3 rounded-full"
                               } flex items-center justify-center w-fit gap-2`}
                             >
                               <span
                                 className={`${
-                                  item.ticket_used === 0
+                                  item?.ticket_used === "0"
                                     ? "bg-[#3EA644]"
                                     : "bg-[#D13F53]"
                                 } p-1 rounded-full`}
                               ></span>
-                              {item.ticket_used === 0 ? "Tersedia" : "Terpakai"}
+                              {item.ticket_used === "0"
+                                ? "Tersedia"
+                                : "Terpakai"}
+                              {/* {item.ticket_used} */}
                             </div>
                           </div>
                         </td>

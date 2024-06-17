@@ -15,7 +15,7 @@ const AdminScanner = () => {
         width: 250,
         height: 250,
       },
-      fps: 5,
+      fps: 1,
     });
 
     scanner.render(success, error);
@@ -49,10 +49,10 @@ const AdminScanner = () => {
       ) : null}
 
       <AdminDashboardTemplate>
-        <div className="p-4">
-          <div className="lg:ms-60 lg:mt-16 flex justify-center items-center h-screen relative -top-24">
+        <div className="lg:ps-64 lg:mt-7 h-screen absolute top-0 w-full p-4 lg:flex lg:justify-center lg:items-center">
+          {/* <div className="lg:ms-60 lg:mt-16 flex justify-center items-center h-screen relative -top-24">
             <div className="w-full lg:w-1/2 lg:mt-24 border border-red">
-              {/* <QrReader
+              <QrReader
                 onResult={(result, error) => {
                   if (!!result) {
                     // setData(result?.text);
@@ -65,10 +65,14 @@ const AdminScanner = () => {
                 }}
                 style={{ width: "100%" }}
                 constraints={{ facingMode: "user" }}
-              /> */}
-              {/* <p>{data}</p> */}
+              />
+              <p>{data}</p>
               <div id="reader"></div>
             </div>
+          </div> */}
+
+          <div className="w-full lg:w-fit h-full lg:h-fit flex items-center">
+            <div id="reader" className="h-fit w-full lg:w-96 lg:h-96"></div>
           </div>
         </div>
       </AdminDashboardTemplate>

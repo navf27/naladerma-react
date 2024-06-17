@@ -8,6 +8,7 @@ export const useHomeContext = () => useContext(HomeContext);
 export const HomeProvider = ({ children }) => {
   const [loadingContext, setLoadingContext] = useState(false);
   const [fetchedEvents, setFetchedEvents] = useState([]);
+  const [storyOpened, setStoryOpened] = useState(false);
 
   const getAllEvents = async () => {
     try {
@@ -24,7 +25,13 @@ export const HomeProvider = ({ children }) => {
 
   return (
     <HomeContext.Provider
-      value={{ fetchedEvents, getAllEvents, loadingContext }}
+      value={{
+        fetchedEvents,
+        getAllEvents,
+        loadingContext,
+        storyOpened,
+        setStoryOpened,
+      }}
     >
       {children}
     </HomeContext.Provider>

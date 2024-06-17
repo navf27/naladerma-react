@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { axiosPublicInstance } from "../utils/axiosFetcher";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const SignInContext = createContext();
 
@@ -11,6 +12,8 @@ export const useSignInContext = () => useContext(SignInContext);
 export const SignInProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [userNotFound, setUserNotFound] = useState(false);
+  const [resetModalOpened, setResetModalOpened] = useState(false);
+  const [passShowed, setPassShowed] = useState(false);
   const navigate = useNavigate();
 
   const onFormikSubmit = async (values, action) => {
@@ -45,8 +48,70 @@ export const SignInProvider = ({ children }) => {
     }
   };
 
+  const onEmailSubmit = async (values, action) => {
+    try {
+      setLoading(true);
+
+      const res = await axiosPublicInstance().post(
+        "/emailForgotPassword",
+        values
+      );
+
+      // console.log(res.data);
+
+      setResetModalOpened(false);
+      setLoading(false);
+      toast.success("Periksa email anda.");
+    } catch (error) {
+      // console.log(error.response);
+      setResetModalOpened(false);
+      setLoading(false);
+      toast.error("Gagal.");
+    } finally {
+      action.resetForm();
+    }
+  };
+
+  const onSetNewPass = async (values, action) => {
+    try {
+      setLoading(true);
+
+      // console.log(values);
+
+      const res = await axios.patch(`/resetPassword/${values.token}`, values, {
+        baseURL: import.meta.env.VITE_BACKEND_BASE_URL,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      // console.log(res.data);
+
+      setLoading(false);
+      toast.success("Reset password berhasil.");
+    } catch (error) {
+      console.log(error.response);
+      setLoading(false);
+      toast.error("Reset password gagal.");
+    } finally {
+      action.resetForm();
+    }
+  };
+
   return (
-    <SignInContext.Provider value={{ onFormikSubmit, loading, userNotFound }}>
+    <SignInContext.Provider
+      value={{
+        onFormikSubmit,
+        loading,
+        userNotFound,
+        resetModalOpened,
+        setResetModalOpened,
+        onEmailSubmit,
+        passShowed,
+        setPassShowed,
+        onSetNewPass,
+      }}
+    >
       {children}
     </SignInContext.Provider>
   );

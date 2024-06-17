@@ -30,7 +30,7 @@ const SignUp = () => {
             <img
               src={Banner}
               alt=""
-              className="object-cover h-full brightness-75"
+              className="object-cover h-full brightness-75 rounded-l-lg"
             />
           </div>
           <div className="lg:flex lg:items-center lg:w-full lg:justify-center lg:px-12 lg:py-11">

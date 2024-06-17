@@ -123,7 +123,7 @@ const EventModal = ({ categories }) => {
                           onChange={handleChange}
                           name="status"
                         >
-                          <option value="ongoing">On Going</option>
+                          {/* <option value="ongoing">On Going</option> */}
                           <option value="upcoming">Up Coming</option>
                           <option value="finished">Finished</option>
                         </select>

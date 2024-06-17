@@ -392,7 +392,11 @@ const EventDetail = () => {
                   setBuyButtonClicked(true);
                   setModalOpened(true);
                 }}
-                disabled={quantityBuy < 1 ? true : false}
+                disabled={
+                  quantityBuy < 1 || eventFetched?.status === "finished"
+                    ? true
+                    : false
+                }
                 className={`mt-5 ${
                   quantityBuy < 1 ? "mt-1" : null
                 } w-full bg-[#FFCC00] hover:bg-[#FFBB00] transition-colors rounded-md inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-dark disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5`}

@@ -26,6 +26,8 @@ import UserDashboard from "./pages/UserDashboard";
 import { UserDashboardProvider } from "./context/UserDashboardContext";
 import UserEventsDashboard from "./pages/UserEventsDashboard";
 import AdminScanner from "./pages/AdminPages/AdminScanner";
+import SetNewPassword from "./pages/SetNewPassword";
+import { FormikProvider } from "./context/FormikContext";
 
 export default function App() {
   return (
@@ -95,6 +97,16 @@ export default function App() {
             <SignUpProvider>
               <SignInProvider>
                 <SignIn />
+              </SignInProvider>
+            </SignUpProvider>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <SignUpProvider>
+              <SignInProvider>
+                <SetNewPassword />
               </SignInProvider>
             </SignUpProvider>
           }
