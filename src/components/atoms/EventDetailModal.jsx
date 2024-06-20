@@ -115,6 +115,11 @@ const EventDetailModal = ({ userInfo }) => {
                     // value={values.name}
                     onChange={handleChange}
                   />
+                  {errors.name && (
+                    <p className="mt-[5px] text-sm text-red text-left">
+                      {errors.name}
+                    </p>
+                  )}
                 </>
                 <>
                   <label className="mb-[10px] mt-[10px] block text-base font-medium text-dark-4 text-start">
@@ -130,7 +135,12 @@ const EventDetailModal = ({ userInfo }) => {
                     defaultValue={userInfo ? userInfo.email : null}
                     // value={values.email}
                     onChange={handleChange}
-                  />
+                  />{" "}
+                  {errors.email && (
+                    <p className="mt-[5px] text-sm text-red text-left">
+                      {errors.email}
+                    </p>
+                  )}
                 </>
                 <>
                   <label className="mb-[10px] mt-[10px] block text-base font-medium text-dark-4 text-start">
@@ -146,7 +156,12 @@ const EventDetailModal = ({ userInfo }) => {
                     defaultValue={userInfo ? userInfo.phone : null}
                     // value={userInfo ? userInfo.phone : null}
                     onChange={handleChange}
-                  />
+                  />{" "}
+                  {errors.phone && (
+                    <p className="mt-[5px] text-sm text-red text-left">
+                      {errors.phone}
+                    </p>
+                  )}
                 </>
                 <>
                   <label className="mb-[10px] mt-[10px] block text-base font-medium text-dark text-start">

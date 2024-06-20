@@ -10,6 +10,7 @@ import { id } from "date-fns/locale";
 import { useSignOutContext } from "../context/SignOutContext";
 import { FormikProvider } from "../context/FormikContext";
 import SnapModal from "../components/atoms/SnapModal";
+import * as yup from "yup";
 import { Toaster } from "react-hot-toast";
 
 const EventDetail = () => {
@@ -44,13 +45,21 @@ const EventDetail = () => {
           quantity: quantityValue,
         }}
         onSubmit={onPayNowSubmit}
-        // validationSchema={yup.object().shape({
-        //   // email: yup
-        //   //   .string()
-        //   //   .required("Email harus diisi.")
-        //   //   .email("Pastikan format email anda benar."),
-        //   // password: yup.string().required("Password harus diisi."),
-        // })}
+        validationSchema={yup.object().shape({
+          name: yup
+            .string()
+            .required("Nama lengkap harus diisi.")
+            .max(255, "Maksimum karakter adalah 255."),
+          email: yup
+            .string()
+            .required("Email harus diisi.")
+            .email("Pastikan format email anda benar."),
+          phone: yup
+            .string()
+            .required("Nomor handphone harus diisi.")
+            .matches(/^[0-9]+$/, "Cek kembali nomor handphonemu.")
+            .max(13, "Cek kembali nomor handphonemu."),
+        })}
       >
         {modalOpened && <EventDetailModal userInfo={userInfo} />}
       </FormikProvider>
@@ -63,13 +72,21 @@ const EventDetail = () => {
           quantity: quantityValue,
         }}
         onSubmit={onPayNowSubmit}
-        // validationSchema={yup.object().shape({
-        //   // email: yup
-        //   //   .string()
-        //   //   .required("Email harus diisi.")
-        //   //   .email("Pastikan format email anda benar."),
-        //   // password: yup.string().required("Password harus diisi."),
-        // })}
+        validationSchema={yup.object().shape({
+          name: yup
+            .string()
+            .required("Nama lengkap harus diisi.")
+            .max(255, "Maksimum karakter adalah 255."),
+          email: yup
+            .string()
+            .required("Email harus diisi.")
+            .email("Pastikan format email anda benar."),
+          phone: yup
+            .string()
+            .required("Nomor handphone harus diisi.")
+            .matches(/^[0-9]+$/, "Cek kembali nomor handphonemu.")
+            .max(13, "Cek kembali nomor handphonemu."),
+        })}
       >
         {modalOpened && <EventDetailModal userInfo={userInfo} />}
       </FormikProvider>
@@ -141,7 +158,7 @@ const EventDetail = () => {
             <span className="font-medium text-white">Up Coming</span>
           </div> */}
         </div>
-        <div className="mt-3 flex gap-2 lg:gap-4">
+        <div className="mt-4 flex gap-2 lg:gap-4">
           {loadingEv ? (
             <div className="w-fit bg-gray-300 px-4 py-2 rounded-full animate-pulse">
               <span className="font-medium text-white invisible">
@@ -222,7 +239,7 @@ const EventDetail = () => {
                       eventFetched?.start_time &&
                       format(
                         new Date(eventFetched?.start_time),
-                        "dd MMMM yyyy",
+                        "EEEE, dd MMMM yyyy",
                         {
                           locale: id,
                         }
@@ -337,6 +354,7 @@ const EventDetail = () => {
                     type="number"
                     className="w-5 text-center focus:ring-0 active:ring-0 lg:decoration-transparent"
                     maxLength={2}
+                    max={2}
                     // defaultValue={1}
                     value={quantityBuy}
                     onChange={(e) => setQuantityBuy(e.target.value)}
@@ -387,13 +405,22 @@ const EventDetail = () => {
               >
                 Minimum pembelian 1 tiket.
               </p>
+              <p
+                className={`${
+                  quantityBuy > 5 ? "block" : "hidden"
+                } text-sm mt-2 text-[#D13F53]`}
+              >
+                Maksimum pembelian 5 tiket.
+              </p>
               <button
                 onClick={() => {
                   setBuyButtonClicked(true);
                   setModalOpened(true);
                 }}
                 disabled={
-                  quantityBuy < 1 || eventFetched?.status === "finished"
+                  quantityBuy < 1 ||
+                  quantityBuy > 5 ||
+                  eventFetched?.status === "finished"
                     ? true
                     : false
                 }

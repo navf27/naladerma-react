@@ -21,6 +21,7 @@ export const UserDashboardProvider = ({ children }) => {
   };
 
   const onUserUpdate = async (values, action) => {
+    setModalOpened(false);
     setLoading(true);
 
     try {
@@ -53,6 +54,9 @@ export const UserDashboardProvider = ({ children }) => {
       toast.success("Data diri diperbarui.");
     } catch (error) {
       console.log(error.response);
+      // console.log("ini masuk di error");
+      toast.error(error.response.data.message);
+      setLoading(false);
     } finally {
       action.resetForm();
     }

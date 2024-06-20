@@ -18,6 +18,9 @@ import "aos/dist/aos.css";
 import Klenting from "../assets/images/klenting.jpg";
 import Panji from "../assets/images/panji.jpg";
 import ArtworkModal from "../components/atoms/ArtworkModal";
+import Photo1 from "../assets/images/photo1.jpg";
+import Photo2 from "../assets/images/photo2.jpg";
+import Photo3 from "../assets/images/photo3.jpg";
 
 const Home = () => {
   const [scroolTopVisible, setScroolTopVisible] = useState(false);
@@ -32,7 +35,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
 
     AOS.init();
 
@@ -397,9 +400,11 @@ const Home = () => {
                 kelanjutannya? DAFTAR SEKARANG!!! JANGAN SAMPAI LEWATKAN
                 KESEMPATAN INI!🔥🔥🔥 */}
                 {/* {latestEvent && latestEvent?.description} */}
-                {latestEvent?.description?.length <= 800
-                  ? latestEvent?.description
-                  : latestEvent?.description?.substring(0, 800) + "..."}
+                {latestEvent?.description
+                  ? latestEvent?.description?.length <= 800
+                    ? latestEvent?.description
+                    : latestEvent?.description?.substring(0, 800) + "..."
+                  : null}
               </p>
               <div className="">
                 <button
@@ -623,7 +628,7 @@ const Home = () => {
               Klenting Kuning
             </h2>
             <div className="lg:flex lg:flex-row-reverse lg:gap-10">
-              <div className="mt-5 lg:mt-0 border border-red lg:h-80">
+              <div className="mt-5 lg:mt-0 lg:h-80">
                 <img
                   src={Klenting}
                   alt="Karya Ramayana"
@@ -634,16 +639,16 @@ const Home = () => {
                 <h2 className="text-2xl font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
                   Klenting Kuning
                 </h2>
-                <p className="mt-5 mb-3 lg:mb-0 lg:mt-0 text-dark-3 text-base text-justify">
-                  Ande Ande Lumut (variasi ejaan: Ande-ande Lumut) adalah cerita
-                  rakyat yang berasal dari Jawa. Cerita ini dikenal dalam
-                  berbagai versi. Versi yang banyak dikenal dan "tradisional"
-                  adalah yang mengaitkannya dengan bersatunya (kembali) Kerajaan
-                  Jenggala dan Kediri. Cerita ini mengisahkan tentang Pangeran
-                  Kusumayuda (dianggap sebagai pangeran Panji atau personifikasi
-                  dari pangeran Kamesywara, raja Kadiri) yang bertemu dengan
-                  Kleting Kuning, si bungsu dari empat bersaudara (Kleting
-                  Abang, Kleting Biru, Kleting Ijo dan Kleting Kuning).
+                <p className="mt-5 mb-2 lg:mb-0 lg:mt-0 text-dark-3 text-base text-justify">
+                  Ande Ande Lumut adalah cerita rakyat yang berasal dari Jawa.
+                  Cerita ini dikenal dalam berbagai versi. Versi yang banyak
+                  dikenal dan "tradisional" adalah yang mengaitkannya dengan
+                  bersatunya (kembali) Kerajaan Jenggala dan Kediri. Cerita ini
+                  mengisahkan tentang Pangeran Kusumayuda (dianggap sebagai
+                  pangeran Panji atau personifikasi dari pangeran Kamesywara,
+                  raja Kadiri) yang bertemu dengan Kleting Kuning, si bungsu
+                  dari empat bersaudara (Kleting Abang, Kleting Biru, Kleting
+                  Ijo dan Kleting Kuning).
                 </p>
                 <Link
                   to={"https://id.wikipedia.org/wiki/Ande_Ande_Lumut"}
@@ -676,7 +681,7 @@ const Home = () => {
                 <h2 className="text-2xl lg:mb-1 lg:text-end font-semibold text-dark font-satisfy lg:text-4xl hidden lg:block">
                   Panji Asmarabangun
                 </h2>
-                <p className="mt-5 lg:mt-0 text-dark-3 text-base text-justify">
+                <p className="mt-5 mb-2 lg:mt-0 text-dark-3 text-base text-justify">
                   Cerita Panji Aksara Jawa: ꦕꦼꦫꦶꦠꦥꦤ꧀ꦗꦶ atau Lingkup Cerita Panji
                   merupakan sekumpulan cerita yang berkisar pada, atau memiliki
                   keterkaitan dengan, dua tokoh utamanya, yaitu Raden Panji Inu
@@ -704,23 +709,23 @@ const Home = () => {
             Apa itu wayang beber?
           </h2>
           <img
-            src={ilustration}
+            src={Photo2}
             className="rounded-md mt-5 lg:mt-0 lg:max-w-80 lg:hidden"
             alt="Ilustration"
           />
           <div className="lg:flex lg:max-w-screen lg:justify-between lg:mt-5 hidden">
             <img
-              src={ilustration}
+              src={Photo1}
               className="rounded-md mt-5 lg:mt-0 lg:max-w-80"
               alt="Ilustration"
             />
             <img
-              src={ilustration}
+              src={Photo2}
               className="rounded-md mt-5 lg:mt-0 lg:max-w-80"
               alt="Ilustration"
             />
             <img
-              src={ilustration}
+              src={Photo3}
               className="rounded-md mt-5 lg:mt-0 lg:max-w-80"
               alt="Ilustration"
             />

@@ -245,7 +245,7 @@ const TransactionPending = () => {
                     </p>
                   ) : (
                     <p className="hidden lg:block text-xs text-dark mt-2 font-medium">
-                      {data?.quantity} tiket x{" "}
+                      {data?.quantity} tiket ={" "}
                       {data?.total && formatRupiah(Number(data?.total))}
                     </p>
                   )}

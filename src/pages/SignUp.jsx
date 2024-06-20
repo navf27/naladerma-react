@@ -63,16 +63,17 @@ const SignUp = () => {
                     .string()
                     .required("Nomor handphone harus diisi.")
                     .matches(/^[0-9]+$/, "Cek kembali nomor handphonemu.")
+                    .min(9, "Cek kembali nomor handphonemu.")
                     .max(13, "Cek kembali nomor handphonemu."),
                   password: yup
                     .string()
                     .required("Password harus diisi.")
                     .matches(
-                      /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
-                      "Password harus terdiri dari huruf dan angka."
+                      /^(?=.*\d).+$/,
+                      "Password harus mengandung setidaknya satu angka."
                     )
-                    .max(255)
-                    .min(6, "Password harus mengandung minimal 6 karakter"),
+                    .max(255, "Melebihi maksimal jumlah karakter.")
+                    .min(6, "Password harus mengandung minimal 6 karakter."),
                 })}
               >
                 <SignUpForm />

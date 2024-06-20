@@ -23,7 +23,10 @@ export const SignUpProvider = ({ children }) => {
 
       console.log(res.data);
 
-      navigate("/sign-in");
+      // navigate("/sign-in");
+      toast.success("Pendaftaran berhasil, silahkan masuk.", {
+        duration: 4000,
+      });
     } catch (err) {
       toast.error(err.response.data.message);
       console.log(err.response);

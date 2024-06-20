@@ -76,7 +76,7 @@ const DropdownUser = () => {
                 )}
               </button>
               <div
-                className={`shadow-1 absolute right-4 z-40 mt-2 rounded-md bg-white py-[10px] transition-all ${
+                className={`shadow-1 absolute right-4 z-40 mt-2 lg:w-52 rounded-md bg-white py-[10px] transition-all ${
                   dropdownOpen
                     ? "top-full opacity-100 visible"
                     : "top-[110%] invisible opacity-0"
@@ -114,7 +114,7 @@ const DropdownUser = () => {
                     totalPending ? "block" : "hidden"
                   }`}
                 >
-                  <div className="flex gap-1 items-center">
+                  <div className="flex gap-[8px] items-center">
                     {/* <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -131,9 +131,9 @@ const DropdownUser = () => {
                       </g>
                     </svg> */}
                     {totalPending > 0 && (
-                      <span className="bg-[#D13F53] py-1 px-2 rounded-full text-xs text-white">
+                      <p className="bg-[#D13F53] flex justify-center items-center w-[20px] h-[20px] rounded-full text-xs text-white">
                         {totalPending}
-                      </span>
+                      </p>
                     )}
                     <span className="text-sm">Transaksi Tertunda</span>
                   </div>
