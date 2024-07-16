@@ -126,6 +126,7 @@ const EventModal = ({ categories }) => {
                           {/* <option value="ongoing">On Going</option> */}
                           <option value="upcoming">Up Coming</option>
                           <option value="finished">Finished</option>
+                          {/* <option value="pending">Pending</option> */}
                         </select>
                         <span className="absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color"></span>
                       </div>
@@ -141,6 +142,19 @@ const EventModal = ({ categories }) => {
                         defaultValue={eventDetail?.location}
                         onChange={handleChange}
                         name="location"
+                      />
+                    </div>
+                    <div className="w-full mb-4">
+                      <label className="mb-2 text-left block text-base font-medium text-body-color">
+                        Kuota
+                      </label>
+                      <input
+                        type="number"
+                        placeholder="Kuota event"
+                        className="w-full bg-transparent rounded-md border border-stroke py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2"
+                        defaultValue={eventDetail?.quota}
+                        onChange={handleChange}
+                        name="quota"
                       />
                     </div>
                     <div className="w-full mb-4">

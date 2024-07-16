@@ -191,6 +191,25 @@ const AddEventModal = ({ categories }) => {
                   </div>
                   <div className="w-full mb-4">
                     <label className="mb-2 text-left block text-base font-medium text-body-color">
+                      Kuota
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Kuota event"
+                      className={`w-full bg-transparent rounded-md border ${
+                        errors.quota ? "border-red" : "border-stroke"
+                      } py-[10px] px-5 text-dark-6 outline-none transition focus:border-[#FFCC00] active:border-[#FFCC00] disabled:cursor-default disabled:bg-gray-2 disabled:border-gray-2`}
+                      onChange={handleChange}
+                      name="quota"
+                    />
+                    {errors.location ? (
+                      <p className="mt-1 lg:-mt-1 text-sm text-red text-left">
+                        {errors.location}
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="w-full mb-4">
+                    <label className="mb-2 text-left block text-base font-medium text-body-color">
                       Link File
                     </label>
                     <input

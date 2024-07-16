@@ -113,6 +113,7 @@ const AdminEvents = () => {
     "Waktu Dimulai",
     "Waktu Berakhir",
     "Harga",
+    "Kuota",
     "Link File",
     "Aksi",
   ];
@@ -148,6 +149,7 @@ const AdminEvents = () => {
                 status: "",
                 location: "",
                 price: "",
+                quota: "",
                 file_link: "",
               }}
               onSubmit={onEventUpdate}
@@ -167,6 +169,7 @@ const AdminEvents = () => {
                 status: "upcoming",
                 location: "",
                 price: "",
+                quota: "",
                 start_time: "",
                 time_ends: "",
                 file_link: "",
@@ -502,6 +505,22 @@ const AdminEvents = () => {
                           </div>
                         </td>
                         <td className={TdStyle.TdStyle}>
+                          <div
+                            onClick={() => {
+                              setEventDetail(
+                                currentPageData.find(
+                                  (data) => data.id === item.id
+                                )
+                              );
+                              setEventIdToUpdate(item.id);
+                              setEventModalOpened(true);
+                            }}
+                          >
+                            {/* Rp. {item.price} */}
+                            {item?.quota}
+                          </div>
+                        </td>
+                        <td className={TdStyle.TdStyle2}>
                           <div
                             onClick={() => {
                               setEventDetail(
