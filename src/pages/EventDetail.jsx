@@ -420,7 +420,8 @@ const EventDetail = () => {
                 disabled={
                   quantityBuy < 1 ||
                   quantityBuy > 5 ||
-                  eventFetched?.status === "finished"
+                  eventFetched?.status === "finished" ||
+                  eventFetched?.quota === 0
                     ? true
                     : false
                 }

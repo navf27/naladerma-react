@@ -74,7 +74,7 @@ export const EventDetailProvider = ({ children }) => {
     setQuantityBuy(1);
 
     try {
-      console.log(values);
+      // console.log(values);
       if (loggedIn) {
         const res = await authInstance().post(
           `/checkout-user/${eventFetched?.id}`,
@@ -116,7 +116,12 @@ export const EventDetailProvider = ({ children }) => {
         });
       }
     } catch (error) {
-      console.log(error.response);
+      if (error.response.data.message === "daily order limit") {
+        toast.error("Batas maksimum order tercapai.");
+      } else {
+        console.log(error.response);
+      }
+      setModalOpened(false);
     } finally {
       setLoadingCheckout(false);
       action.resetForm();
