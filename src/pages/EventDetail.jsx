@@ -446,7 +446,7 @@ const EventDetail = () => {
 
             <div className="mt-2">
               <p
-                className={`text-dark-2 leading-loose ${
+                className={`text-dark-2 leading-loose text-justify ${
                   loadingEv && "bg-gray-300 rounded-xl"
                 }`}
               >

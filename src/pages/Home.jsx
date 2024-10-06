@@ -350,9 +350,9 @@ const Home = () => {
                     <p className="text-lg text-dark-4 font-medium">
                       {/* Mengenal sejarah wayang beber di Surakarta */}
                       {/* {latestEvent?.name} */}
-                      {latestEvent?.name?.length <= 27
+                      {latestEvent?.name?.length <= 20
                         ? latestEvent?.name
-                        : latestEvent?.name?.substring(0, 27) + "..."}
+                        : latestEvent?.name?.substring(0, 20) + "..."}
                     </p>
                   </div>
                 ) : (
